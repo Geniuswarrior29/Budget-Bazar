@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Budget Bazar — Raebareli</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800;900&family=Hind:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red: #d4000c;
+  --orange: #ff6b00;
+  --yellow: #ffcc00;
+  --dark: #1a0505;
+  --white: #fff;
+  --light-bg: #fff9f0;
+  --card-bg: #ffffff;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+body {
+  font-family: 'Hind', sans-serif;
+  background: var(--light-bg);
+  color: var(--dark);
+  overflow-x: hidden;
+}
+
+/* ── NAVBAR ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+  background: rgba(26,5,5,0.97);
+  backdrop-filter: blur(10px);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 6%;
+  height: 64px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+}
+
+.nav-logo {
+  font-family: 'Baloo 2', cursive;
+  font-size: 24px; font-weight: 900;
+  color: var(--yellow);
+  letter-spacing: -0.5px;
+}
+.nav-logo span { color: var(--orange); }
+
+.nav-links {
+  display: flex; gap: 28px; list-style: none;
+}
+.nav-links a {
+  text-decoration: none;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px; font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--yellow); }
+
+.nav-cta {
+  background: var(--red);
+  color: white !important;
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-weight: 700 !important;
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(--orange) !important; color: white !important; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a0505 0%, #3d0a0a 40%, #6b1a00 70%, #1a0505 100%);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  padding: 100px 24px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg-circles {
+  position: absolute; inset: 0; pointer-events: none;
+}
+.hero-bg-circles span {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.07;
+  animation: floatUp 8s ease-in-out infinite;
+}
+.hero-bg-circles span:nth-child(1) { width: 400px; height: 400px; background: var(--orange); top: -100px; left: -100px; animation-delay: 0s; }
+.hero-bg-circles span:nth-child(2) { width: 300px; height: 300px; background: var(--yellow); bottom: -80px; right: -80px; animation-delay: 2s; }
+.hero-bg-circles span:nth-child(3) { width: 200px; height: 200px; background: var(--red); top: 40%; left: 60%; animation-delay: 4s; }
+
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,204,0,0.15);
+  border: 1.5px solid rgba(255,204,0,0.4);
+  color: var(--yellow);
+  font-size: 12px; font-weight: 700;
+  padding: 6px 20px;
+  border-radius: 30px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  animation: fadeDown 0.7s ease backwards;
+}
+
+.hero-title {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(60px, 12vw, 110px);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 0.9;
+  text-shadow: 0 4px 30px rgba(255,107,0,0.3);
+  animation: fadeDown 0.7s ease 0.1s backwards;
+  letter-spacing: -3px;
+}
+.hero-title .highlight {
+  color: var(--yellow);
+  display: block;
+  text-shadow: 0 0 40px rgba(255,204,0,0.4);
+}
+
+.hero-tagline {
+  font-size: 18px; font-weight: 600;
+  color: rgba(255,255,255,0.75);
+  margin: 18px 0 32px;
+  animation: fadeDown 0.7s ease 0.2s backwards;
+}
+.hero-tagline span { color: var(--orange); }
+
+.hero-buttons {
+  display: flex; gap: 14px; flex-wrap: wrap; justify-content: center;
+  animation: fadeDown 0.7s ease 0.3s backwards;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--red), var(--orange));
+  color: white;
+  text-decoration: none;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: 15px; font-weight: 700;
+  box-shadow: 0 8px 25px rgba(212,0,12,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: inline-block;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(212,0,12,0.5); }
+
+.btn-secondary {
+  background: rgba(255,255,255,0.1);
+  border: 2px solid rgba(255,255,255,0.3);
+  color: white;
+  text-decoration: none;
+  padding: 14px 32px;
+  border-radius: 50px;
+  font-size: 15px; font-weight: 700;
+  transition: background 0.2s, border-color 0.2s;
+  display: inline-block;
+}
+.btn-secondary:hover { background: rgba(255,255,255,0.18); border-color: var(--yellow); color: var(--yellow); }
+
+.hero-stats {
+  display: flex; gap: 40px; margin-top: 56px;
+  animation: fadeDown 0.7s ease 0.4s backwards;
+  flex-wrap: wrap; justify-content: center;
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: 'Baloo 2', cursive;
+  font-size: 32px; font-weight: 900;
+  color: var(--yellow);
+}
+.stat-label {
+  font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,0.6);
+  text-transform: uppercase; letter-spacing: 1px;
+}
+
+.scroll-indicator {
+  position: absolute; bottom: 30px; left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s infinite;
+  color: rgba(255,255,255,0.4);
+  font-size: 22px;
+}
+@keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
+
+/* ── SECTIONS COMMON ── */
+section { padding: 80px 6%; }
+
+.section-label {
+  display: inline-block;
+  background: var(--red);
+  color: white;
+  font-size: 11px; font-weight: 700;
+  padding: 4px 16px; border-radius: 20px;
+  letter-spacing: 3px; text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.section-heading {
+  font-family: 'Baloo 2', cursive;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 900; color: var(--dark);
+  line-height: 1.1; margin-bottom: 8px;
+}
+
+.section-heading .accent { color: var(--red); }
+
+.section-sub {
+  font-size: 15px; color: #666;
+  max-width: 520px; line-height: 1.6;
+  margin-bottom: 44px;
+}
+
+/* ── PRICES SECTION ── */
+.prices-section {
+  background: var(--light-bg);
+}
+
+.prices-intro { max-width: 700px; }
+
+.price-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 16px;
+  max-width: 760px;
+}
+
+.price-card {
+  border-radius: 20px;
+  padding: 28px 16px;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  transition: transform 0.25s, box-shadow 0.25s;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+.price-card:hover { transform: translateY(-6px) scale(1.04); box-shadow: 0 16px 40px rgba(0,0,0,0.22); }
+
+.price-card::before {
+  content: '';
+  position: absolute; top: -20px; right: -20px;
+  width: 70px; height: 70px;
+  background: rgba(255,255,255,0.12);
+  border-radius: 50%;
+}
+
+.pc-1 { background: linear-gradient(135deg, #c8000a, #ff4d4d); }
+.pc-2 { background: linear-gradient(135deg, #7b00b4, #c44dff); }
+.pc-3 { background: linear-gradient(135deg, #0055cc, #4d94ff); }
+.pc-4 { background: linear-gradient(135deg, #006630, #33cc66); }
+.pc-5 { background: linear-gradient(135deg, #994400, #ff8c1a); }
+
+.pc-symbol { font-size: 13px; opacity: 0.85; font-weight: 600; }
+.pc-amount { font-family: 'Baloo 2', cursive; font-size: 48px; font-weight: 900; line-height: 1; }
+.pc-only { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; opacity: 0.8; margin-top: 2px; }
+.pc-tag {
+  margin-top: 10px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 20px;
+  padding: 3px 10px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* ── ITEMS SECTION ── */
+.items-section { background: white; }
+
+.items-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  max-width: 900px;
+}
+
+.item-card {
+  background: var(--light-bg);
+  border: 2px solid transparent;
+  border-radius: 16px;
+  padding: 20px 14px;
+  text-align: center;
+  transition: border-color 0.2s, transform 0.2s, background 0.2s;
+  cursor: default;
+}
+.item-card:hover {
+  border-color: var(--orange);
+  transform: translateY(-4px);
+  background: #fff3e0;
+}
+
+.item-emoji { font-size: 36px; display: block; margin-bottom: 8px; }
+.item-name { font-size: 13px; font-weight: 700; color: var(--dark); }
+.item-desc { font-size: 11px; color: #888; margin-top: 3px; }
+
+/* ── LUCKY DRAW SECTION ── */
+.lucky-section {
+  background: linear-gradient(160deg, #1a0505 0%, #2d0a00 50%, #1a0505 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.lucky-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 70% 50%, rgba(255,204,0,0.08) 0%, transparent 60%);
+}
+
+.lucky-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  max-width: 1000px;
+  position: relative; z-index: 2;
+}
+
+.lucky-left .section-label { background: var(--yellow); color: var(--dark); }
+.lucky-left .section-heading { color: white; }
+.lucky-left .section-sub { color: rgba(255,255,255,0.65); }
+
+.lucky-steps-list { display: flex; flex-direction: column; gap: 16px; }
+
+.lucky-step {
+  display: flex; align-items: center; gap: 16px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 14px;
+  padding: 14px 18px;
+  transition: background 0.2s;
+}
+.lucky-step:hover { background: rgba(255,204,0,0.1); border-color: rgba(255,204,0,0.3); }
+
+.step-num {
+  width: 36px; height: 36px;
+  background: var(--yellow);
+  color: var(--dark);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Baloo 2', cursive;
+  font-size: 16px; font-weight: 900;
+  flex-shrink: 0;
+}
+
+.step-info { }
+.step-title { font-size: 14px; font-weight: 700; color: white; }
+.step-desc { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+
+.lucky-right { }
+
+.tier-cards { display: flex; flex-direction: column; gap: 14px; }
+
+.tier-card {
+  border-radius: 18px;
+  padding: 20px 22px;
+  display: flex; align-items: center; justify-content: space-between;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  transition: transform 0.2s, background 0.2s;
+}
+.tier-card:hover { transform: translateX(6px); background: rgba(255,204,0,0.1); border-color: rgba(255,204,0,0.4); }
+
+.tier-left { }
+.tier-amount {
+  font-family: 'Baloo 2', cursive;
+  font-size: 36px; font-weight: 900;
+  color: var(--yellow);
+  line-height: 1;
+}
+.tier-text { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+
+.tier-right { text-align: right; }
+.tier-icon { font-size: 32px; }
+.tier-prize { font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+.lucky-jar-note {
+  margin-top: 20px;
+  background: rgba(255,204,0,0.12);
+  border: 1.5px solid rgba(255,204,0,0.3);
+  border-radius: 14px;
+  padding: 14px 18px;
+  display: flex; align-items: center; gap: 12px;
+  font-size: 13px; color: rgba(255,255,255,0.8);
+  line-height: 1.5;
+}
+.lucky-jar-note strong { color: var(--yellow); }
+
+/* ── WHY US ── */
+.why-section { background: var(--light-bg); }
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 900px;
+}
+
+.why-card {
+  background: white;
+  border-radius: 18px;
+  padding: 28px 20px;
+  border-bottom: 4px solid var(--orange);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  transition: transform 0.2s;
+}
+.why-card:hover { transform: translateY(-5px); }
+
+.why-icon { font-size: 36px; margin-bottom: 14px; }
+.why-title { font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+.why-desc { font-size: 13px; color: #777; line-height: 1.6; }
+
+/* ── CONTACT ── */
+.contact-section {
+  background: white;
+}
+
+.contact-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+  max-width: 900px;
+}
+
+.contact-cards { display: flex; flex-direction: column; gap: 14px; }
+
+.contact-card {
+  display: flex; align-items: center; gap: 18px;
+  background: var(--light-bg);
+  border-radius: 16px;
+  padding: 18px 20px;
+  text-decoration: none;
+  color: var(--dark);
+  border: 2px solid transparent;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.contact-card:hover { border-color: var(--orange); transform: translateX(4px); }
+
+.cc-icon {
+  width: 48px; height: 48px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.cc-phone .cc-icon { background: #fff0e0; }
+.cc-email .cc-icon { background: #e8f4ff; }
+.cc-addr .cc-icon { background: #fff0f0; }
+.cc-addr { cursor: default; }
+
+.cc-label { font-size: 11px; font-weight: 700; color: #aaa; letter-spacing: 1px; text-transform: uppercase; }
+.cc-value { font-size: 15px; font-weight: 700; margin-top: 2px; }
+
+/* Map embed placeholder */
+.map-box {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  border: 3px solid var(--orange);
+  background: #f0e8d0;
+  height: 320px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; gap: 10px;
+  position: relative;
+}
+.map-box iframe {
+  width: 100%; height: 100%;
+  border: none; display: block;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--dark);
+  color: white;
+  text-align: center;
+  padding: 40px 6%;
+}
+
+.footer-logo {
+  font-family: 'Baloo 2', cursive;
+  font-size: 36px; font-weight: 900;
+  color: var(--yellow);
+  margin-bottom: 6px;
+}
+.footer-logo span { color: var(--orange); }
+
+.footer-tagline {
+  font-size: 14px; color: rgba(255,255,255,0.5);
+  margin-bottom: 20px;
+}
+
+.footer-links {
+  display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.footer-links a {
+  color: rgba(255,255,255,0.6);
+  text-decoration: none; font-size: 13px; font-weight: 600;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--yellow); }
+
+.footer-divider {
+  width: 60px; height: 2px;
+  background: var(--red);
+  margin: 0 auto 16px;
+  border-radius: 2px;
+}
+
+.footer-copy {
+  font-size: 12px; color: rgba(255,255,255,0.3);
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .lucky-inner, .contact-inner { grid-template-columns: 1fr; gap: 30px; }
+  .hero-stats { gap: 24px; }
+  section { padding: 60px 5%; }
+}
+
+/* ── WHATSAPP FLOAT ── */
+.whatsapp-float {
+  position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+  width: 58px; height: 58px;
+  background: #25d366;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 24px rgba(37,211,102,0.5);
+  text-decoration: none;
+  font-size: 28px;
+  animation: pulse 2.5s infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 6px 24px rgba(37,211,102,0.5); }
+  50% { box-shadow: 0 6px 36px rgba(37,211,102,0.8); }
+}
+</style>
+</head>
+<body>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/918957799335" class="whatsapp-float" target="_blank" title="WhatsApp us">💬</a>
+
+<!-- ── NAVBAR ── -->
+<nav>
+  <div class="nav-logo">Budget<span>Bazar</span></div>
+  <ul class="nav-links">
+    <li><a href="#prices">Prices</a></li>
+    <li><a href="#items">Products</a></li>
+    <li><a href="#lucky">Lucky Draw</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="home">
+  <div class="hero-bg-circles">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="hero-badge">✦ Raebareli का अपना दुकान ✦</div>
+  <h1 class="hero-title">Budget<span class="highlight">Bazar</span></h1>
+  <p class="hero-tagline">आपकी ज़रूरत, हमारी दुकान — <span>रोज़ की ज़िंदगी, सस्ते दाम में</span></p>
+  <div class="hero-buttons">
+    <a href="#items" class="btn-primary">🛍️ Products देखें</a>
+    <a href="#lucky" class="btn-secondary">🎰 Lucky Draw</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">₹9</div>
+      <div class="stat-label">से शुरू</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">50+</div>
+      <div class="stat-label">Daily Items</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">🎁</div>
+      <div class="stat-label">Lucky Gifts</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Quality</div>
+    </div>
+  </div>
+  <div class="scroll-indicator">↓</div>
+</section>
+
+<!-- ── PRICES ── -->
+<section class="prices-section" id="prices">
+  <div class="prices-intro reveal">
+    <div class="section-label">💰 Our Prices</div>
+    <h2 class="section-heading">हर budget में<br><span class="accent">कुछ न कुछ</span></h2>
+    <p class="section-sub">Budget Bazar में हर चीज़ fixed और सस्ते दाम पर मिलती है — कोई hidden charge नहीं, कोई बहस नहीं!</p>
+  </div>
+  <div class="price-cards reveal">
+    <div class="price-card pc-1">
+      <div class="pc-symbol">₹</div>
+      <div class="pc-amount">9</div>
+      <div class="pc-only">Only</div>
+      <div class="pc-tag">🔥 Best Deals</div>
+    </div>
+    <div class="price-card pc-2">
+      <div class="pc-symbol">₹</div>
+      <div class="pc-amount">19</div>
+      <div class="pc-only">Only</div>
+      <div class="pc-tag">⚡ Popular</div>
+    </div>
+    <div class="price-card pc-3">
+      <div class="pc-symbol">₹</div>
+      <div class="pc-amount">29</div>
+      <div class="pc-only">Only</div>
+      <div class="pc-tag">👍 Value</div>
+    </div>
+    <div class="price-card pc-4">
+      <div class="pc-symbol">₹</div>
+      <div class="pc-amount">49</div>
+      <div class="pc-only">Only</div>
+      <div class="pc-tag">✅ Smart Buy</div>
+    </div>
+    <div class="price-card pc-5">
+      <div class="pc-symbol">₹</div>
+      <div class="pc-amount">99</div>
+      <div class="pc-only">Only</div>
+      <div class="pc-tag">🌟 Premium</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ITEMS ── -->
+<section class="items-section" id="items">
+  <div class="reveal">
+    <div class="section-label">🛒 Products</div>
+    <h2 class="section-heading">रोज़ की <span class="accent">ज़रूरत का</span><br>सब कुछ</h2>
+    <p class="section-sub">Daily use से लेकर kitchen, personal care, stationery तक — सब कुछ एक ही जगह पर!</p>
+  </div>
+  <div class="items-grid reveal">
+    <div class="item-card"><span class="item-emoji">🧴</span><div class="item-name">Shampoo</div><div class="item-desc">Hair care</div></div>
+    <div class="item-card"><span class="item-emoji">🧼</span><div class="item-name">Soap</div><div class="item-desc">Bath & body</div></div>
+    <div class="item-card"><span class="item-emoji">🪥</span><div class="item-name">Toothbrush</div><div class="item-desc">Oral care</div></div>
+    <div class="item-card"><span class="item-emoji">🪒</span><div class="item-name">Razor</div><div class="item-desc">Grooming</div></div>
+    <div class="item-card"><span class="item-emoji">🍜</span><div class="item-name">Noodles</div><div class="item-desc">Instant food</div></div>
+    <div class="item-card"><span class="item-emoji">🍪</span><div class="item-name">Biscuits</div><div class="item-desc">Snacks</div></div>
+    <div class="item-card"><span class="item-emoji">🧹</span><div class="item-name">Broom</div><div class="item-desc">Cleaning</div></div>
+    <div class="item-card"><span class="item-emoji">🧽</span><div class="item-name">Scrubber</div><div class="item-desc">Kitchen clean</div></div>
+    <div class="item-card"><span class="item-emoji">💡</span><div class="item-name">Bulb / LED</div><div class="item-desc">Lighting</div></div>
+    <div class="item-card"><span class="item-emoji">📦</span><div class="item-name">Stationery</div><div class="item-desc">Pen, copy, etc.</div></div>
+    <div class="item-card"><span class="item-emoji">🪣</span><div class="item-name">Bucket</div><div class="item-desc">Household</div></div>
+    <div class="item-card"><span class="item-emoji">🧴</span><div class="item-name">Surf / Detergent</div><div class="item-desc">Washing</div></div>
+    <div class="item-card"><span class="item-emoji">🫙</span><div class="item-name">Storage Jars</div><div class="item-desc">Kitchen</div></div>
+    <div class="item-card"><span class="item-emoji">🧻</span><div class="item-name">Tissue Paper</div><div class="item-desc">Daily use</div></div>
+    <div class="item-card"><span class="item-emoji">🔋</span><div class="item-name">Batteries</div><div class="item-desc">Electronics</div></div>
+    <div class="item-card"><span class="item-emoji">🎁</span><div class="item-name">Gift Items</div><div class="item-desc">Gifting</div></div>
+  </div>
+</section>
+
+<!-- ── LUCKY DRAW ── -->
+<section class="lucky-section" id="lucky">
+  <div class="lucky-inner">
+    <div class="lucky-left">
+      <div class="section-label">🎰 Lucky Draw</div>
+      <h2 class="section-heading">खरीदो और<br>जीतो <span style="color:var(--yellow)">Gifts!</span></h2>
+      <p class="section-sub">Budget Bazar में shopping करें और हमारे special Lucky Draw में participate करें — हर customer को chance मिलता है!</p>
+
+      <div class="lucky-steps-list reveal">
+        <div class="lucky-step">
+          <div class="step-num">1</div>
+          <div class="step-info">
+            <div class="step-title">🛍️ खरीदारी करें</div>
+            <div class="step-desc">₹100, ₹500 या ₹1000 की shopping करें</div>
+          </div>
+        </div>
+        <div class="lucky-step">
+          <div class="step-num">2</div>
+          <div class="step-info">
+            <div class="step-title">🫙 Jar से पर्ची उठाएं</div>
+            <div class="step-desc">काउंटर पर रखे Jar में से अपनी पर्ची खुद चुनें</div>
+          </div>
+        </div>
+        <div class="lucky-step">
+          <div class="step-num">3</div>
+          <div class="step-info">
+            <div class="step-title">🎁 Gift पाएं!</div>
+            <div class="step-desc">पर्ची खोलें — उसमें लिखा होगा आपका खास तोहफा!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lucky-right reveal">
+      <div class="tier-cards">
+        <div class="tier-card">
+          <div class="tier-left">
+            <div class="tier-amount">₹100</div>
+            <div class="tier-text">की खरीदारी पर</div>
+          </div>
+          <div class="tier-right">
+            <div class="tier-icon">🎟️</div>
+            <div class="tier-prize">1 Lucky Parchhi</div>
+          </div>
+        </div>
+        <div class="tier-card">
+          <div class="tier-left">
+            <div class="tier-amount">₹500</div>
+            <div class="tier-text">की खरीदारी पर</div>
+          </div>
+          <div class="tier-right">
+            <div class="tier-icon">🎟️</div>
+            <div class="tier-prize">1 Lucky Parchhi</div>
+          </div>
+        </div>
+        <div class="tier-card">
+          <div class="tier-left">
+            <div class="tier-amount">₹1000</div>
+            <div class="tier-text">की खरीदारी पर</div>
+          </div>
+          <div class="tier-right">
+            <div class="tier-icon">🎟️</div>
+            <div class="tier-prize">1 Lucky Parchhi</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lucky-jar-note">
+        <span style="font-size:28px">🫙</span>
+        <div>Jar में हर पर्ची पर लिखा होगा आपका <strong>Special Gift</strong>! हर बार कुछ न कुछ ज़रूर जीतेंगे — <strong>Guaranteed!</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY US ── -->
+<section class="why-section" id="why">
+  <div class="reveal">
+    <div class="section-label">💎 Why Us</div>
+    <h2 class="section-heading">Budget Bazar क्यों<br><span class="accent">सबसे बेहतर?</span></h2>
+    <p class="section-sub">हम सिर्फ सामान नहीं बेचते — हम एक experience देते हैं जो आपको बार-बार वापस लाए।</p>
+  </div>
+  <div class="why-grid reveal">
+    <div class="why-card">
+      <div class="why-icon">💰</div>
+      <div class="why-title">Fixed सस्ते दाम</div>
+      <div class="why-desc">₹9 से शुरू — कोई मोलभाव नहीं, हमेशा सबसे कम कीमत।</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🏪</div>
+      <div class="why-title">सब एक जगह</div>
+      <div class="why-desc">Kitchen से लेकर cleaning तक — सब कुछ एक ही दुकान में।</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🎰</div>
+      <div class="why-title">Lucky Draw Gifts</div>
+      <div class="why-desc">हर बड़ी खरीदारी पर मौका — Jar से पर्ची उठाओ और जीतो!</div>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">😊</div>
+      <div class="why-title">Friendly सेवा</div>
+      <div class="why-desc">आपकी ज़रूरत हमारी प्राथमिकता — हमेशा मुस्कुराते हुए मिलेंगे।</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ── -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div>
+      <div class="reveal">
+        <div class="section-label">📞 Contact</div>
+        <h2 class="section-heading">हमसे<br><span class="accent">मिलें!</span></h2>
+        <p class="section-sub">कोई भी सवाल हो, या हमारे यहाँ आना हो — हम हमेशा आपके लिए available हैं।</p>
+      </div>
+      <div class="contact-cards reveal">
+        <a href="tel:+918957799335" class="contact-card cc-phone">
+          <div class="cc-icon">📞</div>
+          <div>
+            <div class="cc-label">Call / WhatsApp</div>
+            <div class="cc-value">+91 89577 99335</div>
+          </div>
+        </a>
+        <a href="mailto:devsrivastava7777@gmail.com" class="contact-card cc-email">
+          <div class="cc-icon">📧</div>
+          <div>
+            <div class="cc-label">Email</div>
+            <div class="cc-value">devsrivastava7777@gmail.com</div>
+          </div>
+        </a>
+        <div class="contact-card cc-addr">
+          <div class="cc-icon">📍</div>
+          <div>
+            <div class="cc-label">Shop Address</div>
+            <div class="cc-value" style="font-size:13px;line-height:1.5">Tripula Chauraha, Vijay Nagar<br>Maharaj Ganj Road, Near NSPS School<br>Raebareli — 229001</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <div class="map-box">
+        <iframe
+          src="https://maps.google.com/maps?q=Tripula+Chauraha+Vijay+Nagar+Maharaj+Ganj+Road+Raebareli+229001&output=embed"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+      <p style="text-align:center; margin-top:10px; font-size:12px; color:#999;">📍 Tripula Chauraha, Vijay Nagar, Raebareli</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">Budget<span>Bazar</span></div>
+  <div class="footer-tagline">आपकी ज़रूरत, हमारी दुकान — Raebareli, UP</div>
+  <div class="footer-links">
+    <a href="#home">Home</a>
+    <a href="#prices">Prices</a>
+    <a href="#items">Products</a>
+    <a href="#lucky">Lucky Draw</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-copy">© 2025 Budget Bazar, Raebareli · Made with ❤️</div>
+</footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+
+// Smooth active nav link
+const sections = document.querySelectorAll('section[id], footer');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) current = s.getAttribute('id') || '';
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === '#' + current ? 'var(--yellow)' : '';
+  });
+});
+</script>
+</body>
+</html>
