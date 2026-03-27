@@ -581,7 +581,7 @@ function orderOnWhatsApp() {
 // Init
 renderProducts();
 
-/// Scroll reveal
+// Scroll reveal FIXED
 const reveals = document.querySelectorAll('.reveal');
 
 if ('IntersectionObserver' in window) {
@@ -599,4 +599,8 @@ obs.unobserve(e.target);
 reveals.forEach(el => obs.observe(el));
 } else {
 reveals.forEach(el => el.classList.add('visible'));
-  }
+}
+
+</script>
+</body>
+</html>
