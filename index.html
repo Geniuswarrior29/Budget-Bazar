@@ -252,13 +252,52 @@ footer{background:var(--dark);color:white;text-align:center;padding:36px 5%;}
   <div class="cat-tabs reveal">
     <button class="cat-tab active" onclick="filterCat('all',this)">🏪 सब कुछ</button>
     <button class="cat-tab" onclick="filterCat('dairy',this)">🧴 Daily Use</button>
-    <button class="cat-tab" onclick="filterCat('biscuit',this)">🍪 Biscuits</button>
+    <button class="cat-tab" onclick="filterCat('biscuit',this)">🍪 Biscuits & Snacks</button>
     <button class="cat-tab" onclick="filterCat('drink',this)">🥤 Cold Drinks</button>
     <button class="cat-tab" onclick="filterCat('grocery',this)">🌾 Grocery</button>
+    <button class="cat-tab" onclick="filterCat('decor',this)">🎈 Decoration</button>
+    <button class="cat-tab" onclick="filterCat('cake',this)">🎂 Cakes</button>
   </div>
 
   <div class="products-grid" id="productsGrid"></div>
 </section>
+
+<!-- CUSTOM ORDER BANNER -->
+<div style="background:linear-gradient(135deg,#1a0505,#3d0a00);padding:28px 5%;text-align:center;">
+  <div style="max-width:600px;margin:0 auto;">
+    <div style="font-size:28px;margin-bottom:8px;">📦</div>
+    <h3 style="font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;color:var(--yellow);margin-bottom:8px;">Kuch aur chahiye? Hum deliver karenge!</h3>
+    <p style="font-size:14px;color:rgba(255,255,255,0.75);margin-bottom:16px;line-height:1.6;">Jo item website pe nahi dikh rahi — jaise Atta, Chini, Tel, ya koi bhi item — <strong style="color:var(--orange)">WhatsApp pe message karein!</strong> Hum deliver karenge aapke paas! 🚀</p>
+    <a href="https://wa.me/918957799335?text=Namaste!%20Mujhe%20kuch%20items%20order%20karne%20hain%20jo%20website%20pe%20nahi%20hain." target="_blank" style="background:linear-gradient(135deg,#25d366,#128c52);color:white;text-decoration:none;padding:12px 28px;border-radius:50px;font-size:14px;font-weight:700;display:inline-block;">💬 WhatsApp pe Order Karein</a>
+  </div>
+</div>
+
+<!-- CAKE & DECORATION SECTION -->
+<div style="background:linear-gradient(135deg,#fff0f5,#fff9f0);padding:60px 5%;">
+  <div style="max-width:860px;">
+    <div style="margin-bottom:40px;">
+      <span style="display:inline-block;background:#e91e8c;color:white;font-size:10px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;">🎂 Special Services</span>
+      <h2 style="font-family:'Baloo 2',cursive;font-size:clamp(24px,4vw,38px);font-weight:900;color:var(--dark);margin-bottom:6px;">Birthday & Anniversary <span style="color:#e91e8c;">Special!</span></h2>
+      <p style="font-size:14px;color:#666;max-width:500px;line-height:1.6;">Cake aur decoration — dono ek hi jagah! Sirf WhatsApp pe message karein, baaki hum sambhal lenge! 🎉</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+      <div style="background:white;border-radius:20px;padding:24px;border-left:5px solid #e91e8c;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+        <div style="font-size:40px;margin-bottom:12px;">🎂</div>
+        <h3 style="font-family:'Baloo 2',cursive;font-size:20px;font-weight:900;color:var(--dark);margin-bottom:6px;">Custom Cakes</h3>
+        <p style="font-size:13px;color:#777;line-height:1.6;margin-bottom:14px;">Har flavour available — Chocolate, Vanilla, Butterscotch, Strawberry aur bhi! <strong>Aapki design pe bana denge</strong> — sirf 1-2 ghante mein deliver!</p>
+        <div style="background:#fff0f7;border-radius:10px;padding:8px 12px;font-size:12px;color:#e91e8c;font-weight:700;">✨ Kam rate pe | Aapki design | 1-2 Ghante Delivery</div>
+        <a href="https://wa.me/918957799335?text=Namaste!%20Mujhe%20ek%20custom%20cake%20order%20karni%20hai." target="_blank" style="display:block;text-align:center;background:#e91e8c;color:white;text-decoration:none;padding:10px;border-radius:10px;font-size:13px;font-weight:700;margin-top:14px;">💬 Cake Order Karein</a>
+      </div>
+      <div style="background:white;border-radius:20px;padding:24px;border-left:5px solid var(--orange);box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+        <div style="font-size:40px;margin-bottom:12px;">🎈</div>
+        <h3 style="font-family:'Baloo 2',cursive;font-size:20px;font-weight:900;color:var(--dark);margin-bottom:6px;">Party Decoration</h3>
+        <p style="font-size:13px;color:#777;line-height:1.6;margin-bottom:14px;">Birthday, Anniversary, Baby Shower — <strong>sab occasion ke liye decoration items!</strong> Balloons, banners, candles, confetti — sab milega!</p>
+        <div style="background:#fff3e0;border-radius:10px;padding:8px 12px;font-size:12px;color:var(--orange);font-weight:700;">🎊 Balloons | Banners | Candles | Full Kits</div>
+        <a href="https://wa.me/918957799335?text=Namaste!%20Mujhe%20party%20decoration%20items%20chahiye." target="_blank" style="display:block;text-align:center;background:var(--orange);color:white;text-decoration:none;padding:10px;border-radius:10px;font-size:13px;font-weight:700;margin-top:14px;">💬 Decoration Order Karein</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- WHY US -->
 <section class="why-section" id="why">
@@ -288,9 +327,9 @@ footer{background:var(--dark);color:white;text-align:center;padding:36px 5%;}
           <div class="cc-icon">📞</div>
           <div><div class="cc-lbl">Call / WhatsApp</div><div class="cc-val">+91 89577 99335</div></div>
         </a>
-        <a href="mailto:devsrivastava7777@gmail.com" class="cc cc-em">
+        <a href="/cdn-cgi/l/email-protection#3d59584b4e4f544b5c4e495c4b5c0a0a0a0a7d5a505c5451135e5250" class="cc cc-em">
           <div class="cc-icon">📧</div>
-          <div><div class="cc-lbl">Email</div><div class="cc-val" style="font-size:12px">devsrivastava7777@gmail.com</div></div>
+          <div><div class="cc-lbl">Email</div><div class="cc-val" style="font-size:12px"><span class="__cf_email__" data-cfemail="3f5b5a494c4d56495e4c4b5e495e080808087f58525e5653115c5052">[email&#160;protected]</span></div></div>
         </a>
         <div class="cc cc-ad" style="cursor:default">
           <div class="cc-icon">📍</div>
@@ -321,7 +360,7 @@ footer{background:var(--dark);color:white;text-align:center;padding:36px 5%;}
   <div class="f-copy">© 2025 Budget Bazar, Raebareli · Made with ❤️</div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ── PRODUCTS DATA ──
 const products = [
   // DAILY USE / DIARY
@@ -345,10 +384,10 @@ const products = [
   {id:18, cat:'dairy', emoji:'🦷', name:'Colgate / CloseUp', detail:'45g', price:20, ask:false},
   {id:19, cat:'dairy', emoji:'🥜', name:'Namkeen (Good Quality)', detail:'400g', price:62, ask:false},
   {id:20, cat:'dairy', emoji:'🍜', name:'Maggi', detail:'70g + 5g', price:15, ask:false},
-  {id:21, cat:'dairy', emoji:'💍', name:'Steel Brasel', detail:'1 pc', price:100, ask:false},
+  {id:21, cat:'dairy', emoji:'🍶', name:'Steel Bottle', detail:'1 pc', price:100, ask:false},
   {id:22, cat:'dairy', emoji:'🍵', name:'Taza Tea', detail:'33g', price:10, ask:false},
   {id:23, cat:'dairy', emoji:'🍵', name:'Taza Tea', detail:'90g', price:25, ask:false},
-  {id:24, cat:'dairy', emoji:'🧂', name:'Tata Namak', detail:'1kg', price:20, ask:false},
+  {id:24, cat:'dairy', emoji:'🧂', name:'Tata Namak', detail:'1kg', price:28, ask:false},
   {id:25, cat:'dairy', emoji:'🧂', name:'Sendha Namak', detail:'100g', price:20, ask:false},
   {id:26, cat:'dairy', emoji:'🌶️', name:'Haldi / Dhaniya / Mircha / Masala', detail:'Small packs', price:10, ask:false},
   {id:27, cat:'dairy', emoji:'🧄', name:'Ginger Garlic Paste', detail:'Small pack', price:5, ask:false},
@@ -375,7 +414,7 @@ const products = [
   {id:44, cat:'drink', emoji:'🔵', name:'Limca', detail:'600ml', price:40, ask:false},
   {id:45, cat:'drink', emoji:'⚫', name:'Thums Up', detail:'600ml', price:40, ask:false},
   {id:46, cat:'drink', emoji:'🟠', name:'Maaza', detail:'250ml', price:20, ask:false},
-  {id:47, cat:'drink', emoji:'🟡', name:'Frooti', detail:'200ml', price:15, ask:false},
+  {id:47, cat:'drink', emoji:'🟡', name:'Frooti', detail:'200ml', price:10, ask:false},
   {id:48, cat:'drink', emoji:'⚡', name:'Sting', detail:'250ml', price:20, ask:false},
   {id:49, cat:'drink', emoji:'🟩', name:'Mountain Dew', detail:'600ml', price:40, ask:false},
   {id:50, cat:'drink', emoji:'🧃', name:'Real Juice', detail:'200ml', price:20, ask:false},
@@ -387,13 +426,29 @@ const products = [
   {id:54, cat:'grocery', emoji:'🫙', name:'Mustard Oil', detail:'Price on WhatsApp', price:0, ask:true},
   {id:55, cat:'grocery', emoji:'🫙', name:'Refined Oil', detail:'Price on WhatsApp', price:0, ask:true},
 
-  // SNACKS (price on whatsapp)
-  {id:56, cat:'dairy', emoji:'🍟', name:'Lays Chips (₹10 wale)', detail:'Price on WhatsApp', price:0, ask:true},
-  {id:57, cat:'dairy', emoji:'🌶️', name:'Kurkure (₹10 wale)', detail:'Price on WhatsApp', price:0, ask:true},
-  {id:58, cat:'biscuit', emoji:'🍫', name:'Dairy Milk (₹10 wali)', detail:'Price on WhatsApp', price:0, ask:true},
-  {id:59, cat:'biscuit', emoji:'⭐', name:'5 Star (₹10 wali)', detail:'Price on WhatsApp', price:0, ask:true},
-  {id:60, cat:'biscuit', emoji:'⭐', name:'5 Star (₹5 wali)', detail:'Price on WhatsApp', price:0, ask:true},
-  {id:61, cat:'biscuit', emoji:'🍫', name:'KitKat (₹10 wali)', detail:'Price on WhatsApp', price:0, ask:true},
+  // SNACKS - with price ₹10, cart enabled
+  {id:56, cat:'dairy', emoji:'🍟', name:'Lays Chips', detail:'₹10 pack', price:10, ask:false},
+  {id:57, cat:'dairy', emoji:'🌶️', name:'Kurkure', detail:'₹10 pack', price:10, ask:false},
+  {id:58, cat:'biscuit', emoji:'🍫', name:'Dairy Milk', detail:'₹10 wali', price:10, ask:false},
+  {id:59, cat:'biscuit', emoji:'⭐', name:'5 Star', detail:'₹10 wali', price:10, ask:false},
+  {id:60, cat:'biscuit', emoji:'⭐', name:'5 Star', detail:'₹5 wali', price:5, ask:false},
+  {id:61, cat:'biscuit', emoji:'🍫', name:'KitKat', detail:'₹10 wali', price:10, ask:false},
+
+  // DECORATION
+  {id:62, cat:'decor', emoji:'🎈', name:'Birthday Balloons (Pack)', detail:'20 pcs', price:0, ask:true},
+  {id:63, cat:'decor', emoji:'🎀', name:'Birthday Decoration Kit', detail:'Full set', price:0, ask:true},
+  {id:64, cat:'decor', emoji:'✨', name:'Anniversary Decoration', detail:'Full set', price:0, ask:true},
+  {id:65, cat:'decor', emoji:'🎉', name:'Banner / Backdrop', detail:'Custom design', price:0, ask:true},
+  {id:66, cat:'decor', emoji:'🕯️', name:'Number Candles', detail:'1-9 available', price:0, ask:true},
+  {id:67, cat:'decor', emoji:'🎊', name:'Party Popper / Confetti', detail:'Pack', price:0, ask:true},
+
+  // CAKES
+  {id:68, cat:'cake', emoji:'🎂', name:'Birthday Cake', detail:'1-2 ghante mein deliver', price:0, ask:true},
+  {id:69, cat:'cake', emoji:'🍰', name:'Anniversary Cake', detail:'Custom design available', price:0, ask:true},
+  {id:70, cat:'cake', emoji:'🎂', name:'Chocolate Cake', detail:'Aapki design pe bana', price:0, ask:true},
+  {id:71, cat:'cake', emoji:'🍰', name:'Vanilla Cake', detail:'Fresh & homemade', price:0, ask:true},
+  {id:72, cat:'cake', emoji:'🎂', name:'Butterscotch Cake', detail:'Kam rate mein', price:0, ask:true},
+  {id:73, cat:'cake', emoji:'🍓', name:'Strawberry / Fruit Cake', detail:'Seasonal flavours', price:0, ask:true},
 ];
 
 let cart = {};
@@ -528,12 +583,4 @@ renderProducts();
 
 // Scroll reveal
 const reveals = document.querySelectorAll('.reveal');
-const obs = new IntersectionObserver((entries)=>{
-  entries.forEach((e,i)=>{
-    if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);obs.unobserve(e.target);}
-  });
-},{threshold:0.1});
-reveals.forEach(el=>obs.observe(el));
-</script>
-</body>
-</html>
+const obs = ne
