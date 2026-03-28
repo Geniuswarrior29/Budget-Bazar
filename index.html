@@ -4,6 +4,30 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Budget Bazar — Raebareli</title>
+
+<!-- PWA META TAGS -->
+<meta name="application-name" content="Budget Bazar">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="BudgetBazar">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#d4000c">
+<meta name="msapplication-TileColor" content="#1a0505">
+
+<!-- SEO META TAGS -->
+<meta name="description" content="Budget Bazar Raebareli — Daily use items, groceries, snacks, cold drinks, custom cakes & party decoration. Fast delivery. WhatsApp order.">
+<meta name="keywords" content="Budget Bazar Raebareli, grocery store Raebareli, daily use items, snacks Raebareli, cake delivery Raebareli, Vijay Nagar shop">
+<meta name="author" content="Budget Bazar">
+<meta property="og:title" content="Budget Bazar — Raebareli">
+<meta property="og:description" content="Aapki zaroorat, humari dukaan — daily use items, snacks, cakes & more!">
+<meta property="og:url" content="https://www.budgetbazar.store">
+<meta property="og:type" content="website">
+
+<!-- PWA MANIFEST & ICONS -->
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Hind:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--red:#d4000c;--orange:#ff6b00;--yellow:#ffcc00;--dark:#1a0505;--light:#fff9f0;--green:#0a7c3e;}
@@ -433,7 +457,7 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
       <p class="sec-p">कोई भी सवाल हो — WhatsApp, call या visit करें!</p>
       <div class="cc-cards">
         <a href="tel:+918957799335" class="cc ph"><div class="cc-ic">📞</div><div><div class="cc-lb">Call / WhatsApp</div><div class="cc-vl">+91 89577 99335</div></div></a>
-        <a href="mailto:devsrivastava7777@gmail.com" class="cc em"><div class="cc-ic">📧</div><div><div class="cc-lb">Email</div><div class="cc-vl" style="font-size:11px">devsrivastava7777@gmail.com</div></div></a>
+        <a href="/cdn-cgi/l/email-protection#b1d5d4c7c2c3d8c7d0c2c5d0c7d086868686f1d6dcd0d8dd9fd2dedc" class="cc em"><div class="cc-ic">📧</div><div><div class="cc-lb">Email</div><div class="cc-vl" style="font-size:11px"><span class="__cf_email__" data-cfemail="cfabaab9bcbda6b9aebcbbaeb9aef8f8f8f88fa8a2aea6a3e1aca0a2">[email&#160;protected]</span></div></div></a>
         <div class="cc ad" style="cursor:default"><div class="cc-ic">📍</div><div><div class="cc-lb">Shop Address</div><div class="cc-vl" style="font-size:11px;line-height:1.5">Tripula Chauraha, Vijay Nagar<br>Maharaj Ganj Road, Near NSPS School<br>Raebareli — 229001</div></div></div>
       </div>
     </div>
@@ -444,6 +468,19 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
   </div>
 </section>
 
+<!-- PWA INSTALL BANNER -->
+<div id="instBanner" style="display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:9999;background:#1a0505;border:2px solid #ffcc00;border-radius:18px;padding:14px 18px;width:90%;max-width:360px;align-items:center;gap:14px;box-shadow:0 8px 30px rgba(0,0,0,0.4);">
+  <div style="background:linear-gradient(135deg,#d4000c,#ff6b00);width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🛒</div>
+  <div style="flex:1;">
+    <div style="font-family:'Baloo 2',cursive;font-size:14px;font-weight:900;color:#ffcc00;">Budget Bazar Install Karo!</div>
+    <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:2px;">App ki tarah use karo — fast & easy!</div>
+    <div style="display:flex;gap:8px;margin-top:8px;">
+      <button onclick="installApp()" style="background:linear-gradient(135deg,#d4000c,#ff6b00);color:white;border:none;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;">✅ Install</button>
+      <button onclick="dismissBanner()" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.2);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;">Baad mein</button>
+    </div>
+  </div>
+</div>
+
 <footer>
   <div class="fl">Budget<span>Bazar</span></div>
   <div class="ft">आपकी ज़रूरत, हमारी दुकान — Raebareli, UP</div>
@@ -452,11 +489,12 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
   <div class="fcp">© 2025 Budget Bazar, Raebareli · Made with ❤️</div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ══════════════════════════════════════════
 //  ALL STATIC PRODUCTS
 // ══════════════════════════════════════════
 var SP = [
+  // DAILY USE
   {id:1,cat:'daily',emoji:'🪥',name:'Toothbrush Oral B',detail:'1 pc',price:20},
   {id:2,cat:'daily',emoji:'🪥',name:'Toothbrush Normal',detail:'1 pc',price:15},
   {id:3,cat:'daily',emoji:'🧼',name:'Soap (Lux/Lifebuoy/Pears/Santoor)',detail:'1 pc',price:10},
@@ -477,22 +515,32 @@ var SP = [
   {id:18,cat:'daily',emoji:'🦷',name:'Colgate / CloseUp',detail:'45g',price:20},
   {id:19,cat:'daily',emoji:'🥜',name:'Namkeen Good Quality',detail:'400g',price:62},
   {id:20,cat:'daily',emoji:'🍜',name:'Maggi',detail:'70g + 5g',price:15},
-  {id:21,cat:'daily',emoji:'🍵',name:'Taza Tea',detail:'33g',price:10},
-  {id:22,cat:'daily',emoji:'🍵',name:'Taza Tea',detail:'90g',price:25},
-  {id:23,cat:'daily',emoji:'🧂',name:'Tata Namak',detail:'1kg',price:28},
-  {id:24,cat:'daily',emoji:'🧂',name:'Sendha Namak',detail:'100g',price:20},
-  {id:25,cat:'daily',emoji:'🌶️',name:'Haldi/Dhaniya/Mircha/Masala',detail:'Small packs',price:10},
-  {id:26,cat:'daily',emoji:'🧄',name:'Ginger Garlic Paste',detail:'Small pack',price:5},
-  {id:27,cat:'daily',emoji:'🍟',name:'Lays Chips',detail:'₹10 pack',price:10},
-  {id:28,cat:'daily',emoji:'🌶️',name:'Kurkure',detail:'₹10 pack',price:10},
+  {id:21,cat:'daily',emoji:'🧂',name:'Tata Namak',detail:'1kg',price:28},
+  {id:22,cat:'daily',emoji:'🧂',name:'Sendha Namak',detail:'100g',price:20},
+  {id:23,cat:'daily',emoji:'🌶️',name:'Haldi/Dhaniya/Mircha/Masala',detail:'Small packs',price:10},
+  {id:24,cat:'daily',emoji:'🧄',name:'Ginger Garlic Paste',detail:'Small pack',price:5},
+  {id:25,cat:'daily',emoji:'🍟',name:'Lays Chips',detail:'₹10 pack',price:10},
+  {id:26,cat:'daily',emoji:'🌶️',name:'Kurkure',detail:'₹10 pack',price:10},
+  {id:27,cat:'daily',emoji:'🧴',name:'Toilet Cleaner Blue',detail:'500ml',price:49},
+  {id:28,cat:'daily',emoji:'🍱',name:'Rusk (Toast)',detail:'1 pack',price:10},
+  {id:29,cat:'daily',emoji:'🍱',name:'Rusk (Toast)',detail:'1 pack',price:35},
+  {id:60,cat:'daily',emoji:'👶',name:'Pampers',detail:'Message size • 1 pc',price:10},
+  {id:61,cat:'daily',emoji:'👶',name:'Pampers',detail:'Message size • 1 pc',price:12},
+  {id:62,cat:'daily',emoji:'👶',name:'Pampers',detail:'Message size • 1 pc',price:14},
+  {id:63,cat:'daily',emoji:'🪔',name:'Machhar Agarbatti',detail:'1 pc',price:9},
+  {id:64,cat:'daily',emoji:'🪔',name:'Machhar Agarbatti',detail:'10 pc (offer)',price:85},
+  {id:65,cat:'daily',emoji:'🌱',name:'Soyabeen (Badi)',detail:'1 pc',price:9},
+  {id:66,cat:'daily',emoji:'🌱',name:'Sayabeen (Choti)',detail:'1 pc',price:9},
+  {id:67,cat:'daily',emoji:'📱',name:'Mobile Stand',detail:'3 style • 1 pc',price:10},
+  {id:68,cat:'daily',emoji:'🚿',name:'Kitchen & Washroom Shower',detail:'1 pc',price:9},
+
+  // BISCUITS & SNACKS
   {id:30,cat:'biscuit',emoji:'🍪',name:'Parle-G',detail:'Small pack',price:5},
   {id:31,cat:'biscuit',emoji:'🍪',name:'Parle-G',detail:'Big pack',price:10},
   {id:32,cat:'biscuit',emoji:'🍪',name:'Tiger Biscuit',detail:'1 pack',price:10},
   {id:33,cat:'biscuit',emoji:'🥥',name:'Coconut Biscuit',detail:'1 pack',price:10},
   {id:34,cat:'biscuit',emoji:'🍫',name:'Oreo',detail:'Small',price:10},
-  {id:35,cat:'biscuit',emoji:'🍫',name:'Oreo',detail:'Big',price:20},
   {id:36,cat:'biscuit',emoji:'🍪',name:'Good Day',detail:'Small',price:10},
-  {id:37,cat:'biscuit',emoji:'🍪',name:'Good Day',detail:'Big',price:20},
   {id:38,cat:'biscuit',emoji:'🍪',name:'Hide & Seek',detail:'1 pack',price:20},
   {id:39,cat:'biscuit',emoji:'🍫',name:'Bourbon',detail:'1 pack',price:20},
   {id:40,cat:'biscuit',emoji:'🍪',name:'Monaco',detail:'1 pack',price:10},
@@ -500,34 +548,37 @@ var SP = [
   {id:42,cat:'biscuit',emoji:'⭐',name:'5 Star',detail:'₹10 wali',price:10},
   {id:43,cat:'biscuit',emoji:'⭐',name:'5 Star',detail:'₹5 wali',price:5},
   {id:44,cat:'biscuit',emoji:'🍫',name:'KitKat',detail:'₹10 wali',price:10},
+
+  // COLD DRINKS
   {id:50,cat:'drink',emoji:'🥤',name:'Pepsi',detail:'250ml',price:20},
-  {id:51,cat:'drink',emoji:'🥤',name:'Pepsi',detail:'600ml',price:40},
   {id:52,cat:'drink',emoji:'🥤',name:'Coca Cola',detail:'250ml',price:20},
-  {id:53,cat:'drink',emoji:'🥤',name:'Coca Cola',detail:'600ml',price:40},
-  {id:54,cat:'drink',emoji:'🟢',name:'Sprite',detail:'600ml',price:40},
-  {id:55,cat:'drink',emoji:'🔵',name:'Limca',detail:'600ml',price:40},
-  {id:56,cat:'drink',emoji:'⚫',name:'Thums Up',detail:'600ml',price:40},
-  {id:57,cat:'drink',emoji:'🟠',name:'Maaza',detail:'250ml',price:20},
   {id:58,cat:'drink',emoji:'🟡',name:'Frooti',detail:'200ml',price:10},
-  {id:59,cat:'drink',emoji:'⚡',name:'Sting',detail:'250ml',price:20},
-  {id:60,cat:'drink',emoji:'🟩',name:'Mountain Dew',detail:'600ml',price:40},
-  {id:61,cat:'drink',emoji:'🧃',name:'Real Juice',detail:'200ml',price:20},
-  {id:70,cat:'grocery',emoji:'🌾',name:'Atta',detail:'WhatsApp pe poochho',price:0},
-  {id:71,cat:'grocery',emoji:'🍬',name:'Chini (Sugar)',detail:'WhatsApp pe poochho',price:0},
-  {id:72,cat:'grocery',emoji:'🍵',name:'Chai Patti',detail:'WhatsApp pe poochho',price:0},
-  {id:73,cat:'grocery',emoji:'🫙',name:'Mustard Oil',detail:'WhatsApp pe poochho',price:0},
-  {id:74,cat:'grocery',emoji:'🫙',name:'Refined Oil',detail:'WhatsApp pe poochho',price:0},
-  {id:80,cat:'decor',emoji:'🎈',name:'Birthday Balloons',detail:'Pack of 20',price:0},
-  {id:81,cat:'decor',emoji:'🎀',name:'Birthday Decoration Kit',detail:'Full set',price:0},
-  {id:82,cat:'decor',emoji:'✨',name:'Anniversary Decoration',detail:'Full set',price:0},
-  {id:83,cat:'decor',emoji:'🕯️',name:'Number Candles',detail:'1-9 available',price:0},
-  {id:84,cat:'decor',emoji:'🎊',name:'Party Popper / Confetti',detail:'Pack',price:0},
-  {id:90,cat:'cake',emoji:'🎂',name:'Birthday Cake',detail:'1-2 ghante mein',price:0},
-  {id:91,cat:'cake',emoji:'🍫',name:'Chocolate Cake',detail:'Aapki design pe',price:0},
-  {id:92,cat:'cake',emoji:'🍰',name:'Vanilla Cake',detail:'Fresh & homemade',price:0},
-  {id:93,cat:'cake',emoji:'🎂',name:'Butterscotch Cake',detail:'Kam rate mein',price:0},
-  {id:94,cat:'cake',emoji:'🍓',name:'Strawberry / Fruit Cake',detail:'Seasonal flavours',price:0},
-  {id:95,cat:'cake',emoji:'🍰',name:'Anniversary Cake',detail:'Custom design',price:0}
+  {id:69,cat:'drink',emoji:'🟢',name:'Sprite',detail:'2 ltr',price:85},
+  {id:70,cat:'drink',emoji:'⚫',name:'Thums Up',detail:'2 ltr',price:85},
+  {id:71,cat:'drink',emoji:'🟠',name:'Maaza',detail:'1.75 ltr',price:85},
+  {id:72,cat:'drink',emoji:'🟠',name:'Maaza',detail:'125ml',price:10},
+  {id:73,cat:'drink',emoji:'🥛',name:'Amool Lassi',detail:'200ml',price:20},
+
+  // GROCERY
+  {id:80,cat:'grocery',emoji:'🌾',name:'Atta - Shri Ram',detail:'5kg',price:160},
+  {id:81,cat:'grocery',emoji:'🍬',name:'Chini',detail:'1kg',price:47},
+  {id:82,cat:'grocery',emoji:'🍬',name:'Chini',detail:'5kg',price:225},
+  {id:83,cat:'grocery',emoji:'🫙',name:'Jayshri Mustard Oil',detail:'1 ltr',price:165},
+  {id:84,cat:'grocery',emoji:'🫙',name:'Fortune Kachhi Ghani',detail:'1 ltr',price:170},
+  {id:85,cat:'grocery',emoji:'🫙',name:'Cook & Fry Refined',detail:'650g',price:136},
+  {id:86,cat:'grocery',emoji:'🍵',name:'Chai Patti - Mohini Good Time',detail:'26g',price:10},
+  {id:87,cat:'grocery',emoji:'🍵',name:'Chai Patti - Mohini Good Time',detail:'250g + spoon free',price:55},
+  {id:88,cat:'grocery',emoji:'☕',name:'Taza Tea',detail:'33g',price:10},
+  {id:89,cat:'grocery',emoji:'☕',name:'Chai Patti Taza',detail:'90g',price:25},
+  {id:90,cat:'grocery',emoji:'☕',name:'Pansar Chai Patti Elaichi',detail:'20g',price:10},
+
+  // DECORATION
+  {id:100,cat:'decor',emoji:'🎀',name:'Birthday Decoration Kit',detail:'Full set',price:0},
+  {id:101,cat:'decor',emoji:'✨',name:'Anniversary Decoration',detail:'Full set',price:0},
+
+  // CAKES
+  {id:110,cat:'cake',emoji:'🍰',name:'Cake',detail:'All flavors available',price:280},
+  {id:111,cat:'cake',emoji:'🍰',name:'Anniversary Cake',detail:'Custom design',price:0}
 ];
 
 // ══════════════════════════════════════════
@@ -865,10 +916,35 @@ function saveEdit(){
   renderGrid();
 }
 
-// ══════════════════════════════════════════
-//  INIT
-// ══════════════════════════════════════════
+// PWA SERVICE WORKER
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('sw.js').catch(function(e){console.log(e);});
+  });
+}
+
+var deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',function(e){
+  e.preventDefault();deferredPrompt=e;
+  setTimeout(function(){
+    if(deferredPrompt&&!localStorage.getItem('bb_inst')){
+      var b=document.getElementById('instBanner');
+      if(b)b.style.display='flex';
+    }
+  },3000);
+});
+function installApp(){
+  if(!deferredPrompt)return;
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(function(r){
+    if(r.outcome==='accepted')localStorage.setItem('bb_inst','1');
+    deferredPrompt=null;
+    dismissBanner();
+  });
+}
+function dismissBanner(){var b=document.getElementById('instBanner');if(b)b.style.display='none';}
+
 renderGrid();
 </script>
 </body>
-</html>
+                                                                          </html>
