@@ -4,195 +4,316 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Budget Bazar — Raebareli</title>
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800;900&family=Hind:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800;900&family=Hind:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --red: #d4000c;
-  --orange: #ff6b00;
-  --yellow: #ffcc00;
-  --dark: #1a0505;
-  --white: #fff;
-  --light: #fff9f0;
-  --green: #0a7c3e;
-}
-* { margin:0; padding:0; box-sizing:border-box; scroll-behavior:smooth; }
-body { font-family:'Hind',sans-serif; background:var(--light); color:var(--dark); overflow-x:hidden; }
+:root{--red:#d4000c;--orange:#ff6b00;--yellow:#ffcc00;--dark:#1a0505;--light:#fff9f0;--green:#0a7c3e;}
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
+body{font-family:'Hind',sans-serif;background:var(--light);color:var(--dark);overflow-x:hidden;}
+nav{position:fixed;top:0;left:0;right:0;z-index:999;background:rgba(26,5,5,0.97);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:space-between;padding:0 4%;height:60px;box-shadow:0 2px 20px rgba(0,0,0,0.4);}
+.nav-logo{font-family:'Baloo 2',cursive;font-size:20px;font-weight:900;color:var(--yellow);}
+.nav-logo span{color:var(--orange);}
+.nav-links{display:flex;gap:14px;list-style:none;}
+.nav-links a{text-decoration:none;color:rgba(255,255,255,0.8);font-size:12px;font-weight:600;}
+.nav-links a:hover{color:var(--yellow);}
+.nav-right{display:flex;gap:8px;align-items:center;}
+.nav-cart{background:var(--red);color:white;border:none;padding:7px 12px;border-radius:30px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;position:relative;}
+.cbadge{position:absolute;top:-6px;right:-6px;background:var(--yellow);color:var(--dark);width:17px;height:17px;border-radius:50%;font-size:9px;font-weight:900;display:flex;align-items:center;justify-content:center;}
+.nav-admin{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.2);padding:7px 10px;border-radius:30px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;}
+@media(max-width:600px){.nav-links{display:none;}}
 
-/* NAV */
-nav { position:fixed; top:0; left:0; right:0; z-index:999; background:rgba(26,5,5,0.97); backdrop-filter:blur(10px); display:flex; align-items:center; justify-content:space-between; padding:0 5%; height:60px; box-shadow:0 2px 20px rgba(0,0,0,0.4); }
-.nav-logo { font-family:'Baloo 2',cursive; font-size:22px; font-weight:900; color:var(--yellow); }
-.nav-logo span { color:var(--orange); }
-.nav-links { display:flex; gap:18px; list-style:none; }
-.nav-links a { text-decoration:none; color:rgba(255,255,255,0.8); font-size:13px; font-weight:600; transition:color 0.2s; }
-.nav-links a:hover { color:var(--yellow); }
-.nav-cart { background:var(--red); color:white; border:none; padding:8px 16px; border-radius:30px; font-size:13px; font-weight:700; cursor:pointer; font-family:'Hind',sans-serif; position:relative; }
-.cart-count { position:absolute; top:-6px; right:-6px; background:var(--yellow); color:var(--dark); width:18px; height:18px; border-radius:50%; font-size:10px; font-weight:900; display:flex; align-items:center; justify-content:center; }
-@media(max-width:600px){ .nav-links{display:none;} }
-
-/* HERO */
-.hero { min-height:100vh; background:linear-gradient(135deg,#1a0505,#3d0a0a,#6b1a00,#1a0505); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:90px 20px 60px; position:relative; overflow:hidden; }
-.c { position:absolute; border-radius:50%; opacity:0.07; animation:floatUp 8s ease-in-out infinite; }
-.c1{width:380px;height:380px;background:var(--orange);top:-100px;left:-100px;}
-.c2{width:280px;height:280px;background:var(--yellow);bottom:-80px;right:-80px;animation-delay:2s;}
-.c3{width:180px;height:180px;background:var(--red);top:40%;left:62%;animation-delay:4s;}
-@keyframes floatUp{0%,100%{transform:translateY(0)}50%{transform:translateY(-28px)}}
-.hero-badge { display:inline-block; background:rgba(255,204,0,0.15); border:1.5px solid rgba(255,204,0,0.4); color:var(--yellow); font-size:11px; font-weight:700; padding:5px 18px; border-radius:30px; letter-spacing:3px; text-transform:uppercase; margin-bottom:18px; animation:fadeDown 0.7s ease backwards; }
-.hero-title { font-family:'Baloo 2',cursive; font-size:clamp(56px,11vw,100px); font-weight:900; color:white; line-height:0.9; letter-spacing:-3px; animation:fadeDown 0.7s ease 0.1s backwards; }
-.hero-title .hl { color:var(--yellow); display:block; }
-.hero-tagline { font-size:16px; font-weight:600; color:rgba(255,255,255,0.75); margin:16px 0 10px; animation:fadeDown 0.7s ease 0.2s backwards; }
+.hero{min-height:100vh;background:linear-gradient(135deg,#1a0505,#3d0a0a,#6b1a00,#1a0505);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:90px 20px 60px;}
+.hero-badge{display:inline-block;background:rgba(255,204,0,0.15);border:1.5px solid rgba(255,204,0,0.4);color:var(--yellow);font-size:11px;font-weight:700;padding:5px 18px;border-radius:30px;letter-spacing:3px;text-transform:uppercase;margin-bottom:18px;}
+.hero-title{font-family:'Baloo 2',cursive;font-size:clamp(52px,10vw,90px);font-weight:900;color:white;line-height:0.9;letter-spacing:-3px;}
+.hero-title .hl{color:var(--yellow);display:block;}
+.hero-tagline{font-size:15px;font-weight:600;color:rgba(255,255,255,0.75);margin:14px 0 10px;}
 .hero-tagline span{color:var(--orange);}
-.notice-box { background:rgba(255,204,0,0.15); border:1.5px solid rgba(255,204,0,0.5); border-radius:12px; padding:10px 20px; margin:10px 0 24px; max-width:560px; font-size:13px; color:rgba(255,255,255,0.9); line-height:1.5; animation:fadeDown 0.7s ease 0.25s backwards; }
+.notice-box{background:rgba(255,204,0,0.15);border:1.5px solid rgba(255,204,0,0.5);border-radius:12px;padding:10px 18px;margin:10px 0 22px;max-width:520px;font-size:13px;color:rgba(255,255,255,0.9);line-height:1.6;}
 .notice-box strong{color:var(--yellow);}
-.hero-btns { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; animation:fadeDown 0.7s ease 0.3s backwards; }
-.btn-p { background:linear-gradient(135deg,var(--red),var(--orange)); color:white; text-decoration:none; padding:13px 28px; border-radius:50px; font-size:14px; font-weight:700; box-shadow:0 8px 25px rgba(212,0,12,0.4); transition:transform 0.2s; display:inline-block; border:none; cursor:pointer; font-family:'Hind',sans-serif; }
-.btn-p:hover{transform:translateY(-2px);}
-.btn-s { background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.3); color:white; text-decoration:none; padding:13px 28px; border-radius:50px; font-size:14px; font-weight:700; transition:all 0.2s; display:inline-block; }
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+.btn-p{background:linear-gradient(135deg,var(--red),var(--orange));color:white;text-decoration:none;padding:12px 24px;border-radius:50px;font-size:14px;font-weight:700;display:inline-block;}
+.btn-s{background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.3);color:white;text-decoration:none;padding:12px 24px;border-radius:50px;font-size:14px;font-weight:700;display:inline-block;}
 .btn-s:hover{border-color:var(--yellow);color:var(--yellow);}
-.scroll-ind{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.35);font-size:20px;animation:bounce 2s infinite;}
-@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
-@keyframes fadeDown{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
 
-/* POINTS BANNER */
-.points-banner { background:linear-gradient(135deg,var(--green),#0d9e50); color:white; padding:20px 5%; text-align:center; }
-.points-banner h3 { font-family:'Baloo 2',cursive; font-size:22px; font-weight:900; margin-bottom:6px; }
-.points-grid { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-top:12px; }
-.point-item { background:rgba(255,255,255,0.15); border-radius:12px; padding:10px 20px; font-size:13px; font-weight:600; }
-.point-item strong{color:var(--yellow);}
+.pts-bar{background:linear-gradient(135deg,var(--green),#0d9e50);color:white;padding:18px 5%;text-align:center;}
+.pts-bar h3{font-family:'Baloo 2',cursive;font-size:19px;font-weight:900;margin-bottom:8px;}
+.pts-grid{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:8px;}
+.pts-item{background:rgba(255,255,255,0.15);border-radius:12px;padding:7px 14px;font-size:12px;font-weight:600;}
+.pts-item strong{color:var(--yellow);}
 
-/* SECTIONS */
-section{padding:60px 5%;}
-.sec-label{display:inline-block;background:var(--red);color:white;font-size:10px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;}
-.sec-heading{font-family:'Baloo 2',cursive;font-size:clamp(24px,4vw,38px);font-weight:900;color:var(--dark);line-height:1.1;margin-bottom:6px;}
-.sec-heading .ac{color:var(--red);}
-.sec-sub{font-size:14px;color:#666;max-width:500px;line-height:1.6;margin-bottom:30px;}
+section{padding:55px 5%;}
+.sec-lbl{display:inline-block;background:var(--red);color:white;font-size:10px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;}
+.sec-h{font-family:'Baloo 2',cursive;font-size:clamp(22px,4vw,34px);font-weight:900;color:var(--dark);line-height:1.1;margin-bottom:6px;}
+.sec-h .ac{color:var(--red);}
+.sec-p{font-size:13px;color:#666;max-width:500px;line-height:1.6;margin-bottom:22px;}
 
-/* NOTICE FOR UNLISTED ITEMS */
-.unlisted-notice { background:linear-gradient(135deg,#fff3cd,#ffe69c); border:2px solid var(--yellow); border-radius:16px; padding:16px 20px; margin-bottom:30px; max-width:700px; display:flex; align-items:center; gap:14px; }
-.unlisted-notice .icon{font-size:28px;flex-shrink:0;}
-.unlisted-notice p{font-size:13px;color:#5a3e00;line-height:1.6;font-weight:600;}
-.unlisted-notice a{color:var(--red);text-decoration:none;font-weight:700;}
+.search-wrap{max-width:480px;margin-bottom:18px;position:relative;}
+.search-bar{width:100%;padding:11px 16px 11px 42px;border:2px solid #e0d0c0;border-radius:30px;font-size:13px;font-family:'Hind',sans-serif;color:var(--dark);background:white;outline:none;transition:border-color 0.2s;}
+.search-bar:focus{border-color:var(--orange);}
+.search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);font-size:16px;}
+.search-clear{position:absolute;right:13px;top:50%;transform:translateY(-50%);background:none;border:none;font-size:15px;cursor:pointer;color:#aaa;display:none;}
 
-/* CATEGORIES TABS */
-.cat-tabs { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:24px; }
-.cat-tab { background:white; border:2px solid #e0d0c0; border-radius:30px; padding:8px 18px; font-size:13px; font-weight:700; cursor:pointer; transition:all 0.2s; font-family:'Hind',sans-serif; color:var(--dark); }
-.cat-tab.active,.cat-tab:hover { background:var(--red); border-color:var(--red); color:white; }
+.notice-y{background:linear-gradient(135deg,#fff3cd,#ffe69c);border:2px solid var(--yellow);border-radius:14px;padding:13px 16px;margin-bottom:20px;max-width:900px;display:flex;align-items:center;gap:12px;}
+.notice-y p{font-size:13px;color:#5a3e00;line-height:1.6;font-weight:600;}
+.notice-y a{color:var(--red);text-decoration:none;font-weight:700;}
 
-/* PRODUCTS GRID */
-.products-section{background:white;}
-.products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:14px; max-width:1000px; }
-.prod-card { background:var(--light); border:2px solid transparent; border-radius:16px; padding:16px 12px; text-align:center; transition:all 0.2s; position:relative; }
-.prod-card:hover{border-color:var(--orange);transform:translateY(-3px);background:#fff3e0;}
-.prod-emoji{font-size:32px;display:block;margin-bottom:8px;}
-.prod-name{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:2px;line-height:1.3;}
-.prod-detail{font-size:11px;color:#999;margin-bottom:8px;}
-.prod-price{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:var(--red);margin-bottom:10px;}
-.prod-price.ask{font-size:12px;color:var(--orange);font-family:'Hind',sans-serif;font-weight:700;}
-.add-btn { background:var(--red); color:white; border:none; border-radius:20px; padding:6px 16px; font-size:12px; font-weight:700; cursor:pointer; font-family:'Hind',sans-serif; transition:background 0.2s; width:100%; }
-.add-btn:hover{background:var(--orange);}
-.add-btn.ask-btn{background:var(--green);}
-.qty-control{display:none;align-items:center;justify-content:center;gap:8px;}
-.qty-control.show{display:flex;}
-.qty-btn{background:var(--red);color:white;border:none;width:26px;height:26px;border-radius:50%;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;}
-.qty-num{font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;min-width:20px;text-align:center;}
+.cat-tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:18px;}
+.cat-tab{background:white;border:2px solid #e0d0c0;border-radius:30px;padding:6px 13px;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'Hind',sans-serif;color:var(--dark);}
+.cat-tab:hover,.cat-tab.active{background:var(--red);border-color:var(--red);color:white;}
 
-/* CART SIDEBAR */
-.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;display:none;}
-.cart-overlay.open{display:block;}
-.cart-sidebar{position:fixed;right:0;top:0;bottom:0;width:340px;max-width:95vw;background:white;z-index:1001;display:flex;flex-direction:column;box-shadow:-8px 0 40px rgba(0,0,0,0.2);transform:translateX(100%);transition:transform 0.3s ease;}
-.cart-sidebar.open{transform:translateX(0);}
-.cart-header{background:var(--dark);color:white;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;}
-.cart-header h3{font-family:'Baloo 2',cursive;font-size:20px;font-weight:900;color:var(--yellow);}
-.cart-close{background:none;border:none;color:white;font-size:24px;cursor:pointer;}
-.cart-body{flex:1;overflow-y:auto;padding:16px;}
-.cart-empty{text-align:center;padding:40px 20px;color:#aaa;}
-.cart-empty .ce-icon{font-size:48px;display:block;margin-bottom:12px;}
-.cart-item{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid #f0e8d8;}
-.ci-info{flex:1;}
-.ci-name{font-size:13px;font-weight:700;color:var(--dark);}
-.ci-detail{font-size:11px;color:#aaa;}
-.ci-price{font-family:'Baloo 2',cursive;font-size:15px;font-weight:900;color:var(--red);}
-.ci-qty{display:flex;align-items:center;gap:6px;margin-top:4px;}
-.ci-qbtn{background:var(--light);border:1px solid #ddd;width:22px;height:22px;border-radius:50%;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;}
-.ci-qnum{font-size:13px;font-weight:700;min-width:16px;text-align:center;}
-.ci-remove{background:none;border:none;color:#ccc;font-size:18px;cursor:pointer;padding:4px;}
-.ci-remove:hover{color:var(--red);}
-.cart-footer{padding:16px 20px;border-top:2px solid #f0e8d8;background:#fafafa;}
-.cart-summary{margin-bottom:14px;}
-.cart-row{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px;color:#666;}
-.cart-row.total{font-size:16px;font-weight:700;color:var(--dark);}
-.cart-row.points{color:var(--green);font-weight:700;}
-.wa-order-btn{width:100%;background:linear-gradient(135deg,#25d366,#128c52);color:white;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform 0.2s;}
-.wa-order-btn:hover{transform:translateY(-2px);}
+.prod-sec{background:white;}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:11px;max-width:1000px;}
+.pc{background:var(--light);border:2px solid transparent;border-radius:13px;padding:12px 9px;text-align:center;transition:all 0.2s;}
+.pc:hover{border-color:var(--orange);transform:translateY(-3px);background:#fff3e0;}
+.pe{font-size:26px;display:block;margin-bottom:5px;}
+.pn{font-size:11px;font-weight:700;color:var(--dark);margin-bottom:2px;line-height:1.3;}
+.pd{font-size:10px;color:#aaa;margin-bottom:5px;}
+.pp{font-family:'Baloo 2',cursive;font-size:15px;font-weight:900;color:var(--red);margin-bottom:6px;}
+.pp.ask{font-size:11px;color:var(--orange);font-family:'Hind',sans-serif;font-weight:700;}
+.ab{background:var(--red);color:white;border:none;border-radius:20px;padding:5px 12px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;width:100%;transition:background 0.2s;}
+.ab:hover{background:var(--orange);}
+.ab.ask{background:var(--green);}
+.qc{display:none;align-items:center;justify-content:center;gap:6px;}
+.qc.show{display:flex;}
+.qb{background:var(--red);color:white;border:none;width:24px;height:24px;border-radius:50%;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.qn{font-family:'Baloo 2',cursive;font-size:15px;font-weight:900;min-width:18px;text-align:center;}
+.no-res{text-align:center;padding:36px;color:#aaa;grid-column:1/-1;}
+.no-res span{font-size:36px;display:block;margin-bottom:8px;}
 
-/* WHY US */
-.why-section{background:var(--light);}
-.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;max-width:860px;}
-.why-card{background:white;border-radius:16px;padding:24px 18px;border-bottom:4px solid var(--orange);box-shadow:0 4px 18px rgba(0,0,0,0.06);transition:transform 0.2s;}
-.why-card:hover{transform:translateY(-4px);}
-.why-icon{font-size:32px;margin-bottom:10px;}
-.why-title{font-size:15px;font-weight:700;color:var(--dark);margin-bottom:4px;}
-.why-desc{font-size:12px;color:#777;line-height:1.6;}
+/* CART */
+.cart-ov{position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:1000;display:none;}
+.cart-ov.open{display:block;}
+.cart-sd{position:fixed;right:0;top:0;bottom:0;width:320px;max-width:95vw;background:white;z-index:1001;display:flex;flex-direction:column;box-shadow:-8px 0 40px rgba(0,0,0,0.2);transform:translateX(100%);transition:transform 0.3s;}
+.cart-sd.open{transform:translateX(0);}
+.c-hd{background:var(--dark);color:white;padding:14px 18px;display:flex;align-items:center;justify-content:space-between;}
+.c-hd h3{font-family:'Baloo 2',cursive;font-size:17px;font-weight:900;color:var(--yellow);}
+.c-cl{background:none;border:none;color:white;font-size:20px;cursor:pointer;}
+.c-bd{flex:1;overflow-y:auto;padding:12px;}
+.c-emp{text-align:center;padding:36px 20px;color:#aaa;}
+.c-emp span{font-size:38px;display:block;margin-bottom:8px;}
+.c-it{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f0e8d8;}
+.ci-in{flex:1;}
+.ci-nm{font-size:12px;font-weight:700;color:var(--dark);}
+.ci-dt{font-size:10px;color:#aaa;}
+.ci-pr{font-family:'Baloo 2',cursive;font-size:13px;font-weight:900;color:var(--red);}
+.ci-q{display:flex;align-items:center;gap:5px;margin-top:3px;}
+.cqb{background:var(--light);border:1px solid #ddd;width:20px;height:20px;border-radius:50%;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;}
+.cqn{font-size:12px;font-weight:700;min-width:14px;text-align:center;}
+.crm{background:none;border:none;color:#ccc;font-size:14px;cursor:pointer;}
+.crm:hover{color:var(--red);}
+.c-ft{padding:12px 16px;border-top:2px solid #f0e8d8;background:#fafafa;}
+.cr{display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;color:#666;}
+.cr.tot{font-size:14px;font-weight:700;color:var(--dark);}
+.cr.pts{color:var(--green);font-weight:700;}
+.wa-ob{width:100%;background:linear-gradient(135deg,#25d366,#128c52);color:white;border:none;border-radius:12px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;}
 
-/* CONTACT */
-.contact-section{background:white;}
-.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:start;max-width:860px;}
-@media(max-width:700px){.contact-inner{grid-template-columns:1fr;gap:28px;}}
-.contact-cards{display:flex;flex-direction:column;gap:12px;}
-.cc{display:flex;align-items:center;gap:16px;background:var(--light);border-radius:14px;padding:16px 18px;text-decoration:none;color:var(--dark);border:2px solid transparent;transition:all 0.2s;}
+/* ADMIN */
+.admin-modal{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:2000;display:none;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;}
+.admin-modal.open{display:flex;}
+.admin-box{background:white;border-radius:20px;width:100%;max-width:480px;margin:auto;box-shadow:0 20px 60px rgba(0,0,0,0.4);}
+.admin-hd{background:var(--dark);padding:16px 18px;border-radius:20px 20px 0 0;display:flex;align-items:center;justify-content:space-between;}
+.admin-hd h3{font-family:'Baloo 2',cursive;font-size:17px;font-weight:900;color:var(--yellow);}
+.admin-cl{background:none;border:none;color:white;font-size:20px;cursor:pointer;}
+.admin-body{padding:18px;}
+.admin-login{text-align:center;}
+.admin-login h4{font-family:'Baloo 2',cursive;font-size:19px;font-weight:900;color:var(--dark);margin-bottom:6px;}
+.admin-login p{font-size:13px;color:#888;margin-bottom:14px;}
+.pw-input{width:100%;padding:11px 14px;border:2px solid #e0d0c0;border-radius:12px;font-size:14px;font-family:'Hind',sans-serif;outline:none;margin-bottom:10px;}
+.pw-input:focus{border-color:var(--orange);}
+.pw-btn{width:100%;background:var(--red);color:white;border:none;padding:11px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;}
+.pw-err{color:var(--red);font-size:13px;margin-top:6px;display:none;}
+.admin-panel{display:none;}
+.admin-tabs{display:flex;gap:6px;margin-bottom:16px;}
+.atab{flex:1;padding:9px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;border:2px solid #e0d0c0;background:white;color:var(--dark);transition:all 0.2s;}
+.atab.active{background:var(--red);border-color:var(--red);color:white;}
+.admin-section{display:none;}
+.admin-section.active{display:block;}
+.admin-section h4{font-family:'Baloo 2',cursive;font-size:15px;font-weight:900;color:var(--dark);margin-bottom:12px;padding-bottom:7px;border-bottom:2px solid var(--light);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;}
+.form-row.full{grid-template-columns:1fr;}
+.form-group{display:flex;flex-direction:column;gap:3px;}
+.form-group label{font-size:10px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;}
+.form-group input,.form-group select{padding:8px 11px;border:2px solid #e0d0c0;border-radius:9px;font-size:13px;font-family:'Hind',sans-serif;outline:none;}
+.form-group input:focus,.form-group select:focus{border-color:var(--orange);}
+.add-prod-btn{width:100%;background:linear-gradient(135deg,var(--green),#0d9e50);color:white;border:none;padding:11px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;margin-top:4px;}
+.succ{background:#d4edda;border:1px solid #28a745;color:#155724;border-radius:9px;padding:9px 13px;font-size:12px;font-weight:600;margin-top:8px;display:none;}
+.admin-search{width:100%;padding:8px 12px;border:2px solid #e0d0c0;border-radius:9px;font-size:13px;font-family:'Hind',sans-serif;outline:none;margin-bottom:10px;}
+.admin-search:focus{border-color:var(--orange);}
+.prod-list{max-height:340px;overflow-y:auto;}
+.pl-item{display:flex;align-items:center;justify-content:space-between;padding:9px 10px;background:var(--light);border-radius:9px;margin-bottom:7px;}
+.pl-info{display:flex;align-items:center;gap:8px;flex:1;min-width:0;}
+.pl-em{font-size:18px;flex-shrink:0;}
+.pl-name{font-size:12px;font-weight:700;color:var(--dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pl-det{font-size:10px;color:#aaa;}
+.pl-btns{display:flex;gap:5px;flex-shrink:0;}
+.pl-btn{border-radius:7px;padding:5px 9px;font-size:11px;font-weight:700;cursor:pointer;border:1.5px solid;}
+.pl-edit{background:#fff3e0;border-color:var(--orange);color:var(--orange);}
+.pl-del{background:#fff0f0;border-color:var(--red);color:var(--red);}
+.pl-hide{background:#fff0f0;border-color:var(--red);color:var(--red);}
+.pl-show{background:#e8f5e9;border-color:var(--green);color:var(--green);}
+.edit-box{background:#fff9f0;border:2px solid var(--orange);border-radius:12px;padding:14px;margin-top:10px;display:none;}
+.edit-box h4{font-family:'Baloo 2',cursive;font-size:14px;font-weight:900;color:var(--dark);margin-bottom:10px;}
+.edit-actions{display:flex;gap:7px;margin-top:8px;}
+.edit-save{flex:1;background:var(--green);color:white;border:none;padding:9px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;}
+.edit-cancel{flex:1;background:#eee;color:#666;border:none;padding:9px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;}
+
+/* SPECIAL */
+.custom-o{background:linear-gradient(135deg,#1a0505,#3d0a00);padding:26px 5%;text-align:center;}
+.custom-o h3{font-family:'Baloo 2',cursive;font-size:19px;font-weight:900;color:var(--yellow);margin-bottom:8px;}
+.custom-o p{font-size:13px;color:rgba(255,255,255,0.75);margin-bottom:12px;line-height:1.5;}
+.custom-o a{background:linear-gradient(135deg,#25d366,#128c52);color:white;text-decoration:none;padding:10px 24px;border-radius:50px;font-size:13px;font-weight:700;display:inline-block;}
+.sp-sec{background:linear-gradient(135deg,#fff0f5,#fff9f0);padding:55px 5%;}
+.sp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px;max-width:840px;margin-top:20px;}
+.sp-card{background:white;border-radius:16px;padding:20px;box-shadow:0 4px 20px rgba(0,0,0,0.08);}
+.sp-card.cake{border-left:5px solid #e91e8c;}
+.sp-card.deco{border-left:5px solid var(--orange);}
+.sp-card h3{font-family:'Baloo 2',cursive;font-size:17px;font-weight:900;color:var(--dark);margin:8px 0 5px;}
+.sp-card p{font-size:12px;color:#777;line-height:1.6;margin-bottom:9px;}
+.sp-tag{border-radius:9px;padding:5px 11px;font-size:11px;font-weight:700;margin-bottom:11px;display:block;}
+.cake .sp-tag{background:#fff0f7;color:#e91e8c;}
+.deco .sp-tag{background:#fff3e0;color:var(--orange);}
+.sp-card a{display:block;text-align:center;color:white;text-decoration:none;padding:9px;border-radius:9px;font-size:13px;font-weight:700;}
+.cake a{background:#e91e8c;}.deco a{background:var(--orange);}
+
+.why-sec{background:var(--light);}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:13px;max-width:840px;margin-top:18px;}
+.wc{background:white;border-radius:13px;padding:18px 13px;border-bottom:4px solid var(--orange);box-shadow:0 4px 18px rgba(0,0,0,0.06);transition:transform 0.2s;}
+.wc:hover{transform:translateY(-4px);}
+.wi{font-size:26px;margin-bottom:8px;}.wt{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:3px;}.wd{font-size:11px;color:#777;line-height:1.5;}
+
+.contact-sec{background:white;}
+.ci{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start;max-width:840px;}
+@media(max-width:700px){.ci{grid-template-columns:1fr;gap:24px;}}
+.cc-cards{display:flex;flex-direction:column;gap:11px;}
+.cc{display:flex;align-items:center;gap:13px;background:var(--light);border-radius:13px;padding:13px 14px;text-decoration:none;color:var(--dark);border:2px solid transparent;transition:all 0.2s;}
 .cc:hover{border-color:var(--orange);transform:translateX(4px);}
-.cc-icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
-.cc-ph .cc-icon{background:#fff0e0;} .cc-em .cc-icon{background:#e8f4ff;} .cc-ad .cc-icon{background:#fff0f0;}
-.cc-lbl{font-size:10px;font-weight:700;color:#bbb;letter-spacing:1px;text-transform:uppercase;}
-.cc-val{font-size:14px;font-weight:700;margin-top:2px;}
-.map-box{border-radius:18px;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,0.12);border:3px solid var(--orange);height:300px;}
+.cc-ic{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.ph .cc-ic{background:#fff0e0;}.em .cc-ic{background:#e8f4ff;}.ad .cc-ic{background:#fff0f0;}
+.cc-lb{font-size:10px;font-weight:700;color:#bbb;letter-spacing:1px;text-transform:uppercase;}
+.cc-vl{font-size:13px;font-weight:700;margin-top:2px;}
+.map-box{border-radius:15px;overflow:hidden;box-shadow:0 8px 28px rgba(0,0,0,0.12);border:3px solid var(--orange);height:260px;}
 .map-box iframe{width:100%;height:100%;border:none;display:block;}
 
-/* FOOTER */
-footer{background:var(--dark);color:white;text-align:center;padding:36px 5%;}
-.f-logo{font-family:'Baloo 2',cursive;font-size:32px;font-weight:900;color:var(--yellow);margin-bottom:4px;}
-.f-logo span{color:var(--orange);}
-.f-tag{font-size:13px;color:rgba(255,255,255,0.45);margin-bottom:18px;}
-.f-links{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:18px;}
-.f-links a{color:rgba(255,255,255,0.55);text-decoration:none;font-size:13px;font-weight:600;transition:color 0.2s;}
-.f-links a:hover{color:var(--yellow);}
-.f-div{width:50px;height:2px;background:var(--red);margin:0 auto 14px;border-radius:2px;}
-.f-copy{font-size:11px;color:rgba(255,255,255,0.25);}
-
-/* WA FLOAT */
-.wa{position:fixed;bottom:22px;right:22px;z-index:998;width:56px;height:56px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(37,211,102,0.5);text-decoration:none;font-size:26px;animation:wapulse 2.5s infinite;}
-@keyframes wapulse{0%,100%{box-shadow:0 6px 22px rgba(37,211,102,0.5)}50%{box-shadow:0 6px 34px rgba(37,211,102,0.85)}}
-
-.reveal{opacity:0;transform:translateY(28px);transition:opacity 0.6s ease,transform 0.6s ease;}
-.reveal.visible{opacity:1;transform:translateY(0);}
+footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
+.fl{font-family:'Baloo 2',cursive;font-size:26px;font-weight:900;color:var(--yellow);margin-bottom:4px;}
+.fl span{color:var(--orange);}
+.ft{font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:13px;}
+.flinks{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:13px;}
+.flinks a{color:rgba(255,255,255,0.55);text-decoration:none;font-size:12px;font-weight:600;}
+.flinks a:hover{color:var(--yellow);}
+.fdiv{width:50px;height:2px;background:var(--red);margin:0 auto 11px;border-radius:2px;}
+.fcp{font-size:11px;color:rgba(255,255,255,0.25);}
+.waf{position:fixed;bottom:20px;right:20px;z-index:998;width:50px;height:50px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 22px rgba(37,211,102,0.5);text-decoration:none;font-size:22px;}
 </style>
 </head>
 <body>
 
-<!-- WA Float -->
-<a href="https://wa.me/918957799335" class="wa" target="_blank">💬</a>
+<a href="https://wa.me/918957799335" class="waf" target="_blank">💬</a>
 
-<!-- Cart Overlay -->
-<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-<div class="cart-sidebar" id="cartSidebar">
-  <div class="cart-header">
-    <h3>🛒 Aapka Cart</h3>
-    <button class="cart-close" onclick="toggleCart()">✕</button>
+<!-- CART -->
+<div class="cart-ov" id="cov" onclick="toggleCart()"></div>
+<div class="cart-sd" id="csd">
+  <div class="c-hd"><h3>🛒 Aapka Cart</h3><button class="c-cl" onclick="toggleCart()">✕</button></div>
+  <div class="c-bd" id="cbd"><div class="c-emp"><span>🛒</span><p>Cart khali hai!<br>Kuch items add karo 😊</p></div></div>
+  <div class="c-ft" id="cft" style="display:none">
+    <div class="cr"><span>Subtotal</span><span id="csub">₹0</span></div>
+    <div class="cr pts"><span>🌟 Points milenge</span><span id="cpts">0 pts</span></div>
+    <div class="cr tot"><span>Total</span><span id="ctot">₹0</span></div>
+    <button class="wa-ob" onclick="orderWA()">💬 WhatsApp pe Order Karo</button>
   </div>
-  <div class="cart-body" id="cartBody">
-    <div class="cart-empty">
-      <span class="ce-icon">🛒</span>
-      <p>Cart khali hai!<br>Kuch items add karo 😊</p>
+</div>
+
+<!-- ADMIN MODAL -->
+<div class="admin-modal" id="adminModal">
+  <div class="admin-box">
+    <div class="admin-hd"><h3>⚙️ Admin Panel</h3><button class="admin-cl" onclick="closeAdmin()">✕</button></div>
+    <div class="admin-body">
+
+      <!-- LOGIN -->
+      <div class="admin-login" id="adminLogin">
+        <h4>🔐 Admin Login</h4>
+        <p>Budget Bazar Admin Panel</p>
+        <input type="password" class="pw-input" id="pwInput" placeholder="Password daalo..." onkeypress="if(event.key==='Enter')checkPw()">
+        <button class="pw-btn" onclick="checkPw()">Login karein</button>
+        <div class="pw-err" id="pwErr">❌ Galat password!</div>
+      </div>
+
+      <!-- PANEL -->
+      <div class="admin-panel" id="adminPanel">
+        <div class="admin-tabs">
+          <button class="atab active" id="tab1" onclick="switchTab(1)">➕ Add Product</button>
+          <button class="atab" id="tab2" onclick="switchTab(2)">📦 My Products</button>
+          <button class="atab" id="tab3" onclick="switchTab(3)">✏️ Edit All</button>
+        </div>
+
+        <!-- TAB 1: ADD -->
+        <div class="admin-section active" id="sec1">
+          <h4>➕ Naya Product Add Karo</h4>
+          <div class="form-row">
+            <div class="form-group"><label>Emoji</label><input type="text" id="fEmoji" placeholder="🍪" maxlength="2"></div>
+            <div class="form-group"><label>Category</label>
+              <select id="fCat">
+                <option value="daily">🧴 Daily Use</option>
+                <option value="biscuit">🍪 Biscuits & Snacks</option>
+                <option value="drink">🥤 Cold Drinks</option>
+                <option value="grocery">🌾 Grocery</option>
+                <option value="decor">🎈 Decoration</option>
+                <option value="cake">🎂 Cakes</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row full"><div class="form-group"><label>Product Name</label><input type="text" id="fName" placeholder="jaise: Parle-G Biscuit"></div></div>
+          <div class="form-row">
+            <div class="form-group"><label>Detail (size/qty)</label><input type="text" id="fDetail" placeholder="100g ya 1 pc"></div>
+            <div class="form-group"><label>Price ₹ (0=WhatsApp)</label><input type="number" id="fPrice" placeholder="0" min="0"></div>
+          </div>
+          <button class="add-prod-btn" onclick="addProduct()">✅ Product Add Karo</button>
+          <div class="succ" id="successMsg">✅ Product successfully add ho gaya!</div>
+        </div>
+
+        <!-- TAB 2: MY CUSTOM PRODUCTS -->
+        <div class="admin-section" id="sec2">
+          <h4>📦 Mere Added Products (<span id="customCount">0</span>)</h4>
+          <div class="prod-list" id="customList"><p style="color:#aaa;font-size:13px;text-align:center;padding:20px">Abhi koi custom product nahi hai.</p></div>
+          <button onclick="clearAllCustom()" style="width:100%;background:#fff0f0;color:var(--red);border:2px solid #ffd0d0;border-radius:9px;padding:9px;font-size:12px;font-weight:700;cursor:pointer;margin-top:10px;font-family:'Hind',sans-serif;">🗑️ Sab Custom Products Hatao</button>
+        </div>
+
+        <!-- TAB 3: EDIT ALL -->
+        <div class="admin-section" id="sec3">
+          <h4>✏️ Sab Products Edit / Hide</h4>
+          <input type="text" class="admin-search" id="adminSearch" placeholder="🔍 Search product..." oninput="renderAllList()">
+          <div class="prod-list" id="allList"></div>
+
+          <!-- EDIT FORM -->
+          <div class="edit-box" id="editBox">
+            <h4>✏️ Product Edit Karo</h4>
+            <input type="hidden" id="editId">
+            <input type="hidden" id="editType">
+            <div class="form-row">
+              <div class="form-group"><label>Emoji</label><input type="text" id="eEmoji" maxlength="2"></div>
+              <div class="form-group"><label>Category</label>
+                <select id="eCat">
+                  <option value="daily">🧴 Daily Use</option>
+                  <option value="biscuit">🍪 Biscuits</option>
+                  <option value="drink">🥤 Cold Drinks</option>
+                  <option value="grocery">🌾 Grocery</option>
+                  <option value="decor">🎈 Decoration</option>
+                  <option value="cake">🎂 Cakes</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row full"><div class="form-group"><label>Name</label><input type="text" id="eName"></div></div>
+            <div class="form-row">
+              <div class="form-group"><label>Detail</label><input type="text" id="eDetail"></div>
+              <div class="form-group"><label>Price (0=WhatsApp)</label><input type="number" id="ePrice" min="0"></div>
+            </div>
+            <div class="edit-actions">
+              <button class="edit-save" onclick="saveEdit()">✅ Save</button>
+              <button class="edit-cancel" onclick="closeEdit()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="cart-footer" id="cartFooter" style="display:none">
-    <div class="cart-summary">
-      <div class="cart-row"><span>Subtotal</span><span id="subtotalVal">₹0</span></div>
-      <div class="cart-row points"><span>🌟 Points milenge</span><span id="pointsVal">0 pts</span></div>
-      <div class="cart-row total"><span>Total</span><span id="totalVal">₹0</span></div>
-    </div>
-    <button class="wa-order-btn" onclick="orderOnWhatsApp()">
-      <span>💬</span> WhatsApp pe Order karo
-    </button>
   </div>
 </div>
 
@@ -202,405 +323,552 @@ footer{background:var(--dark);color:white;text-align:center;padding:36px 5%;}
   <ul class="nav-links">
     <li><a href="#products">Products</a></li>
     <li><a href="#points">Points</a></li>
-    <li><a href="#why">Why Us</a></li>
+    <li><a href="#special">Special</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <button class="nav-cart" onclick="toggleCart()">🛒 Cart <span class="cart-count" id="cartCount">0</span></button>
+  <div class="nav-right">
+    <button class="nav-admin" onclick="openAdmin()">⚙️ Admin</button>
+    <button class="nav-cart" onclick="toggleCart()">🛒 Cart <span class="cbadge" id="ccount">0</span></button>
+  </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="c c1"></div><div class="c c2"></div><div class="c c3"></div>
   <div class="hero-badge">✦ Raebareli का अपना दुकान ✦</div>
   <h1 class="hero-title">Budget<span class="hl">Bazar</span></h1>
   <p class="hero-tagline">आपकी ज़रूरत, हमारी दुकान — <span>सस्ते दाम, असली सामान</span></p>
-  <div class="notice-box">
-    📦 <strong>जो सामान यहाँ नहीं दिख रहा</strong> — जैसे Atta, Chini, Tel, Chips, Namkeen — उसके लिए <strong>WhatsApp पर message करें!</strong> Rate तुरंत मिलेगा। <br>⚠️ जिन items पर price नहीं लिखी — उनका rate भी WhatsApp पर पूछें।
-  </div>
+  <div class="notice-box">📦 <strong>जो सामान यहाँ नहीं दिख रहा</strong> — Atta, Chini, Tel — <strong>WhatsApp पर message करें!</strong> Rate तुरंत मिलेगा।</div>
   <div class="hero-btns">
     <a href="#products" class="btn-p">🛍️ Products देखें</a>
     <a href="https://wa.me/918957799335" target="_blank" class="btn-s">💬 WhatsApp करें</a>
   </div>
-  <div class="scroll-ind">↓</div>
 </section>
 
-<!-- POINTS BANNER -->
-<div class="points-banner" id="points">
+<!-- POINTS -->
+<div class="pts-bar" id="points">
   <h3>🌟 Budget Bazar Points System</h3>
-  <p style="font-size:14px;opacity:0.9">हर खरीदारी पर points कमाओ — बाद में discount पाओ!</p>
-  <div class="points-grid">
-    <div class="point-item">🛒 ₹25 की खरीदारी = <strong>1 Point</strong></div>
-    <div class="point-item">💰 1 Point = <strong>₹1 की बचत</strong></div>
-    <div class="point-item">📞 Points redeem करने के लिए <strong>WhatsApp करें</strong></div>
+  <p style="font-size:13px;opacity:0.9">हर खरीदारी पर points कमाओ — बाद में discount पाओ!</p>
+  <div class="pts-grid">
+    <div class="pts-item">🛒 ₹25 = <strong>1 Point</strong></div>
+    <div class="pts-item">💰 1 Point = <strong>₹1 बचत</strong></div>
+    <div class="pts-item">📞 Redeem: <strong>WhatsApp करें</strong></div>
   </div>
 </div>
 
 <!-- PRODUCTS -->
-<section class="products-section" id="products">
-  <div class="reveal">
-    <div class="sec-label">🛒 Products</div>
-    <h2 class="sec-heading">हमारा <span class="ac">सामान</span></h2>
-    <p class="sec-sub">सब कुछ एक जगह — daily use items, snacks, biscuits, cold drinks और बहुत कुछ!</p>
+<section class="prod-sec" id="products">
+  <div class="sec-lbl">🛒 Products</div>
+  <h2 class="sec-h" style="margin-top:8px">हमारा <span class="ac">सामान</span></h2>
+  <p class="sec-p">Daily use, snacks, biscuits, cold drinks, cakes और बहुत कुछ!</p>
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" class="search-bar" id="searchBar" placeholder="Search karo... Maggi, Pepsi, Soap" oninput="onSearch()">
+    <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
   </div>
-
-  <div class="unlisted-notice reveal">
-    <div class="icon">📦</div>
-    <p>यहाँ <strong>Atta, Chini, Tel, Chips, Kurkure, Namkeen</strong> और बाकी सामान भी मिलता है! जो item यहाँ नहीं दिख रही या जिस पर price नहीं है — <a href="https://wa.me/918957799335" target="_blank">WhatsApp पर message करें</a> — rate तुरंत मिलेगा! 🚀</p>
+  <div class="notice-y">
+    <span style="font-size:22px;flex-shrink:0">📦</span>
+    <p>यहाँ <strong>Atta, Chini, Tel, Chips, Kurkure</strong> और बाकी सामान भी मिलता है! जो item नहीं दिख रही — <a href="https://wa.me/918957799335" target="_blank">WhatsApp करें</a>!</p>
   </div>
-
-  <!-- Category Tabs -->
-  <div class="cat-tabs reveal">
-    <button class="cat-tab active" onclick="filterCat('all',this)">🏪 सब कुछ</button>
-    <button class="cat-tab" onclick="filterCat('dairy',this)">🧴 Daily Use</button>
-    <button class="cat-tab" onclick="filterCat('biscuit',this)">🍪 Biscuits & Snacks</button>
-    <button class="cat-tab" onclick="filterCat('drink',this)">🥤 Cold Drinks</button>
+  <div class="cat-tabs" id="catTabs">
+    <button class="cat-tab active" onclick="filterCat('all',this)">🏪 सब</button>
+    <button class="cat-tab" onclick="filterCat('daily',this)">🧴 Daily Use</button>
+    <button class="cat-tab" onclick="filterCat('biscuit',this)">🍪 Biscuits</button>
+    <button class="cat-tab" onclick="filterCat('drink',this)">🥤 Drinks</button>
     <button class="cat-tab" onclick="filterCat('grocery',this)">🌾 Grocery</button>
     <button class="cat-tab" onclick="filterCat('decor',this)">🎈 Decoration</button>
     <button class="cat-tab" onclick="filterCat('cake',this)">🎂 Cakes</button>
   </div>
-
-  <div class="products-grid" id="productsGrid"></div>
+  <div class="pgrid" id="pgrid"></div>
 </section>
 
-<!-- CUSTOM ORDER BANNER -->
-<div style="background:linear-gradient(135deg,#1a0505,#3d0a00);padding:28px 5%;text-align:center;">
-  <div style="max-width:600px;margin:0 auto;">
-    <div style="font-size:28px;margin-bottom:8px;">📦</div>
-    <h3 style="font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;color:var(--yellow);margin-bottom:8px;">Kuch aur chahiye? Hum deliver karenge!</h3>
-    <p style="font-size:14px;color:rgba(255,255,255,0.75);margin-bottom:16px;line-height:1.6;">Jo item website pe nahi dikh rahi — jaise Atta, Chini, Tel, ya koi bhi item — <strong style="color:var(--orange)">WhatsApp pe message karein!</strong> Hum deliver karenge aapke paas! 🚀</p>
-    <a href="https://wa.me/918957799335?text=Namaste!%20Mujhe%20kuch%20items%20order%20karne%20hain%20jo%20website%20pe%20nahi%20hain." target="_blank" style="background:linear-gradient(135deg,#25d366,#128c52);color:white;text-decoration:none;padding:12px 28px;border-radius:50px;font-size:14px;font-weight:700;display:inline-block;">💬 WhatsApp pe Order Karein</a>
-  </div>
+<!-- CUSTOM ORDER -->
+<div class="custom-o">
+  <div style="font-size:24px;margin-bottom:8px">📦</div>
+  <h3>Kuch aur chahiye? Hum deliver karenge!</h3>
+  <p>Jo item website pe nahi dikh rahi — <strong style="color:var(--orange)">WhatsApp karein!</strong> Hum deliver karenge! 🚀</p>
+  <a href="https://wa.me/918957799335?text=Namaste!%20Mujhe%20kuch%20items%20order%20karne%20hain." target="_blank">💬 WhatsApp pe Order Karein</a>
 </div>
 
-<!-- CAKE & DECORATION SECTION -->
-<div style="background:linear-gradient(135deg,#fff0f5,#fff9f0);padding:60px 5%;">
-  <div style="max-width:860px;">
-    <div style="margin-bottom:40px;">
-      <span style="display:inline-block;background:#e91e8c;color:white;font-size:10px;font-weight:700;padding:4px 14px;border-radius:20px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;">🎂 Special Services</span>
-      <h2 style="font-family:'Baloo 2',cursive;font-size:clamp(24px,4vw,38px);font-weight:900;color:var(--dark);margin-bottom:6px;">Birthday & Anniversary <span style="color:#e91e8c;">Special!</span></h2>
-      <p style="font-size:14px;color:#666;max-width:500px;line-height:1.6;">Cake aur decoration — dono ek hi jagah! Sirf WhatsApp pe message karein, baaki hum sambhal lenge! 🎉</p>
+<!-- CAKE & DECOR -->
+<div class="sp-sec" id="special">
+  <div class="sec-lbl" style="background:#e91e8c">🎂 Special Services</div>
+  <h2 class="sec-h" style="margin-top:8px">Birthday &amp; Anniversary <span style="color:#e91e8c">Special!</span></h2>
+  <p class="sec-p">Cake aur decoration — dono ek hi jagah! 🎉</p>
+  <div class="sp-grid">
+    <div class="sp-card cake">
+      <div style="font-size:34px">🎂</div>
+      <h3>Custom Cakes</h3>
+      <p>Chocolate, Vanilla, Butterscotch, Strawberry — <strong>aapki design pe!</strong> 1-2 ghante mein deliver!</p>
+      <span class="sp-tag">✨ Kam rate | Aapki design | 1-2 Ghante</span>
+      <a href="https://wa.me/918957799335?text=Namaste!%20Mujhe%20ek%20custom%20cake%20order%20karni%20hai." target="_blank">💬 Cake Order Karein</a>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
-      <div style="background:white;border-radius:20px;padding:24px;border-left:5px solid #e91e8c;box-shadow:0 4px 20px rgba(0,0,0,0.08);">
-        <div style="font-size:40px;margin-bottom:12px;">🎂</div>
-        <h3 style="font-family:'Baloo 2',cursive;font-size:20px;font-weight:900;color:var(--dark);margin-bottom:6px;">Custom Cakes</h3>
-        <p style="font-size:13px;color:#777;line-height:1.6;margin-bottom:14px;">Har flavour available — Chocolate, Vanilla, Butterscotch, Strawberry aur bhi! <strong>Aapki design pe bana denge</strong> — sirf 1-2 ghante mein deliver!</p>
-        <div style="background:#fff0f7;border-radius:10px;padding:8px 12px;font-size:12px;color:#e91e8c;font-weight:700;">✨ Kam rate pe | Aapki design | 1-2 Ghante Delivery</div>
-        <a href="https://wa.me/918957799335?text=Namaste!%20Mujhe%20ek%20custom%20cake%20order%20karni%20hai." target="_blank" style="display:block;text-align:center;background:#e91e8c;color:white;text-decoration:none;padding:10px;border-radius:10px;font-size:13px;font-weight:700;margin-top:14px;">💬 Cake Order Karein</a>
-      </div>
-      <div style="background:white;border-radius:20px;padding:24px;border-left:5px solid var(--orange);box-shadow:0 4px 20px rgba(0,0,0,0.08);">
-        <div style="font-size:40px;margin-bottom:12px;">🎈</div>
-        <h3 style="font-family:'Baloo 2',cursive;font-size:20px;font-weight:900;color:var(--dark);margin-bottom:6px;">Party Decoration</h3>
-        <p style="font-size:13px;color:#777;line-height:1.6;margin-bottom:14px;">Birthday, Anniversary, Baby Shower — <strong>sab occasion ke liye decoration items!</strong> Balloons, banners, candles, confetti — sab milega!</p>
-        <div style="background:#fff3e0;border-radius:10px;padding:8px 12px;font-size:12px;color:var(--orange);font-weight:700;">🎊 Balloons | Banners | Candles | Full Kits</div>
-        <a href="https://wa.me/918957799335?text=Namaste!%20Mujhe%20party%20decoration%20items%20chahiye." target="_blank" style="display:block;text-align:center;background:var(--orange);color:white;text-decoration:none;padding:10px;border-radius:10px;font-size:13px;font-weight:700;margin-top:14px;">💬 Decoration Order Karein</a>
-      </div>
+    <div class="sp-card deco">
+      <div style="font-size:34px">🎈</div>
+      <h3>Party Decoration</h3>
+      <p>Birthday, Anniversary, Baby Shower — <strong>sab ke liye!</strong> Balloons, banners, candles — sab milega!</p>
+      <span class="sp-tag">🎊 Balloons | Banners | Candles | Full Kits</span>
+      <a href="https://wa.me/918957799335?text=Namaste!%20Mujhe%20party%20decoration%20chahiye." target="_blank">💬 Decoration Order Karein</a>
     </div>
   </div>
 </div>
 
 <!-- WHY US -->
-<section class="why-section" id="why">
-  <div class="reveal">
-    <div class="sec-label">💎 Why Us</div>
-    <h2 class="sec-heading">Budget Bazar क्यों <span class="ac">सबसे बेहतर?</span></h2>
-  </div>
-  <div class="why-grid reveal">
-    <div class="why-card"><div class="why-icon">💰</div><div class="why-title">सस्ते दाम</div><div class="why-desc">हर item पर best price — कोई hidden charge नहीं।</div></div>
-    <div class="why-card"><div class="why-icon">🌟</div><div class="why-title">Points System</div><div class="why-desc">₹25 खर्च करो, 1 point पाओ — points से discount मिलेगा!</div></div>
-    <div class="why-card"><div class="why-icon">💬</div><div class="why-title">WhatsApp Order</div><div class="why-desc">Cart भरो और सीधे WhatsApp पर order करो — आसान!</div></div>
-    <div class="why-card"><div class="why-icon">📦</div><div class="why-title">सब एक जगह</div><div class="why-desc">Grocery से snacks तक — सब कुछ Budget Bazar में!</div></div>
+<section class="why-sec" id="why">
+  <div class="sec-lbl">💎 Why Us</div>
+  <h2 class="sec-h" style="margin-top:8px">Budget Bazar क्यों <span class="ac">सबसे बेहतर?</span></h2>
+  <div class="why-grid">
+    <div class="wc"><div class="wi">💰</div><div class="wt">सस्ते दाम</div><div class="wd">हर item पर best price — कोई hidden charge नहीं।</div></div>
+    <div class="wc"><div class="wi">🌟</div><div class="wt">Points System</div><div class="wd">₹25 खर्च करो, 1 point पाओ — बाद में discount!</div></div>
+    <div class="wc"><div class="wi">💬</div><div class="wt">WhatsApp Order</div><div class="wd">Cart भरो और सीधे WhatsApp पर order करो!</div></div>
+    <div class="wc"><div class="wi">🚀</div><div class="wt">Home Delivery</div><div class="wd">Jo item nahi dikh rahi — WhatsApp karo, deliver ho jayega!</div></div>
   </div>
 </section>
 
 <!-- CONTACT -->
-<section class="contact-section" id="contact">
-  <div class="contact-inner">
+<section class="contact-sec" id="contact">
+  <div class="ci">
     <div>
-      <div class="reveal">
-        <div class="sec-label">📞 Contact</div>
-        <h2 class="sec-heading">हमसे <span class="ac">मिलें!</span></h2>
-        <p class="sec-sub">कोई भी सवाल हो — WhatsApp, call या visit करें!</p>
-      </div>
-      <div class="contact-cards reveal">
-        <a href="tel:+918957799335" class="cc cc-ph">
-          <div class="cc-icon">📞</div>
-          <div><div class="cc-lbl">Call / WhatsApp</div><div class="cc-val">+91 89577 99335</div></div>
-        </a>
-        <a href="/cdn-cgi/l/email-protection#3d59584b4e4f544b5c4e495c4b5c0a0a0a0a7d5a505c5451135e5250" class="cc cc-em">
-          <div class="cc-icon">📧</div>
-          <div><div class="cc-lbl">Email</div><div class="cc-val" style="font-size:12px"><span class="__cf_email__" data-cfemail="3f5b5a494c4d56495e4c4b5e495e080808087f58525e5653115c5052">[email&#160;protected]</span></div></div>
-        </a>
-        <div class="cc cc-ad" style="cursor:default">
-          <div class="cc-icon">📍</div>
-          <div><div class="cc-lbl">Shop Address</div><div class="cc-val" style="font-size:12px;line-height:1.5">Tripula Chauraha, Vijay Nagar<br>Maharaj Ganj Road, Near NSPS School<br>Raebareli — 229001</div></div>
-        </div>
+      <div class="sec-lbl">📞 Contact</div>
+      <h2 class="sec-h" style="margin-top:8px">हमसे <span class="ac">मिलें!</span></h2>
+      <p class="sec-p">कोई भी सवाल हो — WhatsApp, call या visit करें!</p>
+      <div class="cc-cards">
+        <a href="tel:+918957799335" class="cc ph"><div class="cc-ic">📞</div><div><div class="cc-lb">Call / WhatsApp</div><div class="cc-vl">+91 89577 99335</div></div></a>
+        <a href="mailto:devsrivastava7777@gmail.com" class="cc em"><div class="cc-ic">📧</div><div><div class="cc-lb">Email</div><div class="cc-vl" style="font-size:11px">devsrivastava7777@gmail.com</div></div></a>
+        <div class="cc ad" style="cursor:default"><div class="cc-ic">📍</div><div><div class="cc-lb">Shop Address</div><div class="cc-vl" style="font-size:11px;line-height:1.5">Tripula Chauraha, Vijay Nagar<br>Maharaj Ganj Road, Near NSPS School<br>Raebareli — 229001</div></div></div>
       </div>
     </div>
-    <div class="reveal">
-      <div class="map-box">
-        <iframe src="https://maps.google.com/maps?q=Raebareli+Vijay+Nagar+229001+UP&output=embed" allowfullscreen loading="lazy"></iframe>
-      </div>
-      <p style="text-align:center;margin-top:8px;font-size:11px;color:#aaa">📍 Tripula Chauraha, Vijay Nagar, Raebareli</p>
+    <div>
+      <div class="map-box"><iframe src="https://maps.google.com/maps?q=Raebareli+Vijay+Nagar+229001+UP&output=embed" allowfullscreen loading="lazy"></iframe></div>
+      <p style="text-align:center;margin-top:7px;font-size:11px;color:#aaa">📍 Tripula Chauraha, Vijay Nagar, Raebareli</p>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <div class="f-logo">Budget<span>Bazar</span></div>
-  <div class="f-tag">आपकी ज़रूरत, हमारी दुकान — Raebareli, UP</div>
-  <div class="f-links">
-    <a href="#home">Home</a>
-    <a href="#products">Products</a>
-    <a href="#points">Points</a>
-    <a href="#contact">Contact</a>
-  </div>
-  <div class="f-div"></div>
-  <div class="f-copy">© 2025 Budget Bazar, Raebareli · Made with ❤️</div>
+  <div class="fl">Budget<span>Bazar</span></div>
+  <div class="ft">आपकी ज़रूरत, हमारी दुकान — Raebareli, UP</div>
+  <div class="flinks"><a href="#home">Home</a><a href="#products">Products</a><a href="#points">Points</a><a href="#special">Special</a><a href="#contact">Contact</a></div>
+  <div class="fdiv"></div>
+  <div class="fcp">© 2025 Budget Bazar, Raebareli · Made with ❤️</div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// ── PRODUCTS DATA ──
-const products = [
-  // DAILY USE / DIARY
-  {id:1, cat:'dairy', emoji:'🪥', name:'Toothbrush (Oral B)', detail:'1 pc', price:20, ask:false},
-  {id:2, cat:'dairy', emoji:'🪥', name:'Toothbrush (Normal)', detail:'1 pc', price:15, ask:false},
-  {id:3, cat:'dairy', emoji:'🧼', name:'Lux / Lifebuoy / Pears / Santoor Soap', detail:'1 pc', price:10, ask:false},
-  {id:4, cat:'dairy', emoji:'🧺', name:'Surf Excel Powder', detail:'75g', price:10, ask:false},
-  {id:5, cat:'dairy', emoji:'🧺', name:'Surf Excel Powder', detail:'500g', price:70, ask:false},
-  {id:6, cat:'dairy', emoji:'🧺', name:'Tide / Ghadi Powder', detail:'1kg', price:80, ask:false},
-  {id:7, cat:'dairy', emoji:'🔥', name:'Machis (Kisan)', detail:'10 units', price:10, ask:false},
-  {id:8, cat:'dairy', emoji:'🍪', name:'Jeera / Khas / Butter Kalonji Cookies', detail:'240g', price:35, ask:false},
-  {id:9, cat:'dairy', emoji:'🥖', name:'Bakery General', detail:'24 pcs', price:40, ask:false},
-  {id:10, cat:'dairy', emoji:'⚽', name:'Ball Rubber Red', detail:'1 pc', price:30, ask:false},
-  {id:11, cat:'dairy', emoji:'🍶', name:'Milton Bottle (Set of 6)', detail:'6 pcs', price:160, ask:false},
-  {id:12, cat:'dairy', emoji:'🥫', name:'Kisan Sauce', detail:'80g', price:10, ask:false},
-  {id:13, cat:'dairy', emoji:'🥫', name:'Kisan Sauce', detail:'432g', price:50, ask:false},
-  {id:14, cat:'dairy', emoji:'🍵', name:'Chai Channi', detail:'1 pc', price:20, ask:false},
-  {id:15, cat:'dairy', emoji:'🦷', name:'Cibaca Colgate', detail:'175g', price:68, ask:false},
-  {id:16, cat:'dairy', emoji:'🦷', name:'Patanjali Dant Kanti', detail:'100g', price:55, ask:false},
-  {id:17, cat:'dairy', emoji:'🦷', name:'Colgate / CloseUp', detail:'20g', price:10, ask:false},
-  {id:18, cat:'dairy', emoji:'🦷', name:'Colgate / CloseUp', detail:'45g', price:20, ask:false},
-  {id:19, cat:'dairy', emoji:'🥜', name:'Namkeen (Good Quality)', detail:'400g', price:62, ask:false},
-  {id:20, cat:'dairy', emoji:'🍜', name:'Maggi', detail:'70g + 5g', price:15, ask:false},
-  {id:21, cat:'dairy', emoji:'🍶', name:'Steel Bottle', detail:'1 pc', price:100, ask:false},
-  {id:22, cat:'dairy', emoji:'🍵', name:'Taza Tea', detail:'33g', price:10, ask:false},
-  {id:23, cat:'dairy', emoji:'🍵', name:'Taza Tea', detail:'90g', price:25, ask:false},
-  {id:24, cat:'dairy', emoji:'🧂', name:'Tata Namak', detail:'1kg', price:28, ask:false},
-  {id:25, cat:'dairy', emoji:'🧂', name:'Sendha Namak', detail:'100g', price:20, ask:false},
-  {id:26, cat:'dairy', emoji:'🌶️', name:'Haldi / Dhaniya / Mircha / Masala', detail:'Small packs', price:10, ask:false},
-  {id:27, cat:'dairy', emoji:'🧄', name:'Ginger Garlic Paste', detail:'Small pack', price:5, ask:false},
-
-  // BISCUITS
-  {id:28, cat:'biscuit', emoji:'🍪', name:'Parle-G', detail:'Small pack', price:5, ask:false},
-  {id:29, cat:'biscuit', emoji:'🍪', name:'Parle-G', detail:'Big pack', price:10, ask:false},
-  {id:30, cat:'biscuit', emoji:'🍪', name:'Tiger Biscuit', detail:'1 pack', price:10, ask:false},
-  {id:31, cat:'biscuit', emoji:'🥥', name:'Coconut Biscuit', detail:'1 pack', price:10, ask:false},
-  {id:32, cat:'biscuit', emoji:'🍫', name:'Oreo', detail:'Small', price:10, ask:false},
-  {id:33, cat:'biscuit', emoji:'🍫', name:'Oreo', detail:'Big', price:20, ask:false},
-  {id:34, cat:'biscuit', emoji:'🍪', name:'Good Day', detail:'Small', price:10, ask:false},
-  {id:35, cat:'biscuit', emoji:'🍪', name:'Good Day', detail:'Big', price:20, ask:false},
-  {id:36, cat:'biscuit', emoji:'🍪', name:'Hide & Seek', detail:'1 pack', price:20, ask:false},
-  {id:37, cat:'biscuit', emoji:'🍫', name:'Bourbon', detail:'1 pack', price:20, ask:false},
-  {id:38, cat:'biscuit', emoji:'🍪', name:'Monaco', detail:'1 pack', price:10, ask:false},
-
-  // COLD DRINKS
-  {id:39, cat:'drink', emoji:'🥤', name:'Pepsi', detail:'250ml', price:20, ask:false},
-  {id:40, cat:'drink', emoji:'🥤', name:'Pepsi', detail:'600ml', price:40, ask:false},
-  {id:41, cat:'drink', emoji:'🥤', name:'Coca Cola', detail:'250ml', price:20, ask:false},
-  {id:42, cat:'drink', emoji:'🥤', name:'Coca Cola', detail:'600ml', price:40, ask:false},
-  {id:43, cat:'drink', emoji:'🟢', name:'Sprite', detail:'600ml', price:40, ask:false},
-  {id:44, cat:'drink', emoji:'🔵', name:'Limca', detail:'600ml', price:40, ask:false},
-  {id:45, cat:'drink', emoji:'⚫', name:'Thums Up', detail:'600ml', price:40, ask:false},
-  {id:46, cat:'drink', emoji:'🟠', name:'Maaza', detail:'250ml', price:20, ask:false},
-  {id:47, cat:'drink', emoji:'🟡', name:'Frooti', detail:'200ml', price:10, ask:false},
-  {id:48, cat:'drink', emoji:'⚡', name:'Sting', detail:'250ml', price:20, ask:false},
-  {id:49, cat:'drink', emoji:'🟩', name:'Mountain Dew', detail:'600ml', price:40, ask:false},
-  {id:50, cat:'drink', emoji:'🧃', name:'Real Juice', detail:'200ml', price:20, ask:false},
-
-  // GROCERY (price on whatsapp)
-  {id:51, cat:'grocery', emoji:'🌾', name:'Atta', detail:'Price on WhatsApp', price:0, ask:true},
-  {id:52, cat:'grocery', emoji:'🍬', name:'Chini (Sugar)', detail:'Price on WhatsApp', price:0, ask:true},
-  {id:53, cat:'grocery', emoji:'🍵', name:'Chai Patti', detail:'Price on WhatsApp', price:0, ask:true},
-  {id:54, cat:'grocery', emoji:'🫙', name:'Mustard Oil', detail:'Price on WhatsApp', price:0, ask:true},
-  {id:55, cat:'grocery', emoji:'🫙', name:'Refined Oil', detail:'Price on WhatsApp', price:0, ask:true},
-
-  // SNACKS - with price ₹10, cart enabled
-  {id:56, cat:'dairy', emoji:'🍟', name:'Lays Chips', detail:'₹10 pack', price:10, ask:false},
-  {id:57, cat:'dairy', emoji:'🌶️', name:'Kurkure', detail:'₹10 pack', price:10, ask:false},
-  {id:58, cat:'biscuit', emoji:'🍫', name:'Dairy Milk', detail:'₹10 wali', price:10, ask:false},
-  {id:59, cat:'biscuit', emoji:'⭐', name:'5 Star', detail:'₹10 wali', price:10, ask:false},
-  {id:60, cat:'biscuit', emoji:'⭐', name:'5 Star', detail:'₹5 wali', price:5, ask:false},
-  {id:61, cat:'biscuit', emoji:'🍫', name:'KitKat', detail:'₹10 wali', price:10, ask:false},
-
-  // DECORATION
-  {id:62, cat:'decor', emoji:'🎈', name:'Birthday Balloons (Pack)', detail:'20 pcs', price:0, ask:true},
-  {id:63, cat:'decor', emoji:'🎀', name:'Birthday Decoration Kit', detail:'Full set', price:0, ask:true},
-  {id:64, cat:'decor', emoji:'✨', name:'Anniversary Decoration', detail:'Full set', price:0, ask:true},
-  {id:65, cat:'decor', emoji:'🎉', name:'Banner / Backdrop', detail:'Custom design', price:0, ask:true},
-  {id:66, cat:'decor', emoji:'🕯️', name:'Number Candles', detail:'1-9 available', price:0, ask:true},
-  {id:67, cat:'decor', emoji:'🎊', name:'Party Popper / Confetti', detail:'Pack', price:0, ask:true},
-
-  // CAKES
-  {id:68, cat:'cake', emoji:'🎂', name:'Birthday Cake', detail:'1-2 ghante mein deliver', price:0, ask:true},
-  {id:69, cat:'cake', emoji:'🍰', name:'Anniversary Cake', detail:'Custom design available', price:0, ask:true},
-  {id:70, cat:'cake', emoji:'🎂', name:'Chocolate Cake', detail:'Aapki design pe bana', price:0, ask:true},
-  {id:71, cat:'cake', emoji:'🍰', name:'Vanilla Cake', detail:'Fresh & homemade', price:0, ask:true},
-  {id:72, cat:'cake', emoji:'🎂', name:'Butterscotch Cake', detail:'Kam rate mein', price:0, ask:true},
-  {id:73, cat:'cake', emoji:'🍓', name:'Strawberry / Fruit Cake', detail:'Seasonal flavours', price:0, ask:true},
+<script>
+// ══════════════════════════════════════════
+//  ALL STATIC PRODUCTS
+// ══════════════════════════════════════════
+var SP = [
+  {id:1,cat:'daily',emoji:'🪥',name:'Toothbrush Oral B',detail:'1 pc',price:20},
+  {id:2,cat:'daily',emoji:'🪥',name:'Toothbrush Normal',detail:'1 pc',price:15},
+  {id:3,cat:'daily',emoji:'🧼',name:'Soap (Lux/Lifebuoy/Pears/Santoor)',detail:'1 pc',price:10},
+  {id:4,cat:'daily',emoji:'🧺',name:'Surf Excel Powder',detail:'75g',price:10},
+  {id:5,cat:'daily',emoji:'🧺',name:'Surf Excel Powder',detail:'500g',price:70},
+  {id:6,cat:'daily',emoji:'🧺',name:'Tide / Ghadi Powder',detail:'1kg',price:80},
+  {id:7,cat:'daily',emoji:'🔥',name:'Machis (Kisan)',detail:'10 units',price:10},
+  {id:8,cat:'daily',emoji:'🍪',name:'Jeera/Khas/Kalonji Cookies',detail:'240g',price:35},
+  {id:9,cat:'daily',emoji:'🥖',name:'Bakery General',detail:'24 pcs',price:40},
+  {id:10,cat:'daily',emoji:'🍶',name:'Milton Bottle',detail:'Set of 6',price:160},
+  {id:11,cat:'daily',emoji:'🍶',name:'Steel Bottle',detail:'1 pc',price:100},
+  {id:12,cat:'daily',emoji:'🥫',name:'Kisan Sauce',detail:'80g',price:10},
+  {id:13,cat:'daily',emoji:'🥫',name:'Kisan Sauce',detail:'432g',price:50},
+  {id:14,cat:'daily',emoji:'🍵',name:'Chai Channi',detail:'1 pc',price:20},
+  {id:15,cat:'daily',emoji:'🦷',name:'Cibaca Colgate',detail:'175g',price:68},
+  {id:16,cat:'daily',emoji:'🦷',name:'Patanjali Dant Kanti',detail:'100g',price:55},
+  {id:17,cat:'daily',emoji:'🦷',name:'Colgate / CloseUp',detail:'20g',price:10},
+  {id:18,cat:'daily',emoji:'🦷',name:'Colgate / CloseUp',detail:'45g',price:20},
+  {id:19,cat:'daily',emoji:'🥜',name:'Namkeen Good Quality',detail:'400g',price:62},
+  {id:20,cat:'daily',emoji:'🍜',name:'Maggi',detail:'70g + 5g',price:15},
+  {id:21,cat:'daily',emoji:'🍵',name:'Taza Tea',detail:'33g',price:10},
+  {id:22,cat:'daily',emoji:'🍵',name:'Taza Tea',detail:'90g',price:25},
+  {id:23,cat:'daily',emoji:'🧂',name:'Tata Namak',detail:'1kg',price:28},
+  {id:24,cat:'daily',emoji:'🧂',name:'Sendha Namak',detail:'100g',price:20},
+  {id:25,cat:'daily',emoji:'🌶️',name:'Haldi/Dhaniya/Mircha/Masala',detail:'Small packs',price:10},
+  {id:26,cat:'daily',emoji:'🧄',name:'Ginger Garlic Paste',detail:'Small pack',price:5},
+  {id:27,cat:'daily',emoji:'🍟',name:'Lays Chips',detail:'₹10 pack',price:10},
+  {id:28,cat:'daily',emoji:'🌶️',name:'Kurkure',detail:'₹10 pack',price:10},
+  {id:30,cat:'biscuit',emoji:'🍪',name:'Parle-G',detail:'Small pack',price:5},
+  {id:31,cat:'biscuit',emoji:'🍪',name:'Parle-G',detail:'Big pack',price:10},
+  {id:32,cat:'biscuit',emoji:'🍪',name:'Tiger Biscuit',detail:'1 pack',price:10},
+  {id:33,cat:'biscuit',emoji:'🥥',name:'Coconut Biscuit',detail:'1 pack',price:10},
+  {id:34,cat:'biscuit',emoji:'🍫',name:'Oreo',detail:'Small',price:10},
+  {id:35,cat:'biscuit',emoji:'🍫',name:'Oreo',detail:'Big',price:20},
+  {id:36,cat:'biscuit',emoji:'🍪',name:'Good Day',detail:'Small',price:10},
+  {id:37,cat:'biscuit',emoji:'🍪',name:'Good Day',detail:'Big',price:20},
+  {id:38,cat:'biscuit',emoji:'🍪',name:'Hide & Seek',detail:'1 pack',price:20},
+  {id:39,cat:'biscuit',emoji:'🍫',name:'Bourbon',detail:'1 pack',price:20},
+  {id:40,cat:'biscuit',emoji:'🍪',name:'Monaco',detail:'1 pack',price:10},
+  {id:41,cat:'biscuit',emoji:'🍫',name:'Dairy Milk',detail:'₹10 wali',price:10},
+  {id:42,cat:'biscuit',emoji:'⭐',name:'5 Star',detail:'₹10 wali',price:10},
+  {id:43,cat:'biscuit',emoji:'⭐',name:'5 Star',detail:'₹5 wali',price:5},
+  {id:44,cat:'biscuit',emoji:'🍫',name:'KitKat',detail:'₹10 wali',price:10},
+  {id:50,cat:'drink',emoji:'🥤',name:'Pepsi',detail:'250ml',price:20},
+  {id:51,cat:'drink',emoji:'🥤',name:'Pepsi',detail:'600ml',price:40},
+  {id:52,cat:'drink',emoji:'🥤',name:'Coca Cola',detail:'250ml',price:20},
+  {id:53,cat:'drink',emoji:'🥤',name:'Coca Cola',detail:'600ml',price:40},
+  {id:54,cat:'drink',emoji:'🟢',name:'Sprite',detail:'600ml',price:40},
+  {id:55,cat:'drink',emoji:'🔵',name:'Limca',detail:'600ml',price:40},
+  {id:56,cat:'drink',emoji:'⚫',name:'Thums Up',detail:'600ml',price:40},
+  {id:57,cat:'drink',emoji:'🟠',name:'Maaza',detail:'250ml',price:20},
+  {id:58,cat:'drink',emoji:'🟡',name:'Frooti',detail:'200ml',price:10},
+  {id:59,cat:'drink',emoji:'⚡',name:'Sting',detail:'250ml',price:20},
+  {id:60,cat:'drink',emoji:'🟩',name:'Mountain Dew',detail:'600ml',price:40},
+  {id:61,cat:'drink',emoji:'🧃',name:'Real Juice',detail:'200ml',price:20},
+  {id:70,cat:'grocery',emoji:'🌾',name:'Atta',detail:'WhatsApp pe poochho',price:0},
+  {id:71,cat:'grocery',emoji:'🍬',name:'Chini (Sugar)',detail:'WhatsApp pe poochho',price:0},
+  {id:72,cat:'grocery',emoji:'🍵',name:'Chai Patti',detail:'WhatsApp pe poochho',price:0},
+  {id:73,cat:'grocery',emoji:'🫙',name:'Mustard Oil',detail:'WhatsApp pe poochho',price:0},
+  {id:74,cat:'grocery',emoji:'🫙',name:'Refined Oil',detail:'WhatsApp pe poochho',price:0},
+  {id:80,cat:'decor',emoji:'🎈',name:'Birthday Balloons',detail:'Pack of 20',price:0},
+  {id:81,cat:'decor',emoji:'🎀',name:'Birthday Decoration Kit',detail:'Full set',price:0},
+  {id:82,cat:'decor',emoji:'✨',name:'Anniversary Decoration',detail:'Full set',price:0},
+  {id:83,cat:'decor',emoji:'🕯️',name:'Number Candles',detail:'1-9 available',price:0},
+  {id:84,cat:'decor',emoji:'🎊',name:'Party Popper / Confetti',detail:'Pack',price:0},
+  {id:90,cat:'cake',emoji:'🎂',name:'Birthday Cake',detail:'1-2 ghante mein',price:0},
+  {id:91,cat:'cake',emoji:'🍫',name:'Chocolate Cake',detail:'Aapki design pe',price:0},
+  {id:92,cat:'cake',emoji:'🍰',name:'Vanilla Cake',detail:'Fresh & homemade',price:0},
+  {id:93,cat:'cake',emoji:'🎂',name:'Butterscotch Cake',detail:'Kam rate mein',price:0},
+  {id:94,cat:'cake',emoji:'🍓',name:'Strawberry / Fruit Cake',detail:'Seasonal flavours',price:0},
+  {id:95,cat:'cake',emoji:'🍰',name:'Anniversary Cake',detail:'Custom design',price:0}
 ];
 
-let cart = {};
+// ══════════════════════════════════════════
+//  LOCAL STORAGE HELPERS
+// ══════════════════════════════════════════
+function lsGet(k,def){try{var v=localStorage.getItem(k);return v?JSON.parse(v):def;}catch(e){return def;}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 
-function renderProducts(cat='all') {
-  const grid = document.getElementById('productsGrid');
-  const filtered = cat === 'all' ? products : products.filter(p => p.cat === cat);
-  grid.innerHTML = filtered.map(p => `
-    <div class="prod-card" id="card-${p.id}">
-      <span class="prod-emoji">${p.emoji}</span>
-      <div class="prod-name">${p.name}</div>
-      <div class="prod-detail">${p.detail}</div>
-      ${p.ask
-        ? `<div class="prod-price ask">💬 WhatsApp pe poochho</div>
-           <button class="add-btn ask-btn" onclick="window.open('https://wa.me/918957799335?text=${encodeURIComponent('Namaste! Mujhe '+p.name+' ka rate jaanna hai.')}','_blank')">💬 Rate Poochho</button>`
-        : `<div class="prod-price">₹${p.price}</div>
-           <button class="add-btn" id="addbtn-${p.id}" onclick="addToCart(${p.id})">+ Cart mein Daalo</button>
-           <div class="qty-control" id="qty-${p.id}">
-             <button class="qty-btn" onclick="changeQty(${p.id},-1)">−</button>
-             <span class="qty-num" id="qnum-${p.id}">1</span>
-             <button class="qty-btn" onclick="changeQty(${p.id},1)">+</button>
-           </div>`
-      }
-    </div>
-  `).join('');
-  // restore qty UI
-  Object.keys(cart).forEach(id => {
-    const btn = document.getElementById('addbtn-'+id);
-    const qty = document.getElementById('qty-'+id);
-    const qnum = document.getElementById('qnum-'+id);
-    if(btn && qty && qnum) {
-      btn.style.display = 'none';
-      qty.classList.add('show');
-      qnum.textContent = cart[id].qty;
-    }
+function getCustom(){return lsGet('bb_prod',[]);}
+function setCustom(a){lsSet('bb_prod',a);}
+function getOverrides(){return lsGet('bb_ov',{});}
+function setOverrides(o){lsSet('bb_ov',o);}
+function getHidden(){return lsGet('bb_hid',[]);}
+function setHidden(a){lsSet('bb_hid',a);}
+
+// ══════════════════════════════════════════
+//  BUILD FINAL PRODUCT LIST
+// ══════════════════════════════════════════
+function getAll(){
+  var ov=getOverrides();
+  var hid=getHidden();
+  var customs=getCustom();
+  var list=[];
+  SP.forEach(function(p){
+    if(hid.indexOf(p.id)!==-1) return;
+    var merged=ov[p.id]?Object.assign({},p,ov[p.id],{_static:true}):Object.assign({},p,{_static:true});
+    list.push(merged);
   });
+  customs.forEach(function(p){list.push(Object.assign({},p,{_static:false}));});
+  return list;
 }
 
-function filterCat(cat, el) {
-  document.querySelectorAll('.cat-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  renderProducts(cat);
-}
+// ══════════════════════════════════════════
+//  STATE
+// ══════════════════════════════════════════
+var cart={};
+var curCat='all';
+var curSearch='';
 
-function addToCart(id) {
-  const p = products.find(x => x.id === id);
-  if(!p || p.ask) return;
-  cart[id] = {name:p.name, detail:p.detail, price:p.price, qty:1, emoji:p.emoji};
-  document.getElementById('addbtn-'+id).style.display='none';
-  document.getElementById('qty-'+id).classList.add('show');
-  document.getElementById('qnum-'+id).textContent=1;
-  updateCart();
-}
-
-function changeQty(id, delta) {
-  if(!cart[id]) return;
-  cart[id].qty += delta;
-  if(cart[id].qty <= 0) {
-    delete cart[id];
-    const btn = document.getElementById('addbtn-'+id);
-    const qty = document.getElementById('qty-'+id);
-    if(btn) btn.style.display='block';
-    if(qty) qty.classList.remove('show');
-  } else {
-    const qnum = document.getElementById('qnum-'+id);
-    if(qnum) qnum.textContent = cart[id].qty;
-  }
-  updateCart();
-}
-
-function updateCart() {
-  const ids = Object.keys(cart);
-  const count = ids.reduce((s,id)=>s+cart[id].qty,0);
-  const total = ids.reduce((s,id)=>s+cart[id].price*cart[id].qty,0);
-  const points = Math.floor(total/25);
-  document.getElementById('cartCount').textContent = count;
-  const body = document.getElementById('cartBody');
-  const footer = document.getElementById('cartFooter');
-  if(ids.length===0){
-    body.innerHTML='<div class="cart-empty"><span class="ce-icon">🛒</span><p>Cart khali hai!<br>Kuch items add karo 😊</p></div>';
-    footer.style.display='none';
+// ══════════════════════════════════════════
+//  RENDER GRID
+// ══════════════════════════════════════════
+function renderGrid(){
+  var all=getAll();
+  var sl=curSearch.toLowerCase();
+  var filtered=all.filter(function(p){
+    var catOk=curCat==='all'||p.cat===curCat;
+    var srchOk=!sl||(p.name.toLowerCase().indexOf(sl)!==-1)||(p.detail.toLowerCase().indexOf(sl)!==-1);
+    return catOk&&srchOk;
+  });
+  var g=document.getElementById('pgrid');
+  if(!filtered.length){
+    g.innerHTML='<div class="no-res"><span>🔍</span><p>Koi product nahi mila<br><small>WhatsApp karo — sab milega!</small></p></div>';
     return;
   }
-  footer.style.display='block';
-  body.innerHTML = ids.map(id => {
-    const item = cart[id];
-    return `<div class="cart-item">
-      <span style="font-size:24px">${item.emoji}</span>
-      <div class="ci-info">
-        <div class="ci-name">${item.name}</div>
-        <div class="ci-detail">${item.detail}</div>
-        <div class="ci-qty">
-          <button class="ci-qbtn" onclick="changeQty(${id},-1)">−</button>
-          <span class="ci-qnum">${item.qty}</span>
-          <button class="ci-qbtn" onclick="changeQty(${id},1)">+</button>
-        </div>
-      </div>
-      <div>
-        <div class="ci-price">₹${item.price*item.qty}</div>
-        <button class="ci-remove" onclick="changeQty(${id},-99)">🗑️</button>
-      </div>
-    </div>`;
+  g.innerHTML=filtered.map(function(p){
+    var isAsk=p.price===0;
+    var inCart=!!cart[p.id];
+    var priceH=isAsk?'<div class="pp ask">💬 WhatsApp pe poochho</div>':'<div class="pp">₹'+p.price+'</div>';
+    var btnH=isAsk
+      ?'<button class="ab ask" onclick="askWA(\''+esc(p.name)+'\')">💬 Rate Poochho</button>'
+      :'<button class="ab" id="a'+p.id+'" onclick="addToCart('+p.id+','+p.price+',\''+esc(p.name)+'\',\''+esc(p.detail)+'\',\''+p.emoji+'\')" style="'+(inCart?'display:none':'')+'">+ Add</button>'
+       +'<div class="qc'+(inCart?' show':'')+'" id="q'+p.id+'">'
+       +'<button class="qb" onclick="chQ('+p.id+',-1)">−</button>'
+       +'<span class="qn" id="n'+p.id+'">'+(inCart?cart[p.id].qty:1)+'</span>'
+       +'<button class="qb" onclick="chQ('+p.id+',1)">+</button>'
+       +'</div>';
+    return '<div class="pc" data-cat="'+p.cat+'">'
+      +'<span class="pe">'+p.emoji+'</span>'
+      +'<div class="pn">'+p.name+'</div>'
+      +'<div class="pd">'+p.detail+'</div>'
+      +priceH+btnH+'</div>';
   }).join('');
-  document.getElementById('subtotalVal').textContent='₹'+total;
-  document.getElementById('totalVal').textContent='₹'+total;
-  document.getElementById('pointsVal').textContent=points+' pts';
 }
 
-function toggleCart() {
-  document.getElementById('cartOverlay').classList.toggle('open');
-  document.getElementById('cartSidebar').classList.toggle('open');
+function esc(s){return String(s).replace(/'/g,"\\'");}
+
+// ══════════════════════════════════════════
+//  FILTER & SEARCH
+// ══════════════════════════════════════════
+function filterCat(cat,el){
+  curCat=cat;
+  document.querySelectorAll('.cat-tab').forEach(function(t){t.classList.remove('active');});
+  el.classList.add('active');
+  renderGrid();
 }
 
-function orderOnWhatsApp() {
-  const ids = Object.keys(cart);
-  if(ids.length===0) return;
-  const total = ids.reduce((s,id)=>s+cart[id].price*cart[id].qty,0);
-  const points = Math.floor(total/25);
-  let msg = 'Namaste! 🙏 Budget Bazar se order karna hai:\n\n';
-  ids.forEach(id => {
-    const item = cart[id];
-    msg += `• ${item.emoji} ${item.name} (${item.detail}) x${item.qty} = ₹${item.price*item.qty}\n`;
-  });
-  msg += `\n💰 Total: ₹${total}`;
-  msg += `\n🌟 Points milenge: ${points} pts`;
-  msg += `\n\nPlease confirm karein! 😊`;
+function onSearch(){
+  var v=document.getElementById('searchBar').value.trim().toLowerCase();
+  curSearch=v;
+  document.getElementById('searchClear').style.display=v?'block':'none';
+  if(v){
+    curCat='all';
+    document.querySelectorAll('.cat-tab').forEach(function(t){t.classList.remove('active');});
+    document.getElementById('catTabs').querySelector('.cat-tab').classList.add('active');
+  }
+  renderGrid();
+}
+
+function clearSearch(){
+  document.getElementById('searchBar').value='';
+  document.getElementById('searchClear').style.display='none';
+  curSearch='';
+  renderGrid();
+}
+
+// ══════════════════════════════════════════
+//  CART
+// ══════════════════════════════════════════
+function addToCart(id,price,name,detail,emoji){
+  cart[id]={id:id,price:price,name:name,detail:detail,emoji:emoji,qty:1};
+  var ab=document.getElementById('a'+id);
+  var qc=document.getElementById('q'+id);
+  if(ab)ab.style.display='none';
+  if(qc)qc.classList.add('show');
+  var qn=document.getElementById('n'+id);
+  if(qn)qn.textContent=1;
+  updateCart();
+}
+
+function chQ(id,d){
+  if(!cart[id])return;
+  cart[id].qty+=d;
+  if(cart[id].qty<=0){
+    delete cart[id];
+    var ab=document.getElementById('a'+id);
+    var qc=document.getElementById('q'+id);
+    if(ab)ab.style.display='block';
+    if(qc)qc.classList.remove('show');
+  }else{
+    var qn=document.getElementById('n'+id);
+    if(qn)qn.textContent=cart[id].qty;
+  }
+  updateCart();
+}
+
+function updateCart(){
+  var ids=Object.keys(cart);
+  var cnt=ids.reduce(function(s,id){return s+cart[id].qty;},0);
+  var tot=ids.reduce(function(s,id){return s+cart[id].price*cart[id].qty;},0);
+  var pts=Math.floor(tot/25);
+  document.getElementById('ccount').textContent=cnt;
+  var bd=document.getElementById('cbd');
+  var ft=document.getElementById('cft');
+  if(!ids.length){
+    bd.innerHTML='<div class="c-emp"><span>🛒</span><p>Cart khali hai!<br>Kuch items add karo 😊</p></div>';
+    ft.style.display='none';return;
+  }
+  ft.style.display='block';
+  bd.innerHTML=ids.map(function(id){
+    var it=cart[id];
+    return '<div class="c-it"><span style="font-size:20px">'+it.emoji+'</span>'
+      +'<div class="ci-in"><div class="ci-nm">'+it.name+'</div><div class="ci-dt">'+it.detail+'</div>'
+      +'<div class="ci-q"><button class="cqb" onclick="chQ('+id+',-1)">−</button>'
+      +'<span class="cqn">'+it.qty+'</span>'
+      +'<button class="cqb" onclick="chQ('+id+',1)">+</button></div></div>'
+      +'<div><div class="ci-pr">₹'+(it.price*it.qty)+'</div>'
+      +'<button class="crm" onclick="chQ('+id+',-999)">🗑️</button></div></div>';
+  }).join('');
+  document.getElementById('csub').textContent='₹'+tot;
+  document.getElementById('ctot').textContent='₹'+tot;
+  document.getElementById('cpts').textContent=pts+' pts';
+}
+
+function toggleCart(){
+  document.getElementById('cov').classList.toggle('open');
+  document.getElementById('csd').classList.toggle('open');
+}
+
+function askWA(name){
+  window.open('https://wa.me/918957799335?text='+encodeURIComponent('Namaste! Mujhe '+name+' ka rate jaanna hai.'),'_blank');
+}
+
+function orderWA(){
+  var ids=Object.keys(cart);if(!ids.length)return;
+  var tot=ids.reduce(function(s,id){return s+cart[id].price*cart[id].qty;},0);
+  var pts=Math.floor(tot/25);
+  var msg='Namaste! 🙏 Budget Bazar se order karna hai:\n\n';
+  ids.forEach(function(id){var it=cart[id];msg+='• '+it.emoji+' '+it.name+' ('+it.detail+') x'+it.qty+' = ₹'+(it.price*it.qty)+'\n';});
+  msg+='\n💰 Total: ₹'+tot+'\n🌟 Points milenge: '+pts+' pts\n\nPlease confirm karein! 😊';
   window.open('https://wa.me/918957799335?text='+encodeURIComponent(msg),'_blank');
 }
 
-// Init
-renderProducts();
+// ══════════════════════════════════════════
+//  ADMIN
+// ══════════════════════════════════════════
+function openAdmin(){document.getElementById('adminModal').classList.add('open');}
+function closeAdmin(){document.getElementById('adminModal').classList.remove('open');}
 
-// Scroll reveal FIXED
-const reveals = document.querySelectorAll('.reveal');
-
-if ('IntersectionObserver' in window) {
-const obs = new IntersectionObserver((entries) => {
-entries.forEach((e, i) => {
-if (e.isIntersecting) {
-setTimeout(() => {
-e.target.classList.add('visible');
-}, i * 80);
-obs.unobserve(e.target);
-}
-});
-}, { threshold: 0.1 });
-
-reveals.forEach(el => obs.observe(el));
-} else {
-reveals.forEach(el => el.classList.add('visible'));
+function checkPw(){
+  var pw=document.getElementById('pwInput').value;
+  if(pw==='@Shubhidev4'){
+    document.getElementById('adminLogin').style.display='none';
+    document.getElementById('adminPanel').style.display='block';
+    refreshCustomList();
+  }else{
+    document.getElementById('pwErr').style.display='block';
+    document.getElementById('pwInput').value='';
+  }
 }
 
+function switchTab(n){
+  for(var i=1;i<=3;i++){
+    document.getElementById('tab'+i).classList.toggle('active',i===n);
+    document.getElementById('sec'+i).classList.toggle('active',i===n);
+  }
+  if(n===3) renderAllList();
+}
+
+// ADD PRODUCT
+function addProduct(){
+  var emoji=document.getElementById('fEmoji').value.trim()||'📦';
+  var cat=document.getElementById('fCat').value;
+  var name=document.getElementById('fName').value.trim();
+  var detail=document.getElementById('fDetail').value.trim()||'1 pc';
+  var price=parseInt(document.getElementById('fPrice').value)||0;
+  if(!name){alert('Product name daalo!');return;}
+  var customs=getCustom();
+  customs.push({id:Date.now(),cat:cat,emoji:emoji,name:name,detail:detail,price:price,_static:false});
+  setCustom(customs);
+  document.getElementById('fEmoji').value='';
+  document.getElementById('fName').value='';
+  document.getElementById('fDetail').value='';
+  document.getElementById('fPrice').value='';
+  var sm=document.getElementById('successMsg');sm.style.display='block';
+  setTimeout(function(){sm.style.display='none';},2500);
+  refreshCustomList();
+  renderGrid();
+}
+
+function refreshCustomList(){
+  var customs=getCustom();
+  document.getElementById('customCount').textContent=customs.length;
+  var el=document.getElementById('customList');
+  if(!customs.length){el.innerHTML='<p style="color:#aaa;font-size:13px;text-align:center;padding:18px">Abhi koi custom product nahi hai.</p>';return;}
+  el.innerHTML=customs.map(function(p){
+    return '<div class="pl-item">'
+      +'<div class="pl-info"><span class="pl-em">'+p.emoji+'</span>'
+      +'<div><div class="pl-name">'+p.name+'</div>'
+      +'<div class="pl-det">'+p.detail+' • '+(p.price?'₹'+p.price:'WhatsApp')+'</div></div></div>'
+      +'<div class="pl-btns">'
+      +'<button class="pl-btn pl-edit" onclick="openEdit('+p.id+',\'custom\')">✏️</button>'
+      +'<button class="pl-btn pl-del" onclick="delCustom('+p.id+')">🗑️</button>'
+      +'</div></div>';
+  }).join('');
+}
+
+function delCustom(id){
+  if(!confirm('Yeh product delete karna chahte ho?'))return;
+  setCustom(getCustom().filter(function(p){return p.id!==id;}));
+  refreshCustomList();renderGrid();
+}
+
+function clearAllCustom(){
+  if(!confirm('Sab custom products hatana chahte ho?'))return;
+  setCustom([]);refreshCustomList();renderGrid();
+}
+
+// ALL PRODUCTS LIST (EDIT/HIDE TAB)
+function renderAllList(){
+  var q=(document.getElementById('adminSearch').value||'').toLowerCase();
+  var ov=getOverrides();
+  var hid=getHidden();
+  var allSrc=SP.concat(getCustom().map(function(p){return Object.assign({},p,{_static:false});}));
+  var list=q?allSrc.filter(function(p){return p.name.toLowerCase().indexOf(q)!==-1;}):allSrc;
+  var el=document.getElementById('allList');
+  if(!list.length){el.innerHTML='<p style="color:#aaa;font-size:13px;text-align:center;padding:18px">Koi product nahi mila.</p>';return;}
+  el.innerHTML=list.map(function(p){
+    var isHid=hid.indexOf(p.id)!==-1;
+    var isStatic=p._static!==false;
+    var ovp=ov[p.id]||{};
+    var nm=ovp.name||p.name;
+    var pr=ovp.price!==undefined?ovp.price:p.price;
+    var em=ovp.emoji||p.emoji;
+    return '<div class="pl-item" style="opacity:'+(isHid?0.45:1)+'">'
+      +'<div class="pl-info"><span class="pl-em">'+em+'</span>'
+      +'<div><div class="pl-name">'+nm+(ovp.name||ovp.price!==undefined?' ✏️':'')+(isHid?' 🚫':'')+'</div>'
+      +'<div class="pl-det">'+(ovp.detail||p.detail)+' • '+(pr===0?'WhatsApp':'₹'+pr)+'</div></div></div>'
+      +'<div class="pl-btns">'
+      +'<button class="pl-btn pl-edit" onclick="openEdit('+p.id+',\''+(isStatic?'static':'custom')+'\')">✏️</button>'
+      +(isHid
+        ?'<button class="pl-btn pl-show" onclick="showProd('+p.id+')">👁️</button>'
+        :'<button class="pl-btn pl-hide" onclick="hideProd('+p.id+')">🚫</button>'
+      )+'</div></div>';
+  }).join('');
+}
+
+function hideProd(id){var h=getHidden();if(h.indexOf(id)===-1)h.push(id);setHidden(h);renderAllList();renderGrid();}
+function showProd(id){setHidden(getHidden().filter(function(x){return x!==id;}));renderAllList();renderGrid();}
+
+// EDIT
+function openEdit(id,type){
+  var ov=getOverrides();
+  var p;
+  if(type==='static'){
+    p=SP.find(function(x){return x.id===id;});
+    if(ov[id])p=Object.assign({},p,ov[id]);
+  }else{
+    p=getCustom().find(function(x){return x.id===id;});
+  }
+  if(!p)return;
+  document.getElementById('editId').value=id;
+  document.getElementById('editType').value=type;
+  document.getElementById('eEmoji').value=p.emoji;
+  document.getElementById('eCat').value=p.cat;
+  document.getElementById('eName').value=p.name;
+  document.getElementById('eDetail').value=p.detail;
+  document.getElementById('ePrice').value=p.price;
+  var eb=document.getElementById('editBox');
+  eb.style.display='block';
+  eb.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function closeEdit(){document.getElementById('editBox').style.display='none';}
+
+function saveEdit(){
+  var id=+document.getElementById('editId').value;
+  var type=document.getElementById('editType').value;
+  var updated={
+    emoji:document.getElementById('eEmoji').value.trim()||'📦',
+    cat:document.getElementById('eCat').value,
+    name:document.getElementById('eName').value.trim(),
+    detail:document.getElementById('eDetail').value.trim(),
+    price:parseInt(document.getElementById('ePrice').value)||0
+  };
+  if(!updated.name){alert('Name daalo!');return;}
+  if(type==='static'){
+    var ov=getOverrides();ov[id]=updated;setOverrides(ov);
+  }else{
+    setCustom(getCustom().map(function(p){return p.id===id?Object.assign({},p,updated):p;}));
+  }
+  closeEdit();
+  renderAllList();
+  refreshCustomList();
+  renderGrid();
+}
+
+// ══════════════════════════════════════════
+//  INIT
+// ══════════════════════════════════════════
+renderGrid();
 </script>
 </body>
 </html>
