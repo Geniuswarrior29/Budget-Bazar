@@ -356,7 +356,8 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
     <button class="nav-cart" onclick="toggleCart()">🛒 Cart <span class="cbadge" id="ccount">0</span></button>
   </div>
 </nav>
-
+<div id="shopStatus" style="text-align:center; padding:10px; font-weight:bold;"></div>
+  
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-badge">✦ Raebareli का अपना दुकान ✦</div>
@@ -930,6 +931,15 @@ function installApp(){
   }
 }
 
+  const banner = document.getElementById("shopStatus");
+
+const isOpen = new Date().getHours() >= 10 && new Date().getHours() < 22;
+
+banner.innerText = isOpen 
+  ? "✅ Shop Open (10AM – 10PM)" 
+  : "🚫 Shop Closed (10AM – 10PM)";
+
+banner.style.display = "block";
 renderGrid();
 </script>
 </body>
