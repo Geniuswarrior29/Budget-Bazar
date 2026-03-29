@@ -933,18 +933,21 @@ function installApp(){
   }
 }
 
-  document.addEventListener("DOMContentLoaded", function() {
-  const banner = document.getElementById("shopStatus");
-  if(!banner) return;
+  window.onload = function () {
+  setTimeout(function () {
+    const banner = document.getElementById("shopStatus");
 
-  const hour = new Date().getHours();
-  const isOpen = hour >= 10 && hour < 22;
+    if (banner) {
+      const hour = new Date().getHours();
+      const isOpen = hour >= 10 && hour < 22;
 
-  banner.innerText = isOpen 
-    ? "✅ Shop Open (10AM – 10PM)" 
-    : "🚫 Shop Closed (10AM – 10PM)";
-});
-renderGrid();
+      banner.innerText = isOpen
+        ? "✅ Shop Open (10AM – 10PM)"
+        : "❌ Shop Closed (10AM – 10PM)";
+    }
+  }, 300);
+};
+setTimeout(renderGrid, 100);
 </script>
 </body>
 </html>
