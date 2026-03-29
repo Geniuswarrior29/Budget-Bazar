@@ -352,6 +352,7 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
   </ul>
   <div class="nav-right">
     <button class="nav-admin" onclick="openAdmin()">⚙️ Admin</button>
+    <button class="nav-install" id="installBtn" onclick="installApp()" style="display:none;background:linear-gradient(135deg,#ff6b00,#ffcc00);color:#1a0505;border:none;padding:7px 12px;border-radius:30px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;">📲 Install</button>
     <button class="nav-cart" onclick="toggleCart()">🛒 Cart <span class="cbadge" id="ccount">0</span></button>
   </div>
 </nav>
@@ -468,18 +469,6 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
   </div>
 </section>
 
-<!-- PWA INSTALL BANNER -->
-<div id="instBanner" style="display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:9999;background:#1a0505;border:2px solid #ffcc00;border-radius:18px;padding:14px 18px;width:90%;max-width:360px;align-items:center;gap:14px;box-shadow:0 8px 30px rgba(0,0,0,0.4);">
-  <div style="background:linear-gradient(135deg,#d4000c,#ff6b00);width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;">🛒</div>
-  <div style="flex:1;">
-    <div style="font-family:'Baloo 2',cursive;font-size:14px;font-weight:900;color:#ffcc00;">Budget Bazar Install Karo!</div>
-    <div style="font-size:11px;color:rgba(255,255,255,0.7);margin-top:2px;">App ki tarah use karo — fast & easy!</div>
-    <div style="display:flex;gap:8px;margin-top:8px;">
-      <button onclick="installApp()" style="background:linear-gradient(135deg,#d4000c,#ff6b00);color:white;border:none;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;">✅ Install</button>
-      <button onclick="dismissBanner()" style="background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.2);padding:6px 12px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;">Baad mein</button>
-    </div>
-  </div>
-</div>
 
 <footer>
   <div class="fl">Budget<span>Bazar</span></div>
@@ -924,27 +913,38 @@ if('serviceWorker' in navigator){
 }
 
 var deferredPrompt=null;
+
 window.addEventListener('beforeinstallprompt',function(e){
-  e.preventDefault();deferredPrompt=e;
-  setTimeout(function(){
-    if(deferredPrompt&&!localStorage.getItem('bb_inst')){
-      var b=document.getElementById('instBanner');
-      if(b)b.style.display='flex';
-    }
-  },3000);
+  e.preventDefault();
+  deferredPrompt=e;
+  // Show install button in navbar
+  var btn=document.getElementById('installBtn');
+  if(btn) btn.style.display='block';
 });
+
+window.addEventListener('appinstalled',function(){
+  var btn=document.getElementById('installBtn');
+  if(btn) btn.style.display='none';
+  deferredPrompt=null;
+});
+
 function installApp(){
-  if(!deferredPrompt)return;
+  if(!deferredPrompt){
+    // Fallback - show instructions
+    alert('Install karne ke liye:\nChrome menu (3 dots) → "Add to Home screen" click karo!');
+    return;
+  }
   deferredPrompt.prompt();
   deferredPrompt.userChoice.then(function(r){
-    if(r.outcome==='accepted')localStorage.setItem('bb_inst','1');
+    if(r.outcome==='accepted'){
+      var btn=document.getElementById('installBtn');
+      if(btn) btn.style.display='none';
+    }
     deferredPrompt=null;
-    dismissBanner();
   });
 }
-function dismissBanner(){var b=document.getElementById('instBanner');if(b)b.style.display='none';}
 
 renderGrid();
 </script>
 </body>
-                                                                          </html>
+</html>
