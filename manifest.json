@@ -1,9 +1,9 @@
 {
-  "name": "Budget Bazar — Raebareli",
+  "name": "Budget Bazar \u2014 Raebareli",
   "short_name": "BudgetBazar",
-  "description": "Aapki zaroorat, humari dukaan — daily use items, snacks, cakes & more!",
-  "start_url": "/Budget-Bazar/",
-  "scope": "/Budget-Bazar/",
+  "description": "Aapki zaroorat, humari dukaan \u2014 daily use items, snacks, cakes & more!",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#1a0505",
   "theme_color": "#d4000c",
@@ -22,6 +22,9 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["shopping", "food"],
+  "categories": [
+    "shopping",
+    "food"
+  ],
   "lang": "hi"
 }
