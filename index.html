@@ -352,7 +352,7 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
   </ul>
   <div class="nav-right">
     <button class="nav-admin" onclick="openAdmin()">⚙️ Admin</button>
-    <button class="nav-install" id="installBtn" onclick="installApp()" style="display:none;background:linear-gradient(135deg,#ff6b00,#ffcc00);color:#1a0505;border:none;padding:7px 12px;border-radius:30px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;">📲 Install</button>
+    <button class="nav-install" id="installBtn" onclick="installApp()" style="display:block;background:linear-gradient(135deg,#ff6b00,#ffcc00);color:#1a0505;border:none;padding:7px 12px;border-radius:30px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;">📲 Install</button>
     <button class="nav-cart" onclick="toggleCart()">🛒 Cart <span class="cbadge" id="ccount">0</span></button>
   </div>
 </nav>
@@ -917,31 +917,17 @@ var deferredPrompt=null;
 window.addEventListener('beforeinstallprompt',function(e){
   e.preventDefault();
   deferredPrompt=e;
-  // Show install button in navbar
-  var btn=document.getElementById('installBtn');
-  if(btn) btn.style.display='block';
-});
-
-window.addEventListener('appinstalled',function(){
-  var btn=document.getElementById('installBtn');
-  if(btn) btn.style.display='none';
-  deferredPrompt=null;
 });
 
 function installApp(){
-  if(!deferredPrompt){
-    // Fallback - show instructions
+  if(deferredPrompt){
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(function(r){
+      deferredPrompt=null;
+    });
+  } else {
     alert('Install karne ke liye:\nChrome menu (3 dots) → "Add to Home screen" click karo!');
-    return;
   }
-  deferredPrompt.prompt();
-  deferredPrompt.userChoice.then(function(r){
-    if(r.outcome==='accepted'){
-      var btn=document.getElementById('installBtn');
-      if(btn) btn.style.display='none';
-    }
-    deferredPrompt=null;
-  });
 }
 
 renderGrid();
