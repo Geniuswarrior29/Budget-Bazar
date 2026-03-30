@@ -385,7 +385,6 @@ Loading...
 
 <!-- PRODUCTS -->
 <section class="prod-sec" id="products">
-  <div id="productsContainer"></div>
   <div class="sec-lbl">🛒 Products</div>
   <h2 class="sec-h" style="margin-top:8px">हमारा <span class="ac">सामान</span></h2>
   <p class="sec-p">Daily use, snacks, biscuits, cold drinks, cakes और बहुत कुछ!</p>
@@ -407,7 +406,7 @@ Loading...
     <button class="cat-tab" onclick="filterCat('decor',this)">🎈 Decoration</button>
     <button class="cat-tab" onclick="filterCat('cake',this)">🎂 Cakes</button>
   </div>
-  <div id="productsContainer"></div>
+  <div class="pgrid" id="pgrid"></div>
 </section>
 
 <!-- CUSTOM ORDER -->
@@ -949,45 +948,6 @@ function installApp(){
   }, 300);
 };
 setTimeout(renderGrid, 100);
-  async function loadProductsFromSheet() {
-  try {
-    const res = await fetch("https://opensheet.elk.sh/1hmMuP7D06H-NofmWRWKrjc3qlGgeVWiDEpCBerzynFY/Sheet1");
-    const data = await res.json();
-
-    const container = document.getElementById("productsContainer");
-    container.innerHTML = "";
-
-    data.forEach(item => {
-      const div = document.createElement("div");
-
-      div.innerHTML = `
-        <h3>${item.emoji || "📦"} ${item.name || "No Name"}</h3>
-        <p>${item.detail}</p>
-        <p>₹${item.price}</p>
-        <button onclick="addToCart('${item.name}', ${item.price})">
-+ Add
-</button>
-      `;
-
-      container.appendChild(div);
-    });
-
-  } catch (err) {
-    console.log(err);
-  }
-  }
-  function orderNow(name, price) {
-  const msg = `Hello, mujhe ye product chahiye:\n${name} - ₹${price}`;
-  const url = "https://wa.me/918957799335?text=" + encodeURIComponent(msg);
-  window.open(url, "_blank");
-  }
-  loadProductsFromSheet();
-  let cart = [];
-
-function addToCart(name, price) {
-  cart.push({ name, price });
-  alert(name + " added to cart 🛒");
-}
 </script>
 </body>
 </html>
