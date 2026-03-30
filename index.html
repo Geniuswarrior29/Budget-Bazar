@@ -407,7 +407,7 @@ Loading...
     <button class="cat-tab" onclick="filterCat('decor',this)">🎈 Decoration</button>
     <button class="cat-tab" onclick="filterCat('cake',this)">🎂 Cakes</button>
   </div>
-  <div class="pgrid" id="pgrid"></div>
+  <div id="productsContainer"></div>
 </section>
 
 <!-- CUSTOM ORDER -->
@@ -961,12 +961,12 @@ setTimeout(renderGrid, 100);
       const div = document.createElement("div");
 
       div.innerHTML = `
-        <h3>${item.emoji || "📦"} ${item.name}</h3>
+        <h3>${item.emoji || "📦"} ${item.name || "No Name"}</h3>
         <p>${item.detail}</p>
         <p>₹${item.price}</p>
-        <button onclick="orderNow('${item.name}', '${item.price}')">
-          Order on WhatsApp
-        </button>
+        <button onclick="addToCart('${item.name}', ${item.price})">
++ Add
+</button>
       `;
 
       container.appendChild(div);
@@ -978,10 +978,16 @@ setTimeout(renderGrid, 100);
   }
   function orderNow(name, price) {
   const msg = `Hello, mujhe ye product chahiye:\n${name} - ₹${price}`;
-  const url = "https://wa.me/919185779933?text=" + encodeURIComponent(msg);
+  const url = "https://wa.me/918957799335?text=" + encodeURIComponent(msg);
   window.open(url, "_blank");
   }
   loadProductsFromSheet();
+  let cart = [];
+
+function addToCart(name, price) {
+  cart.push({ name, price });
+  alert(name + " added to cart 🛒");
+}
 </script>
 </body>
 </html>
