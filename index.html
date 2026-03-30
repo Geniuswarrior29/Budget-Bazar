@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Budget Bazar - Raebareli</title>
+<title>Budget Bazar — Raebareli</title>
 
 <!-- PWA META TAGS -->
 <meta name="application-name" content="Budget Bazar">
@@ -15,11 +15,11 @@
 <meta name="msapplication-TileColor" content="#1a0505">
 
 <!-- SEO META TAGS -->
-<meta name="description" content="Budget Bazar Raebareli - Daily use items, groceries, snacks, cold drinks, custom cakes & party decoration. Fast delivery. WhatsApp order.">
+<meta name="description" content="Budget Bazar Raebareli — Daily use items, groceries, snacks, cold drinks, custom cakes & party decoration. Fast delivery. WhatsApp order.">
 <meta name="keywords" content="Budget Bazar Raebareli, grocery store Raebareli, daily use items, snacks Raebareli, cake delivery Raebareli, Vijay Nagar shop">
 <meta name="author" content="Budget Bazar">
-<meta property="og:title" content="Budget Bazar - Raebareli">
-<meta property="og:description" content="Aapki zaroorat, humari dukaan - daily use items, snacks, cakes & more!">
+<meta property="og:title" content="Budget Bazar — Raebareli">
+<meta property="og:description" content="Aapki zaroorat, humari dukaan — daily use items, snacks, cakes & more!">
 <meta property="og:url" content="https://www.budgetbazar.store">
 <meta property="og:type" content="website">
 
@@ -249,10 +249,7 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
 <!-- ADMIN MODAL -->
 <div class="admin-modal" id="adminModal">
   <div class="admin-box">
-    <div class="admin-hd">
-      <h3>☰ Menu</h3>
-      <button class="admin-cl" onclick="closeAdmin()">✕</button>
-    </div>
+    <div class="admin-hd"><h3>⚙️ Admin Panel</h3><button class="admin-cl" onclick="closeAdmin()">✕</button></div>
     <div class="admin-body">
 
       <!-- LOGIN -->
@@ -267,60 +264,40 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
       <!-- PANEL -->
       <div class="admin-panel" id="adminPanel">
         <div class="admin-tabs">
-          <button class="atab active" id="tab1" onclick="switchTab(1)">🧾 Invoice</button>
-          <button class="atab" id="tab2" onclick="switchTab(2)">📦 Products</button>
+          <button class="atab active" id="tab1" onclick="switchTab(1)">➕ Add Product</button>
+          <button class="atab" id="tab2" onclick="switchTab(2)">📦 My Products</button>
           <button class="atab" id="tab3" onclick="switchTab(3)">✏️ Edit All</button>
         </div>
 
-        <!-- TAB 1: INVOICE GENERATOR -->
+        <!-- TAB 1: ADD -->
         <div class="admin-section active" id="sec1">
-          <h4>🧾 Invoice Generate Karo</h4>
-
-          <!-- Customer Info -->
+          <h4>➕ Naya Product Add Karo</h4>
           <div class="form-row">
-            <div class="form-group">
-              <label>Customer Naam</label>
-              <input type="text" id="invCustName" placeholder="Rahul Kumar">
-            </div>
-            <div class="form-group">
-              <label>Payment</label>
-              <select id="invPayment">
-                <option value="COD">💵 COD</option>
-                <option value="Paid">✅ Already Paid</option>
+            <div class="form-group"><label>Emoji</label><input type="text" id="fEmoji" placeholder="🍪" maxlength="2"></div>
+            <div class="form-group"><label>Category</label>
+              <select id="fCat">
+                <option value="daily">🧴 Daily Use</option>
+                <option value="biscuit">🍪 Biscuits & Snacks</option>
+                <option value="drink">🥤 Cold Drinks</option>
+                <option value="grocery">🌾 Grocery</option>
+                <option value="decor">🎈 Decoration</option>
+                <option value="cake">🎂 Cakes</option>
               </select>
             </div>
           </div>
-
-          <!-- Items Table -->
-          <div style="margin-bottom:10px;">
-            <label style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;">Items</label>
-            <div id="invItems">
-              <div class="inv-item-row" style="display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:6px;margin-top:6px;align-items:center;">
-                <input type="text" placeholder="Product naam" class="inv-pname" style="padding:7px 10px;border:2px solid #e0d0c0;border-radius:8px;font-size:12px;font-family:'Hind',sans-serif;outline:none;">
-                <input type="number" placeholder="Qty" class="inv-qty" value="1" min="1" style="padding:7px 8px;border:2px solid #e0d0c0;border-radius:8px;font-size:12px;font-family:'Hind',sans-serif;outline:none;">
-                <input type="number" placeholder="Price" class="inv-price" min="0" style="padding:7px 8px;border:2px solid #e0d0c0;border-radius:8px;font-size:12px;font-family:'Hind',sans-serif;outline:none;">
-                <button onclick="removeInvRow(this)" style="background:#fff0f0;border:1.5px solid #ffb3b3;color:var(--red);border-radius:8px;padding:7px 10px;font-size:13px;cursor:pointer;">✕</button>
-              </div>
-            </div>
-            <button onclick="addInvRow()" style="width:100%;background:var(--light);border:2px dashed #e0d0c0;border-radius:8px;padding:8px;font-size:13px;font-weight:700;color:#999;cursor:pointer;margin-top:6px;font-family:'Hind',sans-serif;">+ Item Add Karo</button>
-          </div>
-
-          <!-- Delivery -->
+          <div class="form-row full"><div class="form-group"><label>Product Name</label><input type="text" id="fName" placeholder="jaise: Parle-G Biscuit"></div></div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Delivery Charge (0 = Free)</label>
-              <input type="number" id="invDelivery" value="0" min="0" style="padding:8px 11px;border:2px solid #e0d0c0;border-radius:9px;font-size:13px;font-family:'Hind',sans-serif;outline:none;width:100%;">
-            </div>
+            <div class="form-group"><label>Detail (size/qty)</label><input type="text" id="fDetail" placeholder="100g ya 1 pc"></div>
+            <div class="form-group"><label>Price ₹ (0=WhatsApp)</label><input type="number" id="fPrice" placeholder="0" min="0"></div>
           </div>
-
-          <!-- Generate Button -->
-          <button onclick="generateInvoice()" style="width:100%;background:linear-gradient(135deg,var(--red),var(--orange));color:white;border:none;padding:12px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;margin-top:4px;">🧾 Invoice Generate Karo</button>
+          <button class="add-prod-btn" onclick="addProduct()">✅ Product Add Karo</button>
+          <div class="succ" id="successMsg">✅ Product successfully add ho gaya!</div>
         </div>
 
         <!-- TAB 2: MY CUSTOM PRODUCTS -->
         <div class="admin-section" id="sec2">
-          <h4>📦 Custom Products (<span id="customCount">0</span>)</h4>
-          <div class="prod-list" id="customList"><p style="color:#aaa;font-size:13px;text-align:center;padding:18px">Abhi koi custom product nahi hai.</p></div>
+          <h4>📦 Mere Added Products (<span id="customCount">0</span>)</h4>
+          <div class="prod-list" id="customList"><p style="color:#aaa;font-size:13px;text-align:center;padding:20px">Abhi koi custom product nahi hai.</p></div>
           <button onclick="clearAllCustom()" style="width:100%;background:#fff0f0;color:var(--red);border:2px solid #ffd0d0;border-radius:9px;padding:9px;font-size:12px;font-weight:700;cursor:pointer;margin-top:10px;font-family:'Hind',sans-serif;">🗑️ Sab Custom Products Hatao</button>
         </div>
 
@@ -329,6 +306,8 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
           <h4>✏️ Sab Products Edit / Hide</h4>
           <input type="text" class="admin-search" id="adminSearch" placeholder="🔍 Search product..." oninput="renderAllList()">
           <div class="prod-list" id="allList"></div>
+
+          <!-- EDIT FORM -->
           <div class="edit-box" id="editBox">
             <h4>✏️ Product Edit Karo</h4>
             <input type="hidden" id="editId">
@@ -357,31 +336,12 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
             </div>
           </div>
         </div>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- INVOICE PREVIEW MODAL -->
-<div id="invModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:3000;align-items:center;justify-content:center;padding:16px;">
-  <div style="background:white;border-radius:16px;width:100%;max-width:400px;max-height:90vh;overflow-y:auto;">
-    <div style="padding:14px 16px;background:var(--dark);border-radius:16px 16px 0 0;display:flex;align-items:center;justify-content:space-between;">
-      <span style="font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:var(--yellow);">🧾 Invoice Ready!</span>
-      <button onclick="closeInvModal()" style="background:none;border:none;color:white;font-size:20px;cursor:pointer;">✕</button>
-    </div>
-    <div style="padding:16px;">
-      <canvas id="invCanvas" style="width:100%;border-radius:8px;border:1px solid #eee;"></canvas>
-      <div style="display:flex;gap:10px;margin-top:14px;">
-        <button onclick="shareInvoice()" style="flex:1;background:linear-gradient(135deg,#25d366,#128c52);color:white;border:none;padding:12px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;">💬 WhatsApp pe Share</button>
-        <button onclick="closeInvModal()" style="background:#eee;color:#666;border:none;padding:12px 16px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;">Close</button>
       </div>
     </div>
   </div>
 </div>
 
 <!-- NAV -->
-
 <nav>
   <div class="nav-logo">Budget<span>Bazar</span></div>
   <ul class="nav-links">
@@ -391,22 +351,21 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-right">
+    <button class="nav-admin" onclick="openAdmin()">⚙️ Admin</button>
     <button class="nav-install" id="installBtn" onclick="installApp()" style="display:block;background:linear-gradient(135deg,#ff6b00,#ffcc00);color:#1a0505;border:none;padding:7px 12px;border-radius:30px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;">📲 Install</button>
-    <button class="hamburger-btn" onclick="openAdmin()" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;gap:5px;padding:8px;justify-content:center;align-items:center;">
-      <span style="display:block;width:22px;height:2px;background:var(--yellow);border-radius:2px;"></span>
-      <span style="display:block;width:22px;height:2px;background:var(--yellow);border-radius:2px;"></span>
-      <span style="display:block;width:22px;height:2px;background:var(--yellow);border-radius:2px;"></span>
-    </button>
     <button class="nav-cart" onclick="toggleCart()">🛒 Cart <span class="cbadge" id="ccount">0</span></button>
   </div>
 </nav>
-
+<div id="shopStatus" style="background:#000;color:#fff;text-align:center;padding:8px;font-size:14px;font-weight:bold;">
+Loading...
+</div>
+  
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-badge">✦ Raebareli का अपना दुकान ✦</div>
   <h1 class="hero-title">Budget<span class="hl">Bazar</span></h1>
-  <p class="hero-tagline">आपकी ज़रूरत, हमारी दुकान - <span>सस्ते दाम, असली सामान</span></p>
-  <div class="notice-box">📦 <strong>जो सामान यहाँ नहीं दिख रहा</strong> - Atta, Chini, Tel - <strong>WhatsApp पर message करें!</strong> Rate तुरंत मिलेगा।</div>
+  <p class="hero-tagline">आपकी ज़रूरत, हमारी दुकान — <span>सस्ते दाम, असली सामान</span></p>
+  <div class="notice-box">📦 <strong>जो सामान यहाँ नहीं दिख रहा</strong> — Atta, Chini, Tel — <strong>WhatsApp पर message करें!</strong> Rate तुरंत मिलेगा।</div>
   <div class="hero-btns">
     <a href="#products" class="btn-p">🛍️ Products देखें</a>
     <a href="https://wa.me/918957799335" target="_blank" class="btn-s">💬 WhatsApp करें</a>
@@ -416,7 +375,7 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
 <!-- POINTS -->
 <div class="pts-bar" id="points">
   <h3>🌟 Budget Bazar Points System</h3>
-  <p style="font-size:13px;opacity:0.9">हर खरीदारी पर points कमाओ - बाद में discount पाओ!</p>
+  <p style="font-size:13px;opacity:0.9">हर खरीदारी पर points कमाओ — बाद में discount पाओ!</p>
   <div class="pts-grid">
     <div class="pts-item">🛒 ₹25 = <strong>1 Point</strong></div>
     <div class="pts-item">💰 1 Point = <strong>₹1 बचत</strong></div>
@@ -436,7 +395,7 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
   </div>
   <div class="notice-y">
     <span style="font-size:22px;flex-shrink:0">📦</span>
-    <p>यहाँ <strong>Atta, Chini, Tel, Chips, Kurkure</strong> और बाकी सामान भी मिलता है! जो item नहीं दिख रही - <a href="https://wa.me/918957799335" target="_blank">WhatsApp करें</a>!</p>
+    <p>यहाँ <strong>Atta, Chini, Tel, Chips, Kurkure</strong> और बाकी सामान भी मिलता है! जो item नहीं दिख रही — <a href="https://wa.me/918957799335" target="_blank">WhatsApp करें</a>!</p>
   </div>
   <div class="cat-tabs" id="catTabs">
     <button class="cat-tab active" onclick="filterCat('all',this)">🏪 सब</button>
@@ -454,7 +413,7 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
 <div class="custom-o">
   <div style="font-size:24px;margin-bottom:8px">📦</div>
   <h3>Kuch aur chahiye? Hum deliver karenge!</h3>
-  <p>Jo item website pe nahi dikh rahi - <strong style="color:var(--orange)">WhatsApp karein!</strong> Hum deliver karenge! 🚀</p>
+  <p>Jo item website pe nahi dikh rahi — <strong style="color:var(--orange)">WhatsApp karein!</strong> Hum deliver karenge! 🚀</p>
   <a href="https://wa.me/918957799335?text=Namaste!%20Mujhe%20kuch%20items%20order%20karne%20hain." target="_blank">💬 WhatsApp pe Order Karein</a>
 </div>
 
@@ -462,19 +421,19 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
 <div class="sp-sec" id="special">
   <div class="sec-lbl" style="background:#e91e8c">🎂 Special Services</div>
   <h2 class="sec-h" style="margin-top:8px">Birthday &amp; Anniversary <span style="color:#e91e8c">Special!</span></h2>
-  <p class="sec-p">Cake aur decoration - dono ek hi jagah! 🎉</p>
+  <p class="sec-p">Cake aur decoration — dono ek hi jagah! 🎉</p>
   <div class="sp-grid">
     <div class="sp-card cake">
       <div style="font-size:34px">🎂</div>
       <h3>Custom Cakes</h3>
-      <p>Chocolate, Vanilla, Butterscotch, Strawberry - <strong>aapki design pe!</strong> 1-2 ghante mein deliver!</p>
+      <p>Chocolate, Vanilla, Butterscotch, Strawberry — <strong>aapki design pe!</strong> 1-2 ghante mein deliver!</p>
       <span class="sp-tag">✨ Kam rate | Aapki design | 1-2 Ghante</span>
       <a href="https://wa.me/918957799335?text=Namaste!%20Mujhe%20ek%20custom%20cake%20order%20karni%20hai." target="_blank">💬 Cake Order Karein</a>
     </div>
     <div class="sp-card deco">
       <div style="font-size:34px">🎈</div>
       <h3>Party Decoration</h3>
-      <p>Birthday, Anniversary, Baby Shower - <strong>sab ke liye!</strong> Balloons, banners, candles - sab milega!</p>
+      <p>Birthday, Anniversary, Baby Shower — <strong>sab ke liye!</strong> Balloons, banners, candles — sab milega!</p>
       <span class="sp-tag">🎊 Balloons | Banners | Candles | Full Kits</span>
       <a href="https://wa.me/918957799335?text=Namaste!%20Mujhe%20party%20decoration%20chahiye." target="_blank">💬 Decoration Order Karein</a>
     </div>
@@ -486,10 +445,10 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
   <div class="sec-lbl">💎 Why Us</div>
   <h2 class="sec-h" style="margin-top:8px">Budget Bazar क्यों <span class="ac">सबसे बेहतर?</span></h2>
   <div class="why-grid">
-    <div class="wc"><div class="wi">💰</div><div class="wt">सस्ते दाम</div><div class="wd">हर item पर best price - कोई hidden charge नहीं।</div></div>
-    <div class="wc"><div class="wi">🌟</div><div class="wt">Points System</div><div class="wd">₹25 खर्च करो, 1 point पाओ - बाद में discount!</div></div>
+    <div class="wc"><div class="wi">💰</div><div class="wt">सस्ते दाम</div><div class="wd">हर item पर best price — कोई hidden charge नहीं।</div></div>
+    <div class="wc"><div class="wi">🌟</div><div class="wt">Points System</div><div class="wd">₹25 खर्च करो, 1 point पाओ — बाद में discount!</div></div>
     <div class="wc"><div class="wi">💬</div><div class="wt">WhatsApp Order</div><div class="wd">Cart भरो और सीधे WhatsApp पर order करो!</div></div>
-    <div class="wc"><div class="wi">🚀</div><div class="wt">Home Delivery</div><div class="wd">Jo item nahi dikh rahi - WhatsApp karo, deliver ho jayega!</div></div>
+    <div class="wc"><div class="wi">🚀</div><div class="wt">Home Delivery</div><div class="wd">Jo item nahi dikh rahi — WhatsApp karo, deliver ho jayega!</div></div>
   </div>
 </section>
 
@@ -499,11 +458,11 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
     <div>
       <div class="sec-lbl">📞 Contact</div>
       <h2 class="sec-h" style="margin-top:8px">हमसे <span class="ac">मिलें!</span></h2>
-      <p class="sec-p">कोई भी सवाल हो - WhatsApp, call या visit करें!</p>
+      <p class="sec-p">कोई भी सवाल हो — WhatsApp, call या visit करें!</p>
       <div class="cc-cards">
         <a href="tel:+918957799335" class="cc ph"><div class="cc-ic">📞</div><div><div class="cc-lb">Call / WhatsApp</div><div class="cc-vl">+91 89577 99335</div></div></a>
         <a href="/cdn-cgi/l/email-protection#b1d5d4c7c2c3d8c7d0c2c5d0c7d086868686f1d6dcd0d8dd9fd2dedc" class="cc em"><div class="cc-ic">📧</div><div><div class="cc-lb">Email</div><div class="cc-vl" style="font-size:11px"><span class="__cf_email__" data-cfemail="cfabaab9bcbda6b9aebcbbaeb9aef8f8f8f88fa8a2aea6a3e1aca0a2">[email&#160;protected]</span></div></div></a>
-        <div class="cc ad" style="cursor:default"><div class="cc-ic">📍</div><div><div class="cc-lb">Shop Address</div><div class="cc-vl" style="font-size:11px;line-height:1.5">Tripula Chauraha, Vijay Nagar<br>Maharaj Ganj Road, Near NSPS School<br>Raebareli - 229001</div></div></div>
+        <div class="cc ad" style="cursor:default"><div class="cc-ic">📍</div><div><div class="cc-lb">Shop Address</div><div class="cc-vl" style="font-size:11px;line-height:1.5">Tripula Chauraha, Vijay Nagar<br>Maharaj Ganj Road, Near NSPS School<br>Raebareli — 229001</div></div></div>
       </div>
     </div>
     <div>
@@ -516,7 +475,7 @@ footer{background:var(--dark);color:white;text-align:center;padding:30px 5%;}
 
 <footer>
   <div class="fl">Budget<span>Bazar</span></div>
-  <div class="ft">आपकी ज़रूरत, हमारी दुकान - Raebareli, UP</div>
+  <div class="ft">आपकी ज़रूरत, हमारी दुकान — Raebareli, UP</div>
   <div class="flinks"><a href="#home">Home</a><a href="#products">Products</a><a href="#points">Points</a><a href="#special">Special</a><a href="#contact">Contact</a></div>
   <div class="fdiv"></div>
   <div class="fcp">© 2025 Budget Bazar, Raebareli · Made with ❤️</div>
@@ -614,42 +573,6 @@ var SP = [
   {id:111,cat:'cake',emoji:'🍰',name:'Anniversary Cake',detail:'Custom design',price:0}
 ];
 
-
-// ══════════════════════════════════════════
-//  GOOGLE SHEET CONFIG
-// ══════════════════════════════════════════
-var SHEET_URL = 'https://opensheet.elk.sh/1hmMuP7D06H-NofmWRWKrjc3qlGgeVWiDEpCBerzynFY/Sheet1';
-var sheetProducts = []; // loaded from Google Sheet
-
-function loadSheetProducts(){
-  var grid = document.getElementById('pgrid');
-  if(grid) grid.innerHTML = '<div style="text-align:center;padding:40px;color:#aaa;grid-column:1/-1"><div style="font-size:32px;margin-bottom:10px">⏳</div><p>Products load ho rahe hain...</p></div>';
-  
-  fetch(SHEET_URL)
-    .then(function(r){ return r.json(); })
-    .then(function(data){
-      sheetProducts = [];
-      var nextId = 9000;
-      data.forEach(function(row){
-        var name = (row['name'] || row['name '] || '').trim();
-        var detail = (row['detail'] || row['Detail'] || '').trim();
-        var price = parseFloat(row['price'] || row['Price'] || '0') || 0;
-        var cat = (row['category'] || row['Category'] || 'daily').trim().toLowerCase();
-        var emoji = (row['emoji'] || row['Emoji'] || '📦').trim();
-        var id = parseInt(row['id'] || row['Id'] || nextId++);
-        if(name){
-          sheetProducts.push({id:id, cat:cat, emoji:emoji, name:name, detail:detail, price:price, _sheet:true});
-        }
-      });
-      console.log('Sheet products loaded:', sheetProducts.length);
-      renderGrid();
-    })
-    .catch(function(e){
-      console.log('Sheet load failed:', e);
-      renderGrid(); // show static products anyway
-    });
-}
-
 // ══════════════════════════════════════════
 //  LOCAL STORAGE HELPERS
 // ══════════════════════════════════════════
@@ -677,12 +600,6 @@ function getAll(){
     list.push(merged);
   });
   customs.forEach(function(p){list.push(Object.assign({},p,{_static:false}));});
-  // Add Google Sheet products
-  sheetProducts.forEach(function(p){
-    // Avoid duplicate IDs
-    var exists = list.some(function(x){return x.id===p.id;});
-    if(!exists) list.push(p);
-  });
   return list;
 }
 
@@ -706,7 +623,7 @@ function renderGrid(){
   });
   var g=document.getElementById('pgrid');
   if(!filtered.length){
-    g.innerHTML='<div class="no-res"><span>🔍</span><p>Koi product nahi mila<br><small>WhatsApp karo - sab milega!</small></p></div>';
+    g.innerHTML='<div class="no-res"><span>🔍</span><p>Koi product nahi mila<br><small>WhatsApp karo — sab milega!</small></p></div>';
     return;
   }
   g.innerHTML=filtered.map(function(p){
@@ -758,280 +675,6 @@ function clearSearch(){
   document.getElementById('searchClear').style.display='none';
   curSearch='';
   renderGrid();
-}
-
-
-// ══════════════════════════════════════════
-//  INVOICE SYSTEM
-// ══════════════════════════════════════════
-function addInvRow(){
-  var row = document.createElement('div');
-  row.className = 'inv-item-row';
-  row.style.cssText = 'display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:6px;margin-top:6px;align-items:center;';
-  row.innerHTML = '<input type="text" placeholder="Product naam" class="inv-pname" style="padding:7px 10px;border:2px solid #e0d0c0;border-radius:8px;font-size:12px;font-family:Hind,sans-serif;outline:none;">'
-    +'<input type="number" placeholder="Qty" class="inv-qty" value="1" min="1" style="padding:7px 8px;border:2px solid #e0d0c0;border-radius:8px;font-size:12px;font-family:Hind,sans-serif;outline:none;">'
-    +'<input type="number" placeholder="Price" class="inv-price" min="0" style="padding:7px 8px;border:2px solid #e0d0c0;border-radius:8px;font-size:12px;font-family:Hind,sans-serif;outline:none;">'
-    +'<button onclick="removeInvRow(this)" style="background:#fff0f0;border:1.5px solid #ffb3b3;color:#d4000c;border-radius:8px;padding:7px 10px;font-size:13px;cursor:pointer;">✕</button>';
-  document.getElementById('invItems').appendChild(row);
-}
-
-function removeInvRow(btn){
-  var rows = document.querySelectorAll('.inv-item-row');
-  if(rows.length > 1) btn.parentElement.remove();
-}
-
-function generateInvoice(){
-  var custName = document.getElementById('invCustName').value.trim() || 'Customer';
-  var payment = document.getElementById('invPayment').value;
-  var delivery = parseInt(document.getElementById('invDelivery').value)||0;
-
-  var rows = document.querySelectorAll('.inv-item-row');
-  var items = [];
-  var subtotal = 0;
-  rows.forEach(function(row){
-    var name = row.querySelector('.inv-pname').value.trim();
-    var qty = parseInt(row.querySelector('.inv-qty').value)||1;
-    var price = parseFloat(row.querySelector('.inv-price').value)||0;
-    if(name){
-      items.push({name:name,qty:qty,price:price,total:qty*price});
-      subtotal += qty*price;
-    }
-  });
-
-  if(!items.length){ alert('Kam se kam ek item add karo!'); return; }
-
-  var total = subtotal + delivery;
-  var points = Math.floor(total/25);
-
-  // Draw on canvas
-  var canvas = document.getElementById('invCanvas');
-  var W = 400;
-  var rowH = 28;
-  var H = 320 + items.length*rowH + (delivery>0?30:0);
-  canvas.width = W;
-  canvas.height = H;
-  var ctx = canvas.getContext('2d');
-
-  // Background
-  ctx.fillStyle = '#ffffff';
-  ctx.fillRect(0,0,W,H);
-
-  // Header bg
-  var grad = ctx.createLinearGradient(0,0,W,80);
-  grad.addColorStop(0,'#1a0505');
-  grad.addColorStop(1,'#3d0a00');
-  ctx.fillStyle = grad;
-  ctx.fillRect(0,0,W,80);
-
-  // Shop name
-  ctx.fillStyle = '#ffcc00';
-  ctx.font = 'bold 26px Arial';
-  ctx.textAlign = 'center';
-  ctx.fillText('Budget Bazar', W/2, 36);
-
-  ctx.fillStyle = 'rgba(255,255,255,0.7)';
-  ctx.font = '11px Arial';
-  ctx.fillText('Tripula Chauraha, Vijay Nagar, Raebareli • 8957799335', W/2, 54);
-
-  // Invoice label
-  ctx.fillStyle = '#ff6b00';
-  ctx.font = 'bold 13px Arial';
-  ctx.fillText('- INVOICE -', W/2, 72);
-
-  // Invoice details
-  var y = 100;
-  ctx.textAlign = 'left';
-
-  // Customer & date
-  ctx.fillStyle = '#333';
-  ctx.font = 'bold 13px Arial';
-  ctx.fillText('Customer: '+custName, 20, y);
-  ctx.textAlign = 'right';
-  var now = new Date();
-  ctx.fillStyle = '#888';
-  ctx.font = '11px Arial';
-  ctx.fillText(now.getDate()+'/'+(now.getMonth()+1)+'/'+now.getFullYear(), W-20, y);
-  ctx.textAlign = 'left';
-  y += 16;
-
-  // Payment status
-  ctx.font = 'bold 12px Arial';
-  ctx.fillStyle = payment==='Paid'?'#0a7c3e':'#d4000c';
-  ctx.fillText('Payment: '+payment, 20, y);
-  y += 20;
-
-  // Divider
-  ctx.strokeStyle = '#e0d0c0';
-  ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(20,y); ctx.lineTo(W-20,y); ctx.stroke();
-  y += 14;
-
-  // Table header
-  ctx.fillStyle = '#1a0505';
-  ctx.font = 'bold 12px Arial';
-  ctx.fillText('Item', 20, y);
-  ctx.textAlign = 'center';
-  ctx.fillText('Qty', 270, y);
-  ctx.textAlign = 'right';
-  ctx.fillText('Price', 330, y);
-  ctx.fillText('Total', W-20, y);
-  y += 6;
-
-  ctx.strokeStyle = '#1a0505';
-  ctx.lineWidth = 1.5;
-  ctx.beginPath(); ctx.moveTo(20,y); ctx.lineTo(W-20,y); ctx.stroke();
-  y += 14;
-
-  // Items
-  ctx.font = '12px Arial';
-  items.forEach(function(item,i){
-    ctx.fillStyle = i%2===0?'#fafafa':'#ffffff';
-    ctx.fillRect(16, y-12, W-32, rowH-4);
-    ctx.fillStyle = '#333';
-    ctx.textAlign = 'left';
-    // Truncate long names
-    var nm = item.name.length>22 ? item.name.substring(0,22)+'...' : item.name;
-    ctx.fillText(nm, 20, y);
-    ctx.textAlign = 'center';
-    ctx.fillText(item.qty, 270, y);
-    ctx.textAlign = 'right';
-    ctx.fillText('₹'+item.price, 330, y);
-    ctx.font = 'bold 12px Arial';
-    ctx.fillText('₹'+item.total, W-20, y);
-    ctx.font = '12px Arial';
-    y += rowH;
-  });
-
-  // Divider
-  ctx.strokeStyle = '#e0d0c0';
-  ctx.lineWidth = 1;
-  ctx.beginPath(); ctx.moveTo(20,y); ctx.lineTo(W-20,y); ctx.stroke();
-  y += 16;
-
-  // Subtotal
-  ctx.fillStyle = '#555';
-  ctx.font = '12px Arial';
-  ctx.textAlign = 'left';
-  ctx.fillText('Subtotal', 20, y);
-  ctx.textAlign = 'right';
-  ctx.fillText('₹'+subtotal, W-20, y);
-  y += 20;
-
-  // Delivery
-  if(delivery > 0){
-    ctx.fillStyle = '#555';
-    ctx.textAlign = 'left';
-    ctx.fillText('Delivery Charge', 20, y);
-    ctx.textAlign = 'right';
-    ctx.fillText('₹'+delivery, W-20, y);
-    y += 20;
-  } else {
-    ctx.fillStyle = '#0a7c3e';
-    ctx.textAlign = 'left';
-    ctx.fillText('Delivery', 20, y);
-    ctx.textAlign = 'right';
-    ctx.fillText('FREE 🎉', W-20, y);
-    y += 20;
-  }
-
-  // Total box
-  ctx.fillStyle = '#1a0505';
-  ctx.fillRect(16, y-4, W-32, 34);
-  ctx.fillStyle = '#ffcc00';
-  ctx.font = 'bold 16px Arial';
-  ctx.textAlign = 'left';
-  ctx.fillText('TOTAL', 24, y+18);
-  ctx.textAlign = 'right';
-  ctx.fillText('₹'+total, W-24, y+18);
-  y += 42;
-
-  // Points
-  ctx.fillStyle = '#fff3e0';
-  ctx.fillRect(16, y-4, W-32, 30);
-  ctx.fillStyle = '#ff6b00';
-  ctx.font = 'bold 12px Arial';
-  ctx.textAlign = 'left';
-  ctx.fillText('🌟 Points Earned: '+points+' pts  (₹'+points+' next order mein)', 22, y+14);
-  y += 36;
-
-  // Footer
-  ctx.fillStyle = '#aaa';
-  ctx.font = '10px Arial';
-  ctx.textAlign = 'center';
-  ctx.fillText('Thank you for shopping at Budget Bazar! 😊', W/2, y+10);
-  ctx.fillText('budgetbazar.store', W/2, y+24);
-
-  // Show modal
-  document.getElementById('invModal').style.display = 'flex';
-  closeAdmin();
-}
-
-function closeInvModal(){
-  document.getElementById('invModal').style.display = 'none';
-}
-
-function shareInvoice(){
-  var canvas = document.getElementById('invCanvas');
-  canvas.toBlob(function(blob){
-    if(navigator.share && navigator.canShare && navigator.canShare({files:[new File([blob],'invoice.png',{type:'image/png'})]})){
-      var file = new File([blob],'Budget-Bazar-Invoice.png',{type:'image/png'});
-      navigator.share({
-        title:'Budget Bazar Invoice',
-        files:[file]
-      }).catch(function(e){ fallbackShare(canvas); });
-    } else {
-      fallbackShare(canvas);
-    }
-  },'image/png');
-}
-
-function fallbackShare(canvas){
-  // Open WhatsApp then download image
-  var custName = document.getElementById('invCustName').value.trim() || 'Customer';
-  var payment = document.getElementById('invPayment').value;
-  var delivery = parseInt(document.getElementById('invDelivery').value)||0;
-  var rows = document.querySelectorAll('.inv-item-row');
-  var subtotal=0, items=[];
-  rows.forEach(function(row){
-    var name=row.querySelector('.inv-pname').value.trim();
-    var qty=parseInt(row.querySelector('.inv-qty').value)||1;
-    var price=parseFloat(row.querySelector('.inv-price').value)||0;
-    if(name){items.push(name+' x'+qty+' = ₹'+(qty*price));subtotal+=qty*price;}
-  });
-  var total=subtotal+delivery;
-  var pts=Math.floor(total/25);
-  var msg='🏪 *Budget Bazar Invoice*
-'
-    +'👤 Customer: '+custName+'
-'
-    +'💳 Payment: '+payment+'
-
-'
-    +'📦 *Items:*
-'+items.join('
-')+'
-
-'
-    +(delivery>0?'🚚 Delivery: ₹'+delivery+'
-':'🚚 Delivery: FREE
-')
-    +'💰 *Total: ₹'+total+'*
-'
-    +'🌟 Points Earned: '+pts+' pts
-
-'
-    +'Thank you! 😊 budgetbazar.store';
-  
-  // Download image
-  var link = document.createElement('a');
-  link.download = 'Budget-Bazar-Invoice.png';
-  link.href = canvas.toDataURL('image/png');
-  link.click();
-  
-  // Open WhatsApp
-  setTimeout(function(){
-    window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
-  }, 500);
 }
 
 // ══════════════════════════════════════════
@@ -1290,7 +933,21 @@ function installApp(){
   }
 }
 
-renderGrid();
+  window.onload = function () {
+  setTimeout(function () {
+    const banner = document.getElementById("shopStatus");
+
+    if (banner) {
+      const hour = new Date().getHours();
+      const isOpen = hour >= 10 && hour < 22;
+
+      banner.innerText = isOpen
+        ? "✅ Shop Open (10AM – 10PM)"
+        : "❌ Shop Closed (10AM – 10PM)";
+    }
+  }, 300);
+};
+setTimeout(renderGrid, 100);
 </script>
 </body>
-  </html>
+</html>
