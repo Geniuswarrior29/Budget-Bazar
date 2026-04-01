@@ -5,26 +5,31 @@
 <title>Mystery Boxes Pro</title>
 <style>
 body{font-family:Arial;text-align:center;margin:0;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
-h1{margin-top:20px}
-.container{display:flex;justify-content:center;gap:15px;margin-top:40px}
-.box{width:90px;height:90px;background:#fff;color:#333;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:bold;cursor:pointer;transition:.3s;position:relative;overflow:hidden}
-.box:hover{transform:scale(1.1)}
-.hidden{background:#ff4b2b;color:#fff}
-#result{margin-top:30px;font-size:22px;font-weight:bold}
-button{margin-top:20px;padding:10px 20px;border:none;border-radius:8px;background:#ff4b2b;color:#fff}
-#adminPanel{margin-top:20px}
-</style>
+h1{margin-top:20px}.container{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; padding:20px; max-width:500px; margin:auto; }
+
+.box{ width:100%; height:150px; background:#fff; color:#333; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:bold; cursor:pointer; transition:.3s; }
+
+.box:hover{transform:scale(1.05)} .hidden{background:#ff4b2b;color:#fff}
+
+#result{margin-top:20px;font-size:24px;font-weight:bold} button{margin-top:15px;padding:10px 20px;border:none;border-radius:8px;background:#ff4b2b;color:#fff} #adminPanel{margin-top:20px}
+
+.shuffle{ animation: shuffleMove 0.5s ease-in-out infinite alternate; }
+
+@keyframes shuffleMove{ 0%{transform:translateY(0)} 100%{transform:translateY(-10px)} } </style>
+
 </head>
 <body><h1>🎁 Choose Your Mystery Box</h1><div id="adminPanel">
 <input type="number" id="setPoints" placeholder="Set Base Points (1-20)">
 <button onclick="generateLink()">Generate Link</button>
 <p id="link"></p>
-</div><div class="container">
+</div><div class="container" id="boxContainer">
 <div class="box" onclick="openBox(0)"></div>
 <div class="box" onclick="openBox(1)"></div>
 <div class="box" onclick="openBox(2)"></div>
 <div class="box" onclick="openBox(3)"></div>
-</div><div id="result"></div><script>
+</div><div id="result"></div><audio id="shuffleSound" src="https://www.soundjay.com/button/beep-07.wav"></audio>
+
+<script>
 const SECRET="bbz@pro";
 
 function encode(p){return btoa(p+"-"+SECRET).replace(/=/g,"")}
@@ -45,45 +50,48 @@ let base=decode(code);
 if(code){document.getElementById("adminPanel").style.display="none"}
 
 let boxes=document.querySelectorAll(".box");
+let container=document.getElementById("boxContainer");
+let sound=document.getElementById("shuffleSound");
 let values=[];
 
 if(base){
- // generate values
  values=[base, base-2, base-3, base+5];
  values=values.map(v=>v<1?1:v>20?20:v);
 
- // show numbers briefly
  boxes.forEach((b,i)=>{b.innerText=values[i]});
 
- // hide after 1.5 sec
  setTimeout(()=>{
    boxes.forEach(b=>{b.innerText="🎁";b.classList.add("hidden")});
-   shuffleBoxes();
+   startShuffle();
  },1500);
 }
 
-function shuffleBoxes(){
- let arr=[...boxes];
- for(let i=0;i<10;i++){
+function startShuffle(){
+ sound.play();
+ boxes.forEach(b=>b.classList.add("shuffle"));
+
+ let interval=setInterval(()=>{
+   let arr=[...boxes];
    arr.sort(()=>Math.random()-0.5);
-   arr.forEach((b,idx)=>{
-     b.style.order=idx;
-   });
- }
+   arr.forEach(el=>container.appendChild(el));
+ },400);
+
+ setTimeout(()=>{
+   clearInterval(interval);
+   boxes.forEach(b=>b.classList.remove("shuffle"));
+ },3000);
 }
 
 function openBox(i){
  if(!base){alert("Invalid link");return}
  if(localStorage.getItem("used_"+code)){alert("Already used");return}
 
- // always give base reward
  document.getElementById("result").innerText="🎉 You got "+base+" points!";
 
- // reveal animation
  boxes[i].innerText=base;
  boxes[i].style.background="#00c853";
  boxes[i].style.color="#fff";
- boxes[i].style.transform="scale(1.3)";
+ boxes[i].style.transform="scale(1.2)";
 
  localStorage.setItem("used_"+code,true);
 }
