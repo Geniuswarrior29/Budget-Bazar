@@ -114,10 +114,16 @@ for (let i = 1; i <= total; i++) {
     slice.style.background = `hsl(${i*18}, 80%, 55%)`;
 
     let span = document.createElement("span");
-    span.style.transform = `skewY(-${90 - 360/total}deg) rotate(-${angle}deg)`;
     span.innerText = i;
-    slice.appendChild(span);
+    span.style.position = "absolute";
+    span.style.top = "10px";
+    span.style.left = "-10px";
+    span.style.transform = `rotate(-${angle}deg)`;
+    span.style.fontSize = "12px";
+    span.style.fontWeight = "bold";
+    span.style.color = "#fff";
 
+    slice.appendChild(span);
     wheel.appendChild(slice);
 }
 
