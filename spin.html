@@ -12,7 +12,8 @@ body{font-family:'Rajdhani',sans-serif;background:var(--dark);color:#fff;min-hei
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 20%,rgba(124,58,237,0.15) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(245,200,66,0.08) 0%,transparent 50%);z-index:0;pointer-events:none;}
 .stars{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
 .star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:twinkle var(--d,3s) ease-in-out infinite var(--delay,0s);opacity:0;}
-@keyframes twinkle{0%,100%{opacity:0;transform:scale(1)}50%{opacity:var(--op,0.8);transform:scale(1.5)}}
+@keyframes twinkle{0%,100%{opacity:0}50%{opacity:var(--op,0.8)}}
+
 header{position:relative;z-index:10;text-align:center;padding:24px 20px 8px;}
 .logo-wrap{display:inline-block;position:relative;}
 .logo-wrap::before{content:'';position:absolute;inset:-8px -20px;border:1px solid rgba(245,200,66,0.3);border-radius:4px;}
@@ -21,25 +22,29 @@ h1{font-family:'Cinzel Decorative',serif;font-size:clamp(20px,6vw,36px);font-wei
 #timer{margin:14px auto 0;display:none;background:rgba(245,200,66,0.08);border:1px solid rgba(245,200,66,0.25);border-radius:30px;padding:6px 22px;font-size:15px;font-weight:600;color:var(--gold);letter-spacing:1px;}
 #timer.urgent{border-color:rgba(255,80,80,0.6);color:#ff5050;background:rgba(255,80,80,0.08);animation:pu 0.8s ease-in-out infinite;}
 @keyframes pu{0%,100%{opacity:1}50%{opacity:0.6}}
+
+/* Admin */
 #adminPanel{position:relative;z-index:10;margin:16px auto;max-width:400px;background:var(--card);border:1px solid rgba(245,200,66,0.2);border-radius:16px;padding:18px 16px;}
 #adminPanel h3{font-family:'Cinzel Decorative',serif;color:var(--gold);font-size:13px;letter-spacing:2px;margin-bottom:14px;text-align:center;}
 .slabel{font-size:11px;letter-spacing:2px;color:rgba(245,200,66,0.5);text-transform:uppercase;margin-bottom:8px;margin-top:14px;}
 .box-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:4px;}
-.bcfg{background:rgba(255,255,255,0.03);border:1px solid rgba(245,200,66,0.15);border-radius:10px;padding:10px 10px 8px;}
-.bcfg-t{font-size:10px;letter-spacing:2px;color:rgba(245,200,66,0.4);text-transform:uppercase;margin-bottom:6px;}
+.bcfg{background:rgba(255,255,255,0.03);border:1px solid rgba(245,200,66,0.15);border-radius:10px;padding:10px;}
+.bcfg-t{font-size:10px;letter-spacing:2px;color:rgba(245,200,66,0.5);text-transform:uppercase;margin-bottom:7px;font-weight:700;}
 .bcfg input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(245,200,66,0.2);border-radius:7px;padding:7px 10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:13px;outline:none;margin-bottom:6px;transition:border-color 0.2s;}
 .bcfg input:last-child{margin-bottom:0;}
 .bcfg input:focus{border-color:var(--gold)}
-.bcfg input::placeholder{color:rgba(255,255,255,0.25);font-size:12px;}
+.bcfg input::placeholder{color:rgba(255,255,255,0.25);font-size:11px;}
 .win-select{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:4px;}
 .wb{background:rgba(255,255,255,0.04);border:1px solid rgba(245,200,66,0.2);border-radius:8px;padding:8px 4px;color:rgba(255,255,255,0.5);font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all 0.2s;letter-spacing:1px;}
 .wb.active{background:rgba(245,200,66,0.18);border-color:var(--gold);color:var(--gold);}
 .gen-btn{width:100%;background:linear-gradient(135deg,var(--gold),var(--gold2));border:none;border-radius:10px;padding:11px;font-family:'Cinzel Decorative',serif;font-size:12px;font-weight:700;color:#0a0a0f;cursor:pointer;letter-spacing:1px;transition:transform 0.2s,box-shadow 0.2s;box-shadow:0 4px 20px rgba(245,200,66,0.3);margin-top:14px;display:block;}
 .gen-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(245,200,66,0.5)}
-.gen-btn:active{transform:translateY(0)}
 #link{margin-top:10px;font-size:11px;color:rgba(245,200,66,0.7);word-break:break-all;text-align:center;line-height:1.5;}
+
+/* Boxes */
 .container{position:relative;z-index:10;display:grid;grid-template-columns:repeat(2,1fr);gap:16px;padding:16px 18px;max-width:440px;margin:0 auto;}
 .box{aspect-ratio:1;perspective:1000px;cursor:pointer;}
+.box.not-winning{cursor:default;}
 .inner{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform 0.7s cubic-bezier(0.4,0,0.2,1);}
 .inner.flip{transform:rotateY(180deg)}
 .face{position:absolute;inset:0;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;backface-visibility:hidden;-webkit-backface-visibility:hidden;}
@@ -50,19 +55,22 @@ h1{font-family:'Cinzel Decorative',serif;font-size:clamp(20px,6vw,36px);font-wei
 .box-icon{font-size:48px;position:relative;z-index:1;animation:fl 3s ease-in-out infinite}
 @keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
 .box-label{font-size:10px;letter-spacing:3px;color:rgba(245,200,66,0.5);text-transform:uppercase;margin-top:5px;position:relative;z-index:1;}
-.box:hover .front{border-color:rgba(245,200,66,0.6);box-shadow:0 0 40px rgba(245,200,66,0.2),inset 0 1px 0 rgba(255,255,255,0.08);}
-.box:hover .box-icon{animation:bn 0.6s ease-in-out}
-@keyframes bn{0%,100%{transform:scale(1)}40%{transform:scale(1.2)}60%{transform:scale(0.95)}}
-.back{background:linear-gradient(145deg,#1a1025,#0f0f1c);border:1px solid rgba(245,200,66,0.5);transform:rotateY(180deg);box-shadow:0 0 50px rgba(245,200,66,0.25);padding:10px;text-align:center;}
-.rg{font-size:34px;line-height:1;}
-.rp{font-family:'Cinzel Decorative',serif;font-size:26px;font-weight:900;background:linear-gradient(135deg,#f5c842,#fff4a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;margin-top:4px;}
-.rl{font-size:10px;letter-spacing:2px;color:rgba(245,200,66,0.55);text-transform:uppercase;margin-top:3px;}
+
+/* Winning box pulse */
+.box.is-winning .front{border-color:rgba(245,200,66,0.7);box-shadow:0 0 40px rgba(245,200,66,0.3),inset 0 1px 0 rgba(255,255,255,0.08);}
+
+.back{background:linear-gradient(145deg,#1a1025,#0f0f1c);border:1px solid rgba(245,200,66,0.5);transform:rotateY(180deg);box-shadow:0 0 50px rgba(245,200,66,0.25);padding:8px;text-align:center;}
+.rg{font-size:30px;line-height:1;}
+.rp{font-family:'Cinzel Decorative',serif;font-size:13px;font-weight:900;background:linear-gradient(135deg,#f5c842,#fff4a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.3;margin-top:5px;padding:0 4px;}
+
+/* Result */
 #result{position:relative;z-index:10;text-align:center;margin:8px 20px 28px;min-height:60px;}
-.result-inner{display:inline-block;background:linear-gradient(135deg,rgba(245,200,66,0.1),rgba(245,200,66,0.05));border:1px solid rgba(245,200,66,0.4);border-radius:16px;padding:14px 28px;opacity:0;transform:translateY(10px);transition:all 0.5s cubic-bezier(0.4,0,0.2,1);}
+.result-inner{display:inline-block;background:linear-gradient(135deg,rgba(245,200,66,0.1),rgba(245,200,66,0.05));border:1px solid rgba(245,200,66,0.4);border-radius:16px;padding:14px 24px;opacity:0;transform:translateY(10px);transition:all 0.5s cubic-bezier(0.4,0,0.2,1);max-width:360px;}
 .result-inner.show{opacity:1;transform:translateY(0)}
 .result-emoji{font-size:26px}
-.result-text{font-family:'Cinzel Decorative',serif;font-size:14px;color:var(--gold);margin-top:4px;}
-.result-sub{font-size:13px;color:rgba(255,255,255,0.5);margin-top:3px;}
+.result-text{font-family:'Cinzel Decorative',serif;font-size:14px;color:var(--gold);margin-top:5px;line-height:1.4;}
+.result-sub{font-size:13px;color:rgba(255,255,255,0.5);margin-top:4px;}
+
 .confetti-p{position:fixed;top:-10px;border-radius:2px;animation:cf var(--dur,2.5s) ease-in forwards;z-index:999;pointer-events:none;}
 @keyframes cf{0%{transform:translateY(0) rotate(0deg) scale(1);opacity:1}80%{opacity:1}100%{transform:translateY(105vh) rotate(720deg) scale(0.5);opacity:0}}
 .shuffle-active .front{animation:sh 0.3s ease-in-out infinite alternate;}
@@ -79,38 +87,35 @@ h1{font-family:'Cinzel Decorative',serif;font-size:clamp(20px,6vw,36px);font-wei
   <div id="timer"></div>
 </header>
 
+<!-- ADMIN PANEL -->
 <div id="adminPanel">
   <h3>&#9670; Admin Setup &#9670;</h3>
 
-  <div class="slabel">Box 1 &amp; 2</div>
+  <div class="slabel">Box 1 &amp; 2 — Gift set karo</div>
   <div class="box-row">
     <div class="bcfg">
       <div class="bcfg-t">Box 1</div>
-      <input type="text" id="g0" placeholder="Gift naam">
-      <input type="number" id="p0" placeholder="Points" min="0">
+      <input type="text" id="g0" placeholder="e.g. T-Shirt + 10 pts">
     </div>
     <div class="bcfg">
       <div class="bcfg-t">Box 2</div>
-      <input type="text" id="g1" placeholder="Gift naam">
-      <input type="number" id="p1" placeholder="Points" min="0">
+      <input type="text" id="g1" placeholder="e.g. Chips + 5 pts">
     </div>
   </div>
 
-  <div class="slabel">Box 3 &amp; 4</div>
+  <div class="slabel">Box 3 &amp; 4 — Gift set karo</div>
   <div class="box-row">
     <div class="bcfg">
       <div class="bcfg-t">Box 3</div>
-      <input type="text" id="g2" placeholder="Gift naam">
-      <input type="number" id="p2" placeholder="Points" min="0">
+      <input type="text" id="g2" placeholder="e.g. 15 Points">
     </div>
     <div class="bcfg">
       <div class="bcfg-t">Box 4</div>
-      <input type="text" id="g3" placeholder="Gift naam">
-      <input type="number" id="p3" placeholder="Points" min="0">
+      <input type="text" id="g3" placeholder="e.g. Free Juice">
     </div>
   </div>
 
-  <div class="slabel">Winning Box select karo</div>
+  <div class="slabel">Customer konsa box kholega? (Winning box)</div>
   <div class="win-select">
     <button class="wb active" id="wb0" onclick="setWin(0)">Box 1</button>
     <button class="wb" id="wb1" onclick="setWin(1)">Box 2</button>
@@ -122,26 +127,27 @@ h1{font-family:'Cinzel Decorative',serif;font-size:clamp(20px,6vw,36px);font-wei
   <p id="link"></p>
 </div>
 
+<!-- GAME -->
 <div class="container" id="boxContainer">
-  <div class="box" onclick="openBox(0)">
+  <div class="box" id="box0" onclick="openBox(0)">
     <div class="inner" id="inner0">
       <div class="face front"><div class="box-icon">&#127873;</div><div class="box-label">Tap to Open</div></div>
       <div class="face back" id="back0"></div>
     </div>
   </div>
-  <div class="box" onclick="openBox(1)">
+  <div class="box" id="box1" onclick="openBox(1)">
     <div class="inner" id="inner1">
       <div class="face front"><div class="box-icon">&#127873;</div><div class="box-label">Tap to Open</div></div>
       <div class="face back" id="back1"></div>
     </div>
   </div>
-  <div class="box" onclick="openBox(2)">
+  <div class="box" id="box2" onclick="openBox(2)">
     <div class="inner" id="inner2">
       <div class="face front"><div class="box-icon">&#127873;</div><div class="box-label">Tap to Open</div></div>
       <div class="face back" id="back2"></div>
     </div>
   </div>
-  <div class="box" onclick="openBox(3)">
+  <div class="box" id="box3" onclick="openBox(3)">
     <div class="inner" id="inner3">
       <div class="face front"><div class="box-icon">&#127873;</div><div class="box-label">Tap to Open</div></div>
       <div class="face back" id="back3"></div>
@@ -151,7 +157,7 @@ h1{font-family:'Cinzel Decorative',serif;font-size:clamp(20px,6vw,36px);font-wei
 
 <div id="result">
   <div class="result-inner" id="resultInner">
-    <div class="result-emoji" id="resultEmoji">&#127881;</div>
+    <div class="result-emoji">&#127881;</div>
     <div class="result-text" id="resultText"></div>
     <div class="result-sub" id="resultSub"></div>
   </div>
@@ -162,10 +168,8 @@ h1{font-family:'Cinzel Decorative',serif;font-size:clamp(20px,6vw,36px);font-wei
 (function(){
   var s=document.getElementById("stars");
   for(var i=0;i<80;i++){
-    var el=document.createElement("div");
-    el.className="star";
-    el.style.left=Math.random()*100+"vw";
-    el.style.top=Math.random()*100+"vh";
+    var el=document.createElement("div");el.className="star";
+    el.style.left=Math.random()*100+"vw";el.style.top=Math.random()*100+"vh";
     el.style.setProperty("--d",(2+Math.random()*4)+"s");
     el.style.setProperty("--delay",(-Math.random()*4)+"s");
     el.style.setProperty("--op",0.3+Math.random()*0.7);
@@ -182,53 +186,47 @@ function setWin(n){
   for(var i=0;i<4;i++)document.getElementById("wb"+i).className="wb"+(i===n?" active":"");
 }
 
-function toB64(obj){
-  var j=JSON.stringify(obj);
-  var enc="";
-  for(var i=0;i<j.length;i++){
-    enc+=("00"+j.charCodeAt(i).toString(16)).slice(-4);
-  }
+// Hex encode/decode — works with any character
+function toHex(obj){
+  var j=JSON.stringify(obj),enc="";
+  for(var i=0;i<j.length;i++)enc+=("00"+j.charCodeAt(i).toString(16)).slice(-4);
   return enc;
 }
-function fromB64(str){
+function fromHex(str){
   try{
     var j="";
-    for(var i=0;i<str.length;i+=4){
-      j+=String.fromCharCode(parseInt(str.substr(i,4),16));
-    }
+    for(var i=0;i<str.length;i+=4)j+=String.fromCharCode(parseInt(str.substr(i,4),16));
     return JSON.parse(j);
   }catch(e){return null;}
 }
 
 function generateLink(){
-  var boxes=[];
+  var gifts=[];
   for(var i=0;i<4;i++){
     var g=document.getElementById("g"+i).value.trim();
-    var p=parseInt(document.getElementById("p"+i).value)||0;
-    if(!g){alert("Box "+(i+1)+" ka gift naam likho!");return;}
-    boxes.push({g:g,p:p});
+    if(!g){alert("Box "+(i+1)+" ka gift likho!");return;}
+    gifts.push(g);
   }
-  var obj={s:SEC,t:Date.now(),w:selWin,b:boxes};
-  var code=toB64(obj);
-  var lnk=location.origin+location.pathname+"?c="+code;
+  var obj={s:SEC,t:Date.now(),w:selWin,gifts:gifts};
+  var lnk=location.origin+location.pathname+"?c="+toHex(obj);
   document.getElementById("link").innerText=lnk;
 }
 
+// Read URL
 var params=new URLSearchParams(location.search);
 var rawCode=params.get("c");
 var GD=null;
 
 if(rawCode){
   document.getElementById("adminPanel").style.display="none";
-  var parsed=fromB64(rawCode);
-  if(parsed && parsed.s===SEC){
-    if(Date.now()-parsed.t>EXP){GD="expired";}
-    else{GD=parsed;}
+  var parsed=fromHex(rawCode);
+  if(parsed&&parsed.s===SEC){
+    GD=(Date.now()-parsed.t>EXP)?"expired":parsed;
   }
 }
 
 // Timer
-if(GD && GD!=="expired"){
+if(GD&&GD!=="expired"){
   var tel=document.getElementById("timer");
   tel.style.display="inline-block";
   var endAt=GD.t+EXP;
@@ -241,20 +239,22 @@ if(GD && GD!=="expired"){
   },400);
 }
 
-// Populate backs
-if(GD && GD!=="expired"){
-  var EM=["&#x1F951;","&#x1F37A;","&#x1F370;","&#x1F36B;","&#x1F382;","&#x1F381;","&#x1F4B0;","&#x2B50;"];
+// Emojis for back of each box
+var BACKS=["&#127849;","&#127866;","&#127848;","&#127851;"];
+
+// Setup backs + highlight winning box
+if(GD&&GD!=="expired"){
   for(var bi=0;bi<4;bi++){
-    var bd=GD.b[bi];
     document.getElementById("back"+bi).innerHTML=
-      '<div class="rg">'+EM[bi]+'</div>'+
-      '<div class="rp">'+bd.p+'</div>'+
-      '<div class="rl">pts &bull; '+bd.g+'</div>';
+      '<div class="rg">'+BACKS[bi]+'</div>'+
+      '<div class="rp">'+GD.gifts[bi]+'</div>';
   }
+  // Mark winning box so customer can click only it
+  document.getElementById("box"+GD.w).classList.add("is-winning");
   setTimeout(function(){startShuffle();},800);
 }
 
-// Shuffle
+// Shuffle animation
 var shuffling=false;
 function startShuffle(){
   shuffling=true;
@@ -265,8 +265,7 @@ function startShuffle(){
   playTick();
   var tki=setInterval(playTick,180);
   function move(){
-    var p=Date.now()-t;
-    var spd=1+(p/3000)*2;
+    var p=Date.now()-t,spd=1+(p/3000)*2;
     boxes.forEach(function(b,i){
       var x=Math.sin(p/180*spd+i*1.5)*18;
       var y=Math.cos(p/220*spd+i*1.2)*18;
@@ -290,9 +289,9 @@ function getCtx(){if(!actx)actx=new(window.AudioContext||window.webkitAudioConte
 function playTick(){
   try{
     var c=getCtx(),o=c.createOscillator(),g=c.createGain();
-    o.connect(g);g.connect(c.destination);
-    o.type="sine";o.frequency.value=700+Math.random()*500;
-    g.gain.setValueAtTime(0.08,c.currentTime);
+    o.connect(g);g.connect(c.destination);o.type="sine";
+    o.frequency.value=700+Math.random()*500;
+    g.gain.setValueAtTime(0.07,c.currentTime);
     g.gain.exponentialRampToValueAtTime(0.001,c.currentTime+0.07);
     o.start(c.currentTime);o.stop(c.currentTime+0.07);
   }catch(e){}
@@ -311,58 +310,52 @@ function playWin(){
     });
   }catch(e){}
 }
-function playLose(){
-  try{
-    var c=getCtx();
-    [330,260].forEach(function(f,i){
-      var o=c.createOscillator(),g=c.createGain();
-      o.connect(g);g.connect(c.destination);
-      o.type="sawtooth";o.frequency.value=f;
-      var t=c.currentTime+i*0.22;
-      g.gain.setValueAtTime(0.08,t);
-      g.gain.exponentialRampToValueAtTime(0.001,t+0.3);
-      o.start(t);o.stop(t+0.35);
-    });
-  }catch(e){}
-}
 
-// Open Box
+// Open Box — only winning box opens on click, rest auto-reveal after
 var opened=false;
 function openBox(idx){
   if(shuffling)return;
   if(!GD||GD==="expired"){alert("Link expired ho gaya hai!");return;}
   if(localStorage.getItem("bbz_"+rawCode)){alert("Ye reward already use ho chuka hai!");return;}
   if(opened)return;
+
+  // Only winning box should respond to tap
+  if(idx!==GD.w)return;
+
   opened=true;
+  localStorage.setItem("bbz_"+rawCode,true);
 
-  document.getElementById("inner"+idx).classList.add("flip");
+  // Flip the selected winning box
+  document.getElementById("inner"+GD.w).classList.add("flip");
+  playWin();
 
+  // After 1.2s, reveal all other boxes too
   setTimeout(function(){
-    var bd=GD.b[idx];
-    var win=(idx===GD.w);
-    var ri=document.getElementById("resultInner");
-    if(win){
-      playWin();
-      confettiBurst();
-      document.getElementById("resultEmoji").innerHTML="&#127881;";
-      document.getElementById("resultText").innerText="Aapne jeeta: "+bd.g+" + "+bd.p+" Points!";
-      document.getElementById("resultSub").innerText="Budget Bazar pe aake claim karo!";
-    } else {
-      playLose();
-      document.getElementById("resultEmoji").innerHTML="&#128532;";
-      document.getElementById("resultText").innerText="Mila: "+bd.g+" ("+bd.p+" pts)";
-      document.getElementById("resultSub").innerText="Better luck next time!";
+    for(var i=0;i<4;i++){
+      if(i!==GD.w){
+        (function(idx){
+          setTimeout(function(){
+            document.getElementById("inner"+idx).classList.add("flip");
+          },idx*200);
+        })(i);
+      }
     }
+  },1200);
+
+  // Show result after winning box flip
+  setTimeout(function(){
+    confettiBurst();
+    var ri=document.getElementById("resultInner");
+    document.getElementById("resultText").innerText="Aapne jeeta: "+GD.gifts[GD.w];
+    document.getElementById("resultSub").innerText="Budget Bazar pe aake claim karo!";
     ri.classList.add("show");
-    localStorage.setItem("bbz_"+rawCode,true);
-  },650);
+  },700);
 }
 
 function confettiBurst(){
   var clr=["#f5c842","#7c3aed","#ff6b6b","#4ecdc4","#fff4a0","#ff9f43","#a29bfe"];
   for(var i=0;i<60;i++){
-    var el=document.createElement("div");
-    el.className="confetti-p";
+    var el=document.createElement("div");el.className="confetti-p";
     el.style.left=Math.random()*100+"vw";
     el.style.background=clr[Math.floor(Math.random()*clr.length)];
     el.style.setProperty("--dur",(1.5+Math.random()*2)+"s");
@@ -376,3 +369,4 @@ function confettiBurst(){
 </script>
 </body>
 </html>
+
