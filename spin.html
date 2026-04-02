@@ -334,7 +334,7 @@ function openBox(idx){
   // After 1.2s, reveal all other boxes too
   setTimeout(function(){
     for(var i=0;i<4;i++){
-      if(i!==GD.w){
+      if(i!==idx){
         (function(idx){
           setTimeout(function(){
             document.getElementById("inner"+idx).classList.add("flip");
