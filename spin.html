@@ -244,13 +244,10 @@ var BACKS=["&#127849;","&#127866;","&#127848;","&#127851;"];
 
 // Setup backs + highlight winning box
 if(GD&&GD!=="expired"){
-  for(var bi=0;bi<4;bi++){
-    document.getElementById("back"+bi).innerHTML=
-      '<div class="rg">'+BACKS[bi]+'</div>'+
-      '<div class="rp">'+GD.gifts[bi]+'</div>';
-  }
+  document.getElementById("back"+bi).innerHTML =
+  '<div class="rg">'+BACKS[bi]+'</div>'+
+  '<div class="rp">'+GD.gifts[bi]+'</div>';
   // Mark winning box so customer can click only it
-  document.getElementById("box"+GD.w).classList.add("is-winning");
   setTimeout(function(){startShuffle();},800);
 }
 
@@ -371,3 +368,4 @@ function confettiBurst(){
 </script>
 </body>
 </html>
+
