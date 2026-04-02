@@ -320,13 +320,12 @@ function openBox(idx){
   if(opened)return;
 
   // Only winning box should respond to tap
-  if(idx!==GD.w)return;
 
   opened=true;
   localStorage.setItem("bbz_"+rawCode,true);
 
   // Flip the selected winning box
-  document.getElementById("inner"+GD.w).classList.add("flip");
+  document.getElementById("inner"+idx).classList.add("flip");
   playWin();
 
   // After 1.2s, reveal all other boxes too
@@ -369,4 +368,3 @@ function confettiBurst(){
 </script>
 </body>
 </html>
-
