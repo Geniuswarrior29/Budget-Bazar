@@ -326,6 +326,9 @@ function openBox(idx){
 
   // Flip the selected winning box
   document.getElementById("inner"+idx).classList.add("flip");
+  document.getElementById("back"+idx).innerHTML =
+  '<div class="rg">'+BACKS[GD.w]+'</div>' +
+  '<div class="rp">'+GD.gifts[GD.w]+'</div>';
   playWin();
 
   // After 1.2s, reveal all other boxes too
