@@ -610,6 +610,8 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
   </div>
 </div>
 
+
+
 <!-- HOT DEALS OVERLAY -->
 <div class="hd-overlay" id="hdOverlay" onclick="closeHDIfBg(event)">
   <div class="hd-sheet" id="hdSheet">
@@ -798,6 +800,7 @@ var hdLoaded=false;
 function openHotDeals(){
   document.getElementById("hdOverlay").classList.add("open");
   document.body.style.overflow="hidden";
+  history.pushState({type:"hotdeals"}, "", "");
   if(!hdLoaded){fetchHotDeals();}
 }
 function closeHD(){document.getElementById("hdOverlay").classList.remove("open");document.body.style.overflow="";}
@@ -1036,6 +1039,7 @@ function openProduct(id){
     +'</div>';
   document.getElementById("pdOverlay").classList.add("open");
   document.body.style.overflow="hidden";
+  history.pushState({pd:true}, "", "");
 }
 function closePD(){document.getElementById("pdOverlay").classList.remove("open");document.body.style.overflow="";}
 function closePDIfBg(e){if(e.target===document.getElementById("pdOverlay"))closePD();}
@@ -1096,8 +1100,16 @@ function updateCart(){
   document.getElementById("cpts").textContent=pts+" pts";
 }
 function toggleCart(){
-  document.getElementById("cov").classList.toggle("open");
-  document.getElementById("csd").classList.toggle("open");
+  var cartOverlay = document.getElementById("cov");
+  var cartSidebar = document.getElementById("csd");
+
+  var isOpen = cartSidebar.classList.toggle("open");
+  cartOverlay.classList.toggle("open");
+
+  // 👉 IMPORTANT LINE
+  if(isOpen){
+    history.pushState({type:"cart"}, "");
+  }
 }
 function askWA(name){window.open("https://wa.me/918957799335?text="+encodeURIComponent("Namaste! Mujhe "+name+" ka rate jaanna hai."),"_blank");}
 function orderWA(){
@@ -1285,6 +1297,27 @@ function saveEdit(){
 }
 
 loadSheet();
+window.onpopstate = function(event){
+
+  // 👉 Product Detail open hai
+  if(document.getElementById("pdOverlay").classList.contains("open")){
+    closePD();
+    return;
+  }
+
+  // 👉 Hot Deals open hai
+  if(document.getElementById("hdOverlay").classList.contains("open")){
+    closeHD();
+    return;
+  }
+
+  // 👉 Cart open hai
+  if(document.getElementById("csd").classList.contains("open")){
+    toggleCart();
+    return;
+  }
+
+};
 </script>
 
 </body>
