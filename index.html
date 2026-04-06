@@ -321,15 +321,28 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .bn-item.loggedin .bn-label{color:var(--green);}
 #recaptcha-container{margin-bottom:6px;}
-/* COMING SOON */
-.cs-modal{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:600;display:none;align-items:center;justify-content:center;padding:20px;}
-.cs-modal.open{display:flex;}
-.cs-box{background:#fff;border-radius:18px;width:100%;max-width:320px;text-align:center;padding:30px 24px;}
-.cs-emoji{font-size:48px;margin-bottom:10px;}
-.cs-title{font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;color:var(--dark);margin-bottom:6px;}
-.cs-sub{font-size:13px;color:#888;line-height:1.5;margin-bottom:16px;}
-.cs-close{background:var(--red);color:#fff;border:none;padding:10px 24px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;}
-.cs-badge{display:inline-block;background:#fff3e0;color:var(--orange);font-size:10px;font-weight:700;padding:4px 12px;border-radius:20px;margin-bottom:14px;letter-spacing:1px;}
+.btn-otp-sec{background:#fff;color:var(--dark);border:2px solid #e0d0c0;margin-bottom:8px;}
+.btn-otp-sec:active{border-color:var(--orange);}
+.pts-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:800;display:none;align-items:flex-end;justify-content:center;}
+.pts-overlay.open{display:flex;}
+.pts-modal-sheet{background:#fff;width:100%;max-width:480px;border-radius:22px 22px 0 0;animation:slideUp 0.3s ease;max-height:85vh;overflow-y:auto;}
+.pts-hd{background:linear-gradient(135deg,var(--green),#0d9e50);border-radius:22px 22px 0 0;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}
+.pts-hero{background:linear-gradient(135deg,#e8f5e9,#f1f8e9);border-radius:14px;padding:20px;text-align:center;margin-bottom:14px;border:2px solid #c8e6c9;}
+.pts-big{font-family:'Baloo 2',cursive;font-size:52px;font-weight:900;color:var(--green);line-height:1;}
+.pts-lbl-big{font-size:13px;font-weight:700;color:#555;margin-top:2px;}
+.pts-value-txt{font-size:11px;color:#888;margin-top:4px;}
+.pts-cards{display:flex;gap:8px;margin-bottom:14px;}
+.pts-sm-card{flex:1;border-radius:12px;padding:12px 8px;text-align:center;}
+.pts-sm-card.green{background:#e8f5e9;border:1.5px solid #c8e6c9;}
+.pts-sm-card.orange{background:#fff3e0;border:1.5px solid #ffe0b2;}
+.pts-sm-card.red{background:#fce4ec;border:1.5px solid #f8bbd0;}
+.pts-sm-val{font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;color:var(--dark);}
+.pts-sm-lbl{font-size:10px;color:#888;font-weight:700;margin-top:2px;}
+.pts-how{background:var(--light);border-radius:12px;padding:12px 14px;margin-bottom:14px;border:1.5px solid #f0e8d8;}
+.pts-how-title{font-family:'Baloo 2',cursive;font-size:13px;font-weight:900;color:var(--dark);margin-bottom:8px;}
+.pts-how-row{display:flex;align-items:center;gap:10px;font-size:12px;color:#555;padding:5px 0;border-bottom:1px solid #f0e8d8;}
+.pts-how-row:last-child{border-bottom:none;}
+.pts-redeem-btn{display:block;width:100%;background:linear-gradient(135deg,#25d366,#128c52);color:#fff;text-decoration:none;padding:13px;border-radius:12px;font-size:14px;font-weight:700;text-align:center;font-family:'Hind',sans-serif;}
 </style>
 </head>
 <body>
@@ -470,16 +483,16 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
     <div class="login-screen" id="lsChoose">
       <div class="login-icon">&#x1F6CD;&#xFE0F;</div>
       <h2 class="login-title">Apna Account</h2>
-      <p class="login-sub">Login karein ya naya account banayein</p>
+      <p class="login-sub">Login karein — points save honge aur orders track honge!</p>
       <button class="btn-google" id="btnGoogle" onclick="signInGoogle()">
-        <span class="g-icon">G</span> Google se Login Karein
+        <span class="g-icon">G</span> Gmail se Login Karein
       </button>
-      <div class="login-divider"><span>ya</span></div>
+      <div class="login-divider"><span>ya phone number se</span></div>
       <div class="phone-input-wrap">
         <span class="phone-prefix">+91</span>
         <input type="tel" id="phoneInput" class="phone-input" placeholder="Mobile number daalo" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
       </div>
-      <button class="btn-otp" onclick="sendOTP()">OTP Bhejo</button>
+      <button class="btn-otp btn-otp-sec" onclick="sendOTP()">OTP Bhejo</button>
       <div id="recaptcha-container"></div>
       <div class="login-err" id="phoneErr"></div>
     </div>
@@ -522,6 +535,46 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
     <div class="login-screen" id="lsLoading" style="display:none">
       <div class="login-spinner"></div>
       <p class="login-sub" id="loadingText">Please wait...</p>
+    </div>
+  </div>
+</div>
+
+<!-- POINTS MODAL -->
+<div class="pts-overlay" id="ptsOverlay" onclick="closePtsIfBg(event)">
+  <div class="pts-modal-sheet">
+    <div class="pts-hd">
+      <div style="font-family:'Baloo 2',cursive;font-size:17px;font-weight:900;color:var(--yellow);">&#x1F381; My Points</div>
+      <button onclick="closePtsModal()" style="background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:18px;cursor:pointer;width:32px;height:32px;border-radius:50%;">&#x2715;</button>
+    </div>
+    <div style="padding:20px 18px;">
+      <div class="pts-hero">
+        <div class="pts-big" id="ptsTotal">0</div>
+        <div class="pts-lbl-big">Total Points</div>
+        <div class="pts-value-txt">1 Point = Rs. 1 ki bachat</div>
+      </div>
+      <div class="pts-cards">
+        <div class="pts-sm-card green">
+          <div class="pts-sm-val" id="ptsEarned">0</div>
+          <div class="pts-sm-lbl">Kamaye</div>
+        </div>
+        <div class="pts-sm-card orange">
+          <div class="pts-sm-val" id="ptsUsed">0</div>
+          <div class="pts-sm-lbl">Use Kiye</div>
+        </div>
+        <div class="pts-sm-card red">
+          <div class="pts-sm-val" id="ptsOrders">0</div>
+          <div class="pts-sm-lbl">Orders</div>
+        </div>
+      </div>
+      <div class="pts-how">
+        <div class="pts-how-title">Points kaise kamayein?</div>
+        <div class="pts-how-row"><span>&#x1F6D2;</span><span>Har Rs.25 ki kharidari pe <b>1 Point</b></span></div>
+        <div class="pts-how-row"><span>&#x1F4B8;</span><span>1 Point = Rs.1 discount next order pe</span></div>
+        <div class="pts-how-row"><span>&#x1F4F2;</span><span>Redeem karne ke liye WhatsApp karein</span></div>
+      </div>
+      <a href="https://wa.me/918957799335?text=Namaste!%20Mujhe%20apne%20points%20redeem%20karne%20hain." target="_blank" class="pts-redeem-btn">
+        &#x1F4F2; WhatsApp pe Redeem Karein
+      </a>
     </div>
   </div>
 </div>
@@ -662,7 +715,7 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
     <div class="bn-icon">&#x1F525;</div>
     <div class="bn-label">Hot Deals</div>
   </div>
-  <div class="bn-item" onclick="showCS('points')">
+  <div class="bn-item" onclick="openPoints()">
     <div class="bn-icon">&#x1F381;</div>
     <div class="bn-label">My Points</div>
   </div>
@@ -905,322 +958,284 @@ window.onpopstate=function(event){if(document.getElementById("pdOverlay").classL
 loadSheet();
 </script>
 
-<!-- ✅ Firebase Auth + Analytics -->
+<!-- ✅ Firebase Auth + Firestore + Analytics -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
   import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-analytics.js";
   import {
-    getAuth,
-    RecaptchaVerifier,
-    signInWithPhoneNumber,
-    GoogleAuthProvider,
-    signInWithPopup,
-    signOut,
-    onAuthStateChanged
+    getAuth, RecaptchaVerifier, signInWithPhoneNumber,
+    GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged
   } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+  import {
+    getFirestore, doc, getDoc, setDoc
+  } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
   const firebaseConfig = {
-    apiKey: "AIzaSyDwpC4PobFkgYPtFpBGtM1wTyGpyJ6KWFo",
-    authDomain: "budgetbazar-rbl.firebaseapp.com",
-    projectId: "budgetbazar-rbl",
-    storageBucket: "budgetbazar-rbl.firebasestorage.app",
-    messagingSenderId: "296855379900",
-    appId: "1:296855379900:web:21dbc4725878f326ced5b9",
-    measurementId: "G-3QPVNS3Z4R"
+    apiKey: "AIzaSyDOA_8f-Z2KzHhhVzNNaOSYCGGQHln38Dc",
+    authDomain: "budgetbazar-new.firebaseapp.com",
+    projectId: "budgetbazar-new",
+    storageBucket: "budgetbazar-new.firebasestorage.app",
+    messagingSenderId: "526669494373",
+    appId: "1:526669494373:web:dac35c8fd8c77a9452ae8c",
+    measurementId: "G-BBDRPFZNW2"
   };
 
-  const app = initializeApp(firebaseConfig);
+  const app  = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
   const auth = getAuth(app);
-  auth.languageCode = 'hi'; // Hindi UI for OTP SMS
+  const db   = getFirestore(app);
+  auth.languageCode = 'hi';
 
-  logEvent(analytics, 'page_view', {
-    page_title: 'Budget Bazar - Raebareli',
-    page_location: window.location.href
-  });
+  logEvent(analytics, 'page_view', { page_title: 'Budget Bazar - Raebareli', page_location: window.location.href });
 
-  // ---- STATE ----
-  let confirmationResult = null;
-  let resendTimer = null;
-  let currentUser = null;
+  // ── STATE ──────────────────────────────────────────────
+  let confirmResult = null;
+  let resendTimer   = null;
+  let currentUser   = null;
+  let openPtsAfterLogin = false;
 
-  // ---- UI HELPERS ----
+  // ── SCREEN HELPER ──────────────────────────────────────
   function showScreen(id) {
-    ['lsChoose','lsOTP','lsDashboard','lsLoading'].forEach(function(s){
-      document.getElementById(s).style.display = (s===id) ? 'block' : 'none';
+    ['lsChoose','lsOTP','lsDashboard','lsLoading'].forEach(s => {
+      document.getElementById(s).style.display = (s === id) ? 'block' : 'none';
     });
   }
-
   function setLoading(msg) {
     document.getElementById('loadingText').textContent = msg || 'Please wait...';
     showScreen('lsLoading');
   }
-
   function showErr(id, msg) {
-    var el = document.getElementById(id);
-    if(el){ el.textContent = msg; }
+    const el = document.getElementById(id);
+    if (el) el.textContent = msg;
   }
 
-  // ---- LOGIN MODAL ----
-  window.openLogin = function() {
+  // ── POINTS MODAL ───────────────────────────────────────
+  window.openPoints = function () {
+    if (!currentUser) {
+      openPtsAfterLogin = true;
+      window.openLogin();
+      return;
+    }
+    showPtsModal();
+  };
+
+  async function showPtsModal() {
+    document.getElementById('ptsOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    try {
+      const snap = await getDoc(doc(db, 'users', currentUser.uid));
+      const d = snap.exists() ? snap.data() : {};
+      document.getElementById('ptsTotal').textContent   = d.points        || 0;
+      document.getElementById('ptsEarned').textContent  = d.pointsEarned  || 0;
+      document.getElementById('ptsUsed').textContent    = d.pointsUsed    || 0;
+      document.getElementById('ptsOrders').textContent  = d.orders        || 0;
+    } catch (e) {
+      document.getElementById('ptsTotal').textContent = '0';
+    }
+  }
+
+  window.closePtsModal   = () => { document.getElementById('ptsOverlay').classList.remove('open'); document.body.style.overflow = ''; };
+  window.closePtsIfBg    = e  => { if (e.target === document.getElementById('ptsOverlay')) window.closePtsModal(); };
+
+  // ── LOGIN MODAL ────────────────────────────────────────
+  window.openLogin = function () {
     document.getElementById('loginOverlay').classList.add('open');
     document.body.style.overflow = 'hidden';
-    if(currentUser) {
-      showDashboard(currentUser);
-    } else {
-      showScreen('lsChoose');
-    }
+    currentUser ? showDashboard(currentUser) : showScreen('lsChoose');
   };
+  window.closeLogin      = () => { document.getElementById('loginOverlay').classList.remove('open'); document.body.style.overflow = ''; };
+  window.closeLoginIfBg  = e  => { if (e.target === document.getElementById('loginOverlay')) window.closeLogin(); };
+  window.goBack          = () => { showScreen('lsChoose'); showErr('phoneErr', ''); clearTimer(); };
 
-  window.closeLogin = function() {
-    document.getElementById('loginOverlay').classList.remove('open');
-    document.body.style.overflow = '';
-  };
-
-  window.closeLoginIfBg = function(e) {
-    if(e.target === document.getElementById('loginOverlay')) window.closeLogin();
-  };
-
-  window.goBack = function() {
-    showScreen('lsChoose');
-    showErr('phoneErr','');
-    clearResendTimer();
-  };
-
-  // ---- RECAPTCHA ---- (ek baar initialize karo, baar baar nahi)
-  function setupRecaptcha() {
-    if(window._recaptchaVerifier) return; // already setup hai
-    window._recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-      'size': 'invisible',
-      'callback': function() {},
-      'expired-callback': function() {
-        window._recaptchaVerifier = null; // reset on expire
-      }
+  // ── RECAPTCHA ──────────────────────────────────────────
+  function initRecaptcha() {
+    if (window._rcv) return;
+    window._rcv = new RecaptchaVerifier(auth, 'recaptcha-container', {
+      size: 'invisible',
+      callback: () => {},
+      'expired-callback': () => { window._rcv = null; }
     });
-    window._recaptchaVerifier.render();
+    window._rcv.render();
   }
+  window.addEventListener('load', () => setTimeout(initRecaptcha, 1200));
 
-  // Jab login screen open ho, recaptcha ready karo
-  window.addEventListener('load', function() {
-    // Thodi der baad setup karo taaki DOM ready ho
-    setTimeout(setupRecaptcha, 1500);
-  });
-
-  // ---- OTP SEND ----
-  window.sendOTP = function() {
-    var phone = document.getElementById('phoneInput').value.trim();
-    showErr('phoneErr','');
-    if(phone.length !== 10) {
-      showErr('phoneErr','Sahi 10 digit mobile number daalo');
-      return;
-    }
-    var fullPhone = '+91' + phone;
+  // ── OTP SEND ───────────────────────────────────────────
+  window.sendOTP = function () {
+    const phone = document.getElementById('phoneInput').value.trim();
+    showErr('phoneErr', '');
+    if (phone.length !== 10) { showErr('phoneErr', 'Sahi 10 digit number daalo'); return; }
     setLoading('OTP bhej rahe hain...');
-
-    // Agar recaptcha ready nahi hai toh abhi setup karo
-    if(!window._recaptchaVerifier) {
-      window._recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-        'size': 'invisible',
-        'callback': function() {}
-      });
+    if (!window._rcv) {
+      window._rcv = new RecaptchaVerifier(auth, 'recaptcha-container', { size: 'invisible', callback: () => {} });
     }
-
-    signInWithPhoneNumber(auth, fullPhone, window._recaptchaVerifier)
-      .then(function(result) {
-        confirmationResult = result;
+    signInWithPhoneNumber(auth, '+91' + phone, window._rcv)
+      .then(r => {
+        confirmResult = r;
         document.getElementById('otpSubText').textContent = '+91 ' + phone + ' pe OTP bheja gaya';
         showScreen('lsOTP');
-        startResendTimer();
+        startTimer();
         document.querySelector('.otp-box').focus();
-        logEvent(analytics, 'login', {method: 'phone'});
       })
-      .catch(function(err) {
-        console.error('OTP Error:', err.code, err.message);
-        // Recaptcha reset karo next try ke liye
-        window._recaptchaVerifier = null;
+      .catch(err => {
+        window._rcv = null;
         showScreen('lsChoose');
-        var msg = 'OTP bhejne mein dikkat hui. Dobara try karein.';
-        if(err.code === 'auth/too-many-requests') msg = 'Bahut zyada OTP requests. 1 ghante baad try karein.';
-        if(err.code === 'auth/invalid-phone-number') msg = 'Galat number! Sahi 10 digit daalo.';
-        if(err.code === 'auth/captcha-check-failed') msg = 'Security check fail. Page refresh karke dobara try karein.';
-        if(err.code === 'auth/operation-not-allowed') msg = 'Phone login abhi enabled nahi hai. Admin se contact karein.';
-        if(err.code === 'auth/invalid-app-credential') msg = 'App setup mein dikkat. Domain authorized nahi hai.';
-        if(err.code === 'auth/network-request-failed') msg = 'Internet connection check karein.';
-        showErr('phoneErr', msg);
+        const codes = {
+          'auth/too-many-requests'      : 'Bahut zyada requests. 1 ghante baad try karein.',
+          'auth/invalid-phone-number'   : 'Galat number! Sahi 10 digit daalo.',
+          'auth/operation-not-allowed'  : 'Phone login Firebase Console mein enable karo.',
+          'auth/network-request-failed' : 'Internet check karein aur dobara try karein.',
+          'auth/captcha-check-failed'   : 'Page refresh karo aur dobara try karo.'
+        };
+        showErr('phoneErr', codes[err.code] || 'OTP nahi gaya. Dobara try karein. (' + err.code + ')');
       });
   };
 
-  // ---- OTP BOXES ----
-  window.otpMove = function(inp, idx) {
-    inp.value = inp.value.replace(/[^0-9]/g,'');
-    if(inp.value.length === 1 && idx < 5) {
-      document.querySelectorAll('.otp-box')[idx+1].focus();
-    }
-    // Auto verify when all 6 filled
-    var vals = Array.from(document.querySelectorAll('.otp-box')).map(function(b){return b.value;});
-    if(vals.every(function(v){return v.length===1;})) {
-      window.verifyOTP();
+  // ── OTP BOX HELPERS ────────────────────────────────────
+  window.otpMove = function (inp, idx) {
+    inp.value = inp.value.replace(/[^0-9]/g, '');
+    if (inp.value.length === 1 && idx < 5) document.querySelectorAll('.otp-box')[idx + 1].focus();
+    const vals = [...document.querySelectorAll('.otp-box')].map(b => b.value);
+    if (vals.every(v => v.length === 1)) window.verifyOTP();
+  };
+  window.otpBack = function (inp, e) {
+    if (e.key === 'Backspace' && !inp.value) {
+      const boxes = [...document.querySelectorAll('.otp-box')];
+      const idx = boxes.indexOf(inp);
+      if (idx > 0) boxes[idx - 1].focus();
     }
   };
 
-  window.otpBack = function(inp, e) {
-    if(e.key === 'Backspace' && !inp.value) {
-      var boxes = document.querySelectorAll('.otp-box');
-      var idx = Array.from(boxes).indexOf(inp);
-      if(idx > 0) boxes[idx-1].focus();
-    }
-  };
-
-  // ---- OTP VERIFY ----
-  window.verifyOTP = function() {
-    var otp = Array.from(document.querySelectorAll('.otp-box')).map(function(b){return b.value;}).join('');
-    showErr('otpErr','');
-    if(otp.length !== 6) {
-      showErr('otpErr','6 digit OTP daalo');
-      return;
-    }
-    if(!confirmationResult) {
-      showErr('otpErr','Session expire ho gaya. Wapas jao aur dobara try karo.');
-      return;
-    }
+  // ── OTP VERIFY ─────────────────────────────────────────
+  window.verifyOTP = function () {
+    const otp = [...document.querySelectorAll('.otp-box')].map(b => b.value).join('');
+    showErr('otpErr', '');
+    if (otp.length !== 6) { showErr('otpErr', '6 digit OTP daalo'); return; }
+    if (!confirmResult)   { showErr('otpErr', 'Session expire. Wapas jao aur dobara try karo.'); return; }
     setLoading('Verify ho raha hai...');
-    confirmationResult.confirm(otp)
-      .then(function(result) {
-        // Handled by onAuthStateChanged
-      })
-      .catch(function(err) {
-        showScreen('lsOTP');
-        var msg = 'Galat OTP! Dobara check karo.';
-        if(err.code === 'auth/code-expired') msg = 'OTP expire ho gaya. Dobara bhejo.';
-        showErr('otpErr', msg);
-        // Clear boxes
-        document.querySelectorAll('.otp-box').forEach(function(b){b.value='';});
-        document.querySelector('.otp-box').focus();
-      });
+    confirmResult.confirm(otp).catch(err => {
+      showScreen('lsOTP');
+      showErr('otpErr', err.code === 'auth/code-expired' ? 'OTP expire ho gaya. Dobara bhejo.' : 'Galat OTP!');
+      document.querySelectorAll('.otp-box').forEach(b => b.value = '');
+      document.querySelector('.otp-box').focus();
+    });
   };
 
-  // ---- RESEND TIMER ----
-  function startResendTimer() {
-    var seconds = 30;
+  // ── RESEND TIMER ───────────────────────────────────────
+  function startTimer() {
+    let s = 30;
     document.getElementById('btnResend').style.display = 'none';
-    document.getElementById('otpTimer').style.display = 'block';
-    clearResendTimer();
-    resendTimer = setInterval(function() {
-      seconds--;
-      document.getElementById('otpTimer').textContent = seconds + ' second mein resend kar sakte hain';
-      if(seconds <= 0) {
-        clearResendTimer();
-        document.getElementById('otpTimer').style.display = 'none';
-        document.getElementById('btnResend').style.display = 'block';
-      }
+    document.getElementById('otpTimer').style.display  = 'block';
+    clearTimer();
+    resendTimer = setInterval(() => {
+      s--;
+      document.getElementById('otpTimer').textContent = s + ' second mein resend kar sakte hain';
+      if (s <= 0) { clearTimer(); document.getElementById('otpTimer').style.display = 'none'; document.getElementById('btnResend').style.display = 'block'; }
     }, 1000);
   }
+  function clearTimer() { if (resendTimer) { clearInterval(resendTimer); resendTimer = null; } }
 
-  function clearResendTimer() {
-    if(resendTimer) { clearInterval(resendTimer); resendTimer = null; }
+  window.resendOTP = function () {
+    document.getElementById('btnResend').style.display = 'none';
+    const phone = document.getElementById('phoneInput').value.trim();
+    if (phone.length !== 10) { showScreen('lsChoose'); return; }
+    setLoading('OTP dobara bhej rahe hain...');
+    window._rcv = null;
+    window._rcv = new RecaptchaVerifier(auth, 'recaptcha-container', { size: 'invisible', callback: () => {} });
+    signInWithPhoneNumber(auth, '+91' + phone, window._rcv)
+      .then(r => { confirmResult = r; showScreen('lsOTP'); startTimer(); document.querySelectorAll('.otp-box').forEach(b => b.value = ''); document.querySelector('.otp-box').focus(); })
+      .catch(err => { window._rcv = null; showScreen('lsOTP'); showErr('otpErr', 'Dobara nahi gaya: ' + err.code); });
+  };
+
+  // ── GOOGLE LOGIN (PRIMARY) ─────────────────────────────
+  window.signInGoogle = function () {
+    setLoading('Gmail se login ho raha hai...');
+    signInWithPopup(auth, new GoogleAuthProvider())
+      .catch(err => {
+        showScreen('lsChoose');
+        if (err.code !== 'auth/popup-closed-by-user')
+          showErr('phoneErr', 'Gmail login mein dikkat. Dobara try karein.');
+      });
+  };
+
+  // ── SAVE USER TO FIRESTORE ─────────────────────────────
+  async function saveUser(user) {
+    try {
+      const ref  = doc(db, 'users', user.uid);
+      const snap = await getDoc(ref);
+      if (!snap.exists()) {
+        await setDoc(ref, {
+          uid: user.uid, name: user.displayName || '',
+          email: user.email || '', phone: user.phoneNumber || '',
+          photoURL: user.photoURL || '',
+          points: 0, pointsEarned: 0, pointsUsed: 0, orders: 0,
+          createdAt: new Date().toISOString()
+        });
+      }
+    } catch (e) { console.log('Firestore error:', e); }
   }
 
-  window.resendOTP = function() {
-    document.getElementById('btnResend').style.display = 'none';
-    var phone = document.getElementById('phoneInput').value.trim();
-    if(phone.length !== 10) { showScreen('lsChoose'); return; }
-    setLoading('OTP dobara bhej rahe hain...');
-    // Recaptcha reset karo
-    window._recaptchaVerifier = null;
-    window._recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-      'size': 'invisible',
-      'callback': function() {}
-    });
-    signInWithPhoneNumber(auth, '+91'+phone, window._recaptchaVerifier)
-      .then(function(result) {
-        confirmationResult = result;
-        showScreen('lsOTP');
-        startResendTimer();
-        document.querySelectorAll('.otp-box').forEach(function(b){b.value='';});
-        document.querySelector('.otp-box').focus();
-      })
-      .catch(function(err) {
-        window._recaptchaVerifier = null;
-        showScreen('lsOTP');
-        showErr('otpErr','Dobara bhejne mein dikkat hui: ' + (err.code||'unknown'));
-      });
-  };
-
-  // ---- GOOGLE LOGIN ----
-  window.signInGoogle = function() {
-    setLoading('Google se login ho raha hai...');
-    var provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then(function(result) {
-        // Handled by onAuthStateChanged
-        logEvent(analytics, 'login', {method: 'google'});
-      })
-      .catch(function(err) {
-        showScreen('lsChoose');
-        if(err.code !== 'auth/popup-closed-by-user') {
-          showErr('phoneErr','Google login mein dikkat hui. Dobara try karein.');
-        }
-      });
-  };
-
-  // ---- SHOW DASHBOARD ----
-  function showDashboard(user) {
+  // ── DASHBOARD ──────────────────────────────────────────
+  async function showDashboard(user) {
     currentUser = user;
-    var name = user.displayName || 'Namaste!';
-    var phone = user.phoneNumber || user.email || 'Budget Bazar Member';
-    var initial = name.charAt(0).toUpperCase();
+    const name    = user.displayName || 'Budget Bazar User';
+    const contact = user.email || user.phoneNumber || 'Member';
+    const initial = name.charAt(0).toUpperCase();
 
-    document.getElementById('userName').textContent = name;
-    document.getElementById('userPhone').textContent = phone;
+    document.getElementById('userName').textContent  = 'Namaste, ' + name.split(' ')[0] + '!';
+    document.getElementById('userPhone').textContent = contact;
 
-    // Avatar
-    var avatarEl = document.getElementById('userAvatar');
-    if(user.photoURL) {
-      avatarEl.innerHTML = '<img src="'+user.photoURL+'" alt="'+name+'">';
-    } else {
-      avatarEl.textContent = initial;
-      avatarEl.innerHTML = initial;
+    const av = document.getElementById('userAvatar');
+    av.innerHTML = user.photoURL
+      ? `<img src="${user.photoURL}" style="width:70px;height:70px;border-radius:50%;object-fit:cover;">`
+      : initial;
+
+    try {
+      const snap = await getDoc(doc(db, 'users', user.uid));
+      const d = snap.exists() ? snap.data() : {};
+      document.getElementById('userPoints').textContent = d.points  || 0;
+      document.getElementById('userOrders').textContent = d.orders  || 0;
+      document.getElementById('userSaved').textContent  = 'Rs.' + (d.pointsUsed || 0);
+    } catch (e) {
+      document.getElementById('userPoints').textContent = '0';
+      document.getElementById('userOrders').textContent = '0';
+      document.getElementById('userSaved').textContent  = 'Rs.0';
     }
 
-    // Points from localStorage (simple tracking)
-    var savedUser = JSON.parse(localStorage.getItem('bb_user_'+user.uid)||'{}');
-    document.getElementById('userPoints').textContent = savedUser.points || 0;
-    document.getElementById('userOrders').textContent = savedUser.orders || 0;
-    document.getElementById('userSaved').textContent = 'Rs.'+(savedUser.saved||0);
-
     showScreen('lsDashboard');
-
-    // Update bottom nav
     document.getElementById('bnLoginLabel').textContent = initial;
     document.getElementById('bnLogin').classList.add('loggedin');
   }
 
-  // ---- SIGN OUT ----
-  window.signOutUser = function() {
-    signOut(auth).then(function() {
+  // ── SIGN OUT ───────────────────────────────────────────
+  window.signOutUser = function () {
+    signOut(auth).then(() => {
       currentUser = null;
       document.getElementById('bnLoginLabel').textContent = 'Login';
       document.getElementById('bnLogin').classList.remove('loggedin');
       showScreen('lsChoose');
-      document.querySelectorAll('.otp-box').forEach(function(b){b.value='';});
+      document.querySelectorAll('.otp-box').forEach(b => b.value = '');
       document.getElementById('phoneInput').value = '';
     });
   };
 
-  // ---- AUTH STATE LISTENER ----
-  onAuthStateChanged(auth, function(user) {
-    if(user) {
+  // ── AUTH STATE ─────────────────────────────────────────
+  onAuthStateChanged(auth, user => {
+    if (user) {
       currentUser = user;
-      // If login overlay is open, show dashboard
-      if(document.getElementById('loginOverlay').classList.contains('open')) {
-        showDashboard(user);
-      }
-      // Update nav button
-      var name = user.displayName || user.phoneNumber || 'U';
+      saveUser(user);
+      logEvent(analytics, 'login', { method: user.providerData[0]?.providerId || 'unknown' });
+
+      const name = user.displayName || user.phoneNumber || 'U';
       document.getElementById('bnLoginLabel').textContent = name.charAt(0).toUpperCase();
       document.getElementById('bnLogin').classList.add('loggedin');
 
-      logEvent(analytics, 'login', {uid: user.uid});
+      if (document.getElementById('loginOverlay').classList.contains('open')) {
+        showDashboard(user);
+        if (openPtsAfterLogin) {
+          openPtsAfterLogin = false;
+          setTimeout(() => { window.closeLogin(); showPtsModal(); }, 1000);
+        }
+      }
     } else {
       currentUser = null;
       document.getElementById('bnLoginLabel').textContent = 'Login';
@@ -1228,12 +1243,13 @@ loadSheet();
     }
   });
 
-  // ---- ANALYTICS HELPERS ----
-  window._fbLogOrder = function() { logEvent(analytics, 'begin_checkout'); };
-  window._fbLogProductView = function(name) { logEvent(analytics, 'view_item', {item_name: name}); };
-  window._fbLogAddToCart = function(name, price) { logEvent(analytics, 'add_to_cart', {item_name: name, value: price, currency: 'INR'}); };
+  // ── ANALYTICS HELPERS ──────────────────────────────────
+  window._fbLogOrder       = ()         => logEvent(analytics, 'begin_checkout');
+  window._fbLogProductView = name       => logEvent(analytics, 'view_item',    { item_name: name });
+  window._fbLogAddToCart   = (name, p)  => logEvent(analytics, 'add_to_cart',  { item_name: name, value: p, currency: 'INR' });
 
-  console.log("✅ Firebase Auth + Analytics connected - Budget Bazar");
+  console.log('✅ Firebase ready — budgetbazar-new');
 </script>
 </body>
-                                                       </html>
+</html>
+
