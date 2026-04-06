@@ -468,7 +468,7 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
     </div>
     <!-- Screen 1: Choose login method -->
     <div class="login-screen" id="lsChoose">
-      <div class="login-icon">Shopping</div>
+      <div class="login-icon">&#x1F6CD;&#xFE0F;</div>
       <h2 class="login-title">Apna Account</h2>
       <p class="login-sub">Login karein ya naya account banayein</p>
       <button class="btn-google" id="btnGoogle" onclick="signInGoogle()">
@@ -485,7 +485,7 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
     </div>
     <!-- Screen 2: OTP verify -->
     <div class="login-screen" id="lsOTP" style="display:none">
-      <div class="login-icon">SMS</div>
+      <div class="login-icon">&#x1F4F1;</div>
       <h2 class="login-title">OTP Daalo</h2>
       <p class="login-sub" id="otpSubText">+91 XXXXXXXXXX pe OTP bheja gaya</p>
       <div class="otp-boxes" id="otpBoxes">
@@ -513,8 +513,8 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
         <div class="us-card"><div class="us-val" id="userSaved">Rs.0</div><div class="us-lbl">Bachat</div></div>
       </div>
       <div class="user-info-box">
-        <div class="uib-row"><span>Location</span><span>Raebareli</span></div>
-        <div class="uib-row"><span>Gift</span><span>Points redeem ke liye WhatsApp karein</span></div>
+        <div class="uib-row"><span>&#x1F4CD;</span><span>Raebareli</span></div>
+        <div class="uib-row"><span>&#x1F381;</span><span>Points redeem ke liye WhatsApp karein</span></div>
       </div>
       <button class="btn-logout" onclick="signOutUser()">Logout Karein</button>
     </div>
@@ -987,16 +987,24 @@ loadSheet();
     clearResendTimer();
   };
 
-  // ---- RECAPTCHA ----
+  // ---- RECAPTCHA ---- (ek baar initialize karo, baar baar nahi)
   function setupRecaptcha() {
-    if(window._recaptchaVerifier) {
-      try { window._recaptchaVerifier.clear(); } catch(e){}
-    }
+    if(window._recaptchaVerifier) return; // already setup hai
     window._recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-      'size': 'normal',
-      'callback': function() {}
+      'size': 'invisible',
+      'callback': function() {},
+      'expired-callback': function() {
+        window._recaptchaVerifier = null; // reset on expire
+      }
     });
+    window._recaptchaVerifier.render();
   }
+
+  // Jab login screen open ho, recaptcha ready karo
+  window.addEventListener('load', function() {
+    // Thodi der baad setup karo taaki DOM ready ho
+    setTimeout(setupRecaptcha, 1500);
+  });
 
   // ---- OTP SEND ----
   window.sendOTP = function() {
@@ -1008,7 +1016,15 @@ loadSheet();
     }
     var fullPhone = '+91' + phone;
     setLoading('OTP bhej rahe hain...');
-    setupRecaptcha();
+
+    // Agar recaptcha ready nahi hai toh abhi setup karo
+    if(!window._recaptchaVerifier) {
+      window._recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+        'size': 'invisible',
+        'callback': function() {}
+      });
+    }
+
     signInWithPhoneNumber(auth, fullPhone, window._recaptchaVerifier)
       .then(function(result) {
         confirmationResult = result;
@@ -1019,11 +1035,17 @@ loadSheet();
         logEvent(analytics, 'login', {method: 'phone'});
       })
       .catch(function(err) {
-        console.error(err);
+        console.error('OTP Error:', err.code, err.message);
+        // Recaptcha reset karo next try ke liye
+        window._recaptchaVerifier = null;
         showScreen('lsChoose');
         var msg = 'OTP bhejne mein dikkat hui. Dobara try karein.';
-        if(err.code === 'auth/too-many-requests') msg = 'Bahut zyada requests. Kuch der baad try karein.';
-        if(err.code === 'auth/invalid-phone-number') msg = 'Galat number format. +91 se shuru hona chahiye.';
+        if(err.code === 'auth/too-many-requests') msg = 'Bahut zyada OTP requests. 1 ghante baad try karein.';
+        if(err.code === 'auth/invalid-phone-number') msg = 'Galat number! Sahi 10 digit daalo.';
+        if(err.code === 'auth/captcha-check-failed') msg = 'Security check fail. Page refresh karke dobara try karein.';
+        if(err.code === 'auth/operation-not-allowed') msg = 'Phone login abhi enabled nahi hai. Admin se contact karein.';
+        if(err.code === 'auth/invalid-app-credential') msg = 'App setup mein dikkat. Domain authorized nahi hai.';
+        if(err.code === 'auth/network-request-failed') msg = 'Internet connection check karein.';
         showErr('phoneErr', msg);
       });
   };
@@ -1103,7 +1125,12 @@ loadSheet();
     var phone = document.getElementById('phoneInput').value.trim();
     if(phone.length !== 10) { showScreen('lsChoose'); return; }
     setLoading('OTP dobara bhej rahe hain...');
-    setupRecaptcha();
+    // Recaptcha reset karo
+    window._recaptchaVerifier = null;
+    window._recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+      'size': 'invisible',
+      'callback': function() {}
+    });
     signInWithPhoneNumber(auth, '+91'+phone, window._recaptchaVerifier)
       .then(function(result) {
         confirmationResult = result;
@@ -1113,8 +1140,9 @@ loadSheet();
         document.querySelector('.otp-box').focus();
       })
       .catch(function(err) {
+        window._recaptchaVerifier = null;
         showScreen('lsOTP');
-        showErr('otpErr','Dobara bhejne mein dikkat hui. Thodi der baad try karein.');
+        showErr('otpErr','Dobara bhejne mein dikkat hui: ' + (err.code||'unknown'));
       });
   };
 
@@ -1208,4 +1236,4 @@ loadSheet();
   console.log("✅ Firebase Auth + Analytics connected - Budget Bazar");
 </script>
 </body>
-          </html>
+                                                       </html>
