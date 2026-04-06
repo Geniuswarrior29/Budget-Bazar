@@ -993,7 +993,7 @@ loadSheet();
       try { window._recaptchaVerifier.clear(); } catch(e){}
     }
     window._recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
-      'size': 'invisible',
+      'size': 'normal',
       'callback': function() {}
     });
   }
