@@ -277,6 +277,50 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
 .fdiv{width:40px;height:2px;background:var(--red);margin:0 auto 8px;border-radius:2px;}
 .fcp{font-size:10px;color:rgba(255,255,255,0.2);}
 .waf{position:fixed;bottom:70px;right:14px;z-index:290;width:46px;height:46px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,0.45);text-decoration:none;font-size:11px;font-weight:700;color:#fff;}
+/* LOGIN SYSTEM */
+.login-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:800;display:none;align-items:flex-end;justify-content:center;}
+.login-overlay.open{display:flex;}
+.login-sheet{background:#fff;width:100%;max-width:480px;border-radius:22px 22px 0 0;padding:0 0 30px;animation:slideUp 0.3s ease;max-height:90vh;overflow-y:auto;}
+.login-hd{background:linear-gradient(135deg,#1a0505,#3d0a00);border-radius:22px 22px 0 0;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;}
+.login-logo{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:var(--yellow);}
+.login-logo span{color:#fff;}
+.login-cl{background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:16px;cursor:pointer;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+.login-screen{padding:22px 20px 8px;}
+.login-icon{font-size:44px;text-align:center;margin-bottom:10px;font-family:'Baloo 2',cursive;font-weight:900;color:var(--red);}
+.login-title{font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;color:var(--dark);text-align:center;margin-bottom:4px;}
+.login-sub{font-size:13px;color:#888;text-align:center;margin-bottom:18px;line-height:1.5;}
+.btn-google{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:#fff;border:2px solid #e0d0c0;border-radius:12px;padding:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;color:var(--dark);margin-bottom:6px;transition:border-color 0.2s;}
+.btn-google:active{border-color:var(--orange);}
+.g-icon{width:22px;height:22px;background:linear-gradient(135deg,#4285f4,#34a853,#fbbc05,#ea4335);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:900;flex-shrink:0;}
+.login-divider{text-align:center;margin:12px 0;position:relative;}
+.login-divider::before{content:'';position:absolute;top:50%;left:0;right:0;height:1px;background:#e0d0c0;}
+.login-divider span{background:#fff;padding:0 12px;font-size:12px;color:#aaa;position:relative;}
+.phone-input-wrap{display:flex;align-items:center;border:2px solid #e0d0c0;border-radius:12px;overflow:hidden;margin-bottom:10px;}
+.phone-prefix{padding:12px 12px;background:#f8f8f8;font-size:14px;font-weight:700;color:#555;border-right:1.5px solid #e0d0c0;flex-shrink:0;}
+.phone-input{border:none;outline:none;padding:12px 12px;font-size:15px;font-family:'Hind',sans-serif;width:100%;color:var(--dark);}
+.btn-otp{width:100%;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;border:none;padding:13px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;margin-bottom:8px;}
+.btn-otp:disabled{opacity:0.6;cursor:not-allowed;}
+.login-err{color:var(--red);font-size:12px;text-align:center;margin-bottom:8px;min-height:16px;}
+.otp-boxes{display:flex;gap:8px;justify-content:center;margin-bottom:14px;}
+.otp-box{width:44px;height:52px;border:2px solid #e0d0c0;border-radius:10px;text-align:center;font-size:20px;font-weight:900;font-family:'Baloo 2',cursive;color:var(--dark);outline:none;transition:border-color 0.2s;}
+.otp-box:focus{border-color:var(--orange);}
+.otp-timer{font-size:11px;color:#aaa;text-align:center;margin-bottom:10px;}
+.btn-resend{width:100%;background:transparent;border:2px solid var(--orange);color:var(--orange);padding:10px;border-radius:12px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;margin-bottom:8px;}
+.btn-back{width:100%;background:transparent;border:none;color:#aaa;font-size:13px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;padding:8px;}
+.user-avatar{width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;font-family:'Baloo 2',cursive;font-size:28px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
+.user-avatar img{width:70px;height:70px;border-radius:50%;object-fit:cover;}
+.user-stats{display:flex;gap:8px;margin-bottom:14px;}
+.us-card{flex:1;background:var(--light);border-radius:12px;padding:12px 6px;text-align:center;border:1.5px solid #f0e8d8;}
+.us-val{font-family:'Baloo 2',cursive;font-size:18px;font-weight:900;color:var(--red);}
+.us-lbl{font-size:10px;color:#888;font-weight:700;margin-top:2px;}
+.user-info-box{background:var(--light);border-radius:12px;padding:12px 14px;margin-bottom:16px;border:1.5px solid #f0e8d8;}
+.uib-row{display:flex;align-items:center;gap:8px;font-size:12px;padding:5px 0;color:#555;border-bottom:1px solid #f0e8d8;}
+.uib-row:last-child{border-bottom:none;}
+.btn-logout{width:100%;background:#fff0f0;border:2px solid #ffd0d0;color:var(--red);padding:12px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;}
+.login-spinner{width:44px;height:44px;border:4px solid #f0e8d8;border-top:4px solid var(--red);border-radius:50%;animation:spin 0.8s linear infinite;margin:30px auto 16px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.bn-item.loggedin .bn-label{color:var(--green);}
+#recaptcha-container{margin-bottom:6px;}
 /* COMING SOON */
 .cs-modal{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:600;display:none;align-items:center;justify-content:center;padding:20px;}
 .cs-modal.open{display:flex;}
@@ -415,6 +459,74 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
   </div>
 </div>
 
+<!-- LOGIN MODAL -->
+<div class="login-overlay" id="loginOverlay" onclick="closeLoginIfBg(event)">
+  <div class="login-sheet" id="loginSheet">
+    <div class="login-hd">
+      <div class="login-logo">Budget<span>Bazar</span></div>
+      <button class="login-cl" onclick="closeLogin()">X</button>
+    </div>
+    <!-- Screen 1: Choose login method -->
+    <div class="login-screen" id="lsChoose">
+      <div class="login-icon">Shopping</div>
+      <h2 class="login-title">Apna Account</h2>
+      <p class="login-sub">Login karein ya naya account banayein</p>
+      <button class="btn-google" id="btnGoogle" onclick="signInGoogle()">
+        <span class="g-icon">G</span> Google se Login Karein
+      </button>
+      <div class="login-divider"><span>ya</span></div>
+      <div class="phone-input-wrap">
+        <span class="phone-prefix">+91</span>
+        <input type="tel" id="phoneInput" class="phone-input" placeholder="Mobile number daalo" maxlength="10" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+      </div>
+      <button class="btn-otp" onclick="sendOTP()">OTP Bhejo</button>
+      <div id="recaptcha-container"></div>
+      <div class="login-err" id="phoneErr"></div>
+    </div>
+    <!-- Screen 2: OTP verify -->
+    <div class="login-screen" id="lsOTP" style="display:none">
+      <div class="login-icon">SMS</div>
+      <h2 class="login-title">OTP Daalo</h2>
+      <p class="login-sub" id="otpSubText">+91 XXXXXXXXXX pe OTP bheja gaya</p>
+      <div class="otp-boxes" id="otpBoxes">
+        <input type="tel" maxlength="1" class="otp-box" oninput="otpMove(this,0)" onkeydown="otpBack(this,event)">
+        <input type="tel" maxlength="1" class="otp-box" oninput="otpMove(this,1)" onkeydown="otpBack(this,event)">
+        <input type="tel" maxlength="1" class="otp-box" oninput="otpMove(this,2)" onkeydown="otpBack(this,event)">
+        <input type="tel" maxlength="1" class="otp-box" oninput="otpMove(this,3)" onkeydown="otpBack(this,event)">
+        <input type="tel" maxlength="1" class="otp-box" oninput="otpMove(this,4)" onkeydown="otpBack(this,event)">
+        <input type="tel" maxlength="1" class="otp-box" oninput="otpMove(this,5)" onkeydown="otpBack(this,event)">
+      </div>
+      <div class="login-err" id="otpErr"></div>
+      <button class="btn-otp" id="btnVerify" onclick="verifyOTP()">Verify Karein</button>
+      <button class="btn-resend" id="btnResend" onclick="resendOTP()" style="display:none">OTP Dobara Bhejo</button>
+      <p class="otp-timer" id="otpTimer">30 second mein resend kar sakte hain</p>
+      <button class="btn-back" onclick="goBack()">Wapas Jao</button>
+    </div>
+    <!-- Screen 3: Logged in user dashboard -->
+    <div class="login-screen" id="lsDashboard" style="display:none">
+      <div class="user-avatar" id="userAvatar">U</div>
+      <h2 class="login-title" id="userName">Namaste!</h2>
+      <p class="login-sub" id="userPhone">Loading...</p>
+      <div class="user-stats">
+        <div class="us-card"><div class="us-val" id="userPoints">0</div><div class="us-lbl">Points</div></div>
+        <div class="us-card"><div class="us-val" id="userOrders">0</div><div class="us-lbl">Orders</div></div>
+        <div class="us-card"><div class="us-val" id="userSaved">Rs.0</div><div class="us-lbl">Bachat</div></div>
+      </div>
+      <div class="user-info-box">
+        <div class="uib-row"><span>Location</span><span>Raebareli</span></div>
+        <div class="uib-row"><span>Gift</span><span>Points redeem ke liye WhatsApp karein</span></div>
+      </div>
+      <button class="btn-logout" onclick="signOutUser()">Logout Karein</button>
+    </div>
+    <!-- Loading state -->
+    <div class="login-screen" id="lsLoading" style="display:none">
+      <div class="login-spinner"></div>
+      <p class="login-sub" id="loadingText">Please wait...</p>
+    </div>
+  </div>
+</div>
+
+<!-- POINTS / OTHER COMING SOON -->
 <div class="cs-modal" id="csModal">
   <div class="cs-box">
     <div class="cs-emoji" id="csEmoji"></div>
@@ -542,9 +654,9 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
 </footer>
 
 <div class="bottom-nav">
-  <div class="bn-item" onclick="showCS('login')">
-    <div class="bn-icon">&#x1F464;</div>
-    <div class="bn-label">Login</div>
+  <div class="bn-item" id="bnLogin" onclick="openLogin()">
+    <div class="bn-icon" id="bnLoginIcon">&#x1F464;</div>
+    <div class="bn-label" id="bnLoginLabel">Login</div>
   </div>
   <div class="bn-item" id="bnHotDeals" onclick="openHotDeals()">
     <div class="bn-icon">&#x1F525;</div>
@@ -792,5 +904,308 @@ window.onpopstate=function(event){if(document.getElementById("pdOverlay").classL
 
 loadSheet();
 </script>
+
+<!-- ✅ Firebase Auth + Analytics -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+  import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-analytics.js";
+  import {
+    getAuth,
+    RecaptchaVerifier,
+    signInWithPhoneNumber,
+    GoogleAuthProvider,
+    signInWithPopup,
+    signOut,
+    onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDwpC4PobFkgYPtFpBGtM1wTyGpyJ6KWFo",
+    authDomain: "budgetbazar-rbl.firebaseapp.com",
+    projectId: "budgetbazar-rbl",
+    storageBucket: "budgetbazar-rbl.firebasestorage.app",
+    messagingSenderId: "296855379900",
+    appId: "1:296855379900:web:21dbc4725878f326ced5b9",
+    measurementId: "G-3QPVNS3Z4R"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const auth = getAuth(app);
+  auth.languageCode = 'hi'; // Hindi UI for OTP SMS
+
+  logEvent(analytics, 'page_view', {
+    page_title: 'Budget Bazar - Raebareli',
+    page_location: window.location.href
+  });
+
+  // ---- STATE ----
+  let confirmationResult = null;
+  let resendTimer = null;
+  let currentUser = null;
+
+  // ---- UI HELPERS ----
+  function showScreen(id) {
+    ['lsChoose','lsOTP','lsDashboard','lsLoading'].forEach(function(s){
+      document.getElementById(s).style.display = (s===id) ? 'block' : 'none';
+    });
+  }
+
+  function setLoading(msg) {
+    document.getElementById('loadingText').textContent = msg || 'Please wait...';
+    showScreen('lsLoading');
+  }
+
+  function showErr(id, msg) {
+    var el = document.getElementById(id);
+    if(el){ el.textContent = msg; }
+  }
+
+  // ---- LOGIN MODAL ----
+  window.openLogin = function() {
+    document.getElementById('loginOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if(currentUser) {
+      showDashboard(currentUser);
+    } else {
+      showScreen('lsChoose');
+    }
+  };
+
+  window.closeLogin = function() {
+    document.getElementById('loginOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  window.closeLoginIfBg = function(e) {
+    if(e.target === document.getElementById('loginOverlay')) window.closeLogin();
+  };
+
+  window.goBack = function() {
+    showScreen('lsChoose');
+    showErr('phoneErr','');
+    clearResendTimer();
+  };
+
+  // ---- RECAPTCHA ----
+  function setupRecaptcha() {
+    if(window._recaptchaVerifier) {
+      try { window._recaptchaVerifier.clear(); } catch(e){}
+    }
+    window._recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+      'size': 'invisible',
+      'callback': function() {}
+    });
+  }
+
+  // ---- OTP SEND ----
+  window.sendOTP = function() {
+    var phone = document.getElementById('phoneInput').value.trim();
+    showErr('phoneErr','');
+    if(phone.length !== 10) {
+      showErr('phoneErr','Sahi 10 digit mobile number daalo');
+      return;
+    }
+    var fullPhone = '+91' + phone;
+    setLoading('OTP bhej rahe hain...');
+    setupRecaptcha();
+    signInWithPhoneNumber(auth, fullPhone, window._recaptchaVerifier)
+      .then(function(result) {
+        confirmationResult = result;
+        document.getElementById('otpSubText').textContent = '+91 ' + phone + ' pe OTP bheja gaya';
+        showScreen('lsOTP');
+        startResendTimer();
+        document.querySelector('.otp-box').focus();
+        logEvent(analytics, 'login', {method: 'phone'});
+      })
+      .catch(function(err) {
+        console.error(err);
+        showScreen('lsChoose');
+        var msg = 'OTP bhejne mein dikkat hui. Dobara try karein.';
+        if(err.code === 'auth/too-many-requests') msg = 'Bahut zyada requests. Kuch der baad try karein.';
+        if(err.code === 'auth/invalid-phone-number') msg = 'Galat number format. +91 se shuru hona chahiye.';
+        showErr('phoneErr', msg);
+      });
+  };
+
+  // ---- OTP BOXES ----
+  window.otpMove = function(inp, idx) {
+    inp.value = inp.value.replace(/[^0-9]/g,'');
+    if(inp.value.length === 1 && idx < 5) {
+      document.querySelectorAll('.otp-box')[idx+1].focus();
+    }
+    // Auto verify when all 6 filled
+    var vals = Array.from(document.querySelectorAll('.otp-box')).map(function(b){return b.value;});
+    if(vals.every(function(v){return v.length===1;})) {
+      window.verifyOTP();
+    }
+  };
+
+  window.otpBack = function(inp, e) {
+    if(e.key === 'Backspace' && !inp.value) {
+      var boxes = document.querySelectorAll('.otp-box');
+      var idx = Array.from(boxes).indexOf(inp);
+      if(idx > 0) boxes[idx-1].focus();
+    }
+  };
+
+  // ---- OTP VERIFY ----
+  window.verifyOTP = function() {
+    var otp = Array.from(document.querySelectorAll('.otp-box')).map(function(b){return b.value;}).join('');
+    showErr('otpErr','');
+    if(otp.length !== 6) {
+      showErr('otpErr','6 digit OTP daalo');
+      return;
+    }
+    if(!confirmationResult) {
+      showErr('otpErr','Session expire ho gaya. Wapas jao aur dobara try karo.');
+      return;
+    }
+    setLoading('Verify ho raha hai...');
+    confirmationResult.confirm(otp)
+      .then(function(result) {
+        // Handled by onAuthStateChanged
+      })
+      .catch(function(err) {
+        showScreen('lsOTP');
+        var msg = 'Galat OTP! Dobara check karo.';
+        if(err.code === 'auth/code-expired') msg = 'OTP expire ho gaya. Dobara bhejo.';
+        showErr('otpErr', msg);
+        // Clear boxes
+        document.querySelectorAll('.otp-box').forEach(function(b){b.value='';});
+        document.querySelector('.otp-box').focus();
+      });
+  };
+
+  // ---- RESEND TIMER ----
+  function startResendTimer() {
+    var seconds = 30;
+    document.getElementById('btnResend').style.display = 'none';
+    document.getElementById('otpTimer').style.display = 'block';
+    clearResendTimer();
+    resendTimer = setInterval(function() {
+      seconds--;
+      document.getElementById('otpTimer').textContent = seconds + ' second mein resend kar sakte hain';
+      if(seconds <= 0) {
+        clearResendTimer();
+        document.getElementById('otpTimer').style.display = 'none';
+        document.getElementById('btnResend').style.display = 'block';
+      }
+    }, 1000);
+  }
+
+  function clearResendTimer() {
+    if(resendTimer) { clearInterval(resendTimer); resendTimer = null; }
+  }
+
+  window.resendOTP = function() {
+    document.getElementById('btnResend').style.display = 'none';
+    var phone = document.getElementById('phoneInput').value.trim();
+    if(phone.length !== 10) { showScreen('lsChoose'); return; }
+    setLoading('OTP dobara bhej rahe hain...');
+    setupRecaptcha();
+    signInWithPhoneNumber(auth, '+91'+phone, window._recaptchaVerifier)
+      .then(function(result) {
+        confirmationResult = result;
+        showScreen('lsOTP');
+        startResendTimer();
+        document.querySelectorAll('.otp-box').forEach(function(b){b.value='';});
+        document.querySelector('.otp-box').focus();
+      })
+      .catch(function(err) {
+        showScreen('lsOTP');
+        showErr('otpErr','Dobara bhejne mein dikkat hui. Thodi der baad try karein.');
+      });
+  };
+
+  // ---- GOOGLE LOGIN ----
+  window.signInGoogle = function() {
+    setLoading('Google se login ho raha hai...');
+    var provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then(function(result) {
+        // Handled by onAuthStateChanged
+        logEvent(analytics, 'login', {method: 'google'});
+      })
+      .catch(function(err) {
+        showScreen('lsChoose');
+        if(err.code !== 'auth/popup-closed-by-user') {
+          showErr('phoneErr','Google login mein dikkat hui. Dobara try karein.');
+        }
+      });
+  };
+
+  // ---- SHOW DASHBOARD ----
+  function showDashboard(user) {
+    currentUser = user;
+    var name = user.displayName || 'Namaste!';
+    var phone = user.phoneNumber || user.email || 'Budget Bazar Member';
+    var initial = name.charAt(0).toUpperCase();
+
+    document.getElementById('userName').textContent = name;
+    document.getElementById('userPhone').textContent = phone;
+
+    // Avatar
+    var avatarEl = document.getElementById('userAvatar');
+    if(user.photoURL) {
+      avatarEl.innerHTML = '<img src="'+user.photoURL+'" alt="'+name+'">';
+    } else {
+      avatarEl.textContent = initial;
+      avatarEl.innerHTML = initial;
+    }
+
+    // Points from localStorage (simple tracking)
+    var savedUser = JSON.parse(localStorage.getItem('bb_user_'+user.uid)||'{}');
+    document.getElementById('userPoints').textContent = savedUser.points || 0;
+    document.getElementById('userOrders').textContent = savedUser.orders || 0;
+    document.getElementById('userSaved').textContent = 'Rs.'+(savedUser.saved||0);
+
+    showScreen('lsDashboard');
+
+    // Update bottom nav
+    document.getElementById('bnLoginLabel').textContent = initial;
+    document.getElementById('bnLogin').classList.add('loggedin');
+  }
+
+  // ---- SIGN OUT ----
+  window.signOutUser = function() {
+    signOut(auth).then(function() {
+      currentUser = null;
+      document.getElementById('bnLoginLabel').textContent = 'Login';
+      document.getElementById('bnLogin').classList.remove('loggedin');
+      showScreen('lsChoose');
+      document.querySelectorAll('.otp-box').forEach(function(b){b.value='';});
+      document.getElementById('phoneInput').value = '';
+    });
+  };
+
+  // ---- AUTH STATE LISTENER ----
+  onAuthStateChanged(auth, function(user) {
+    if(user) {
+      currentUser = user;
+      // If login overlay is open, show dashboard
+      if(document.getElementById('loginOverlay').classList.contains('open')) {
+        showDashboard(user);
+      }
+      // Update nav button
+      var name = user.displayName || user.phoneNumber || 'U';
+      document.getElementById('bnLoginLabel').textContent = name.charAt(0).toUpperCase();
+      document.getElementById('bnLogin').classList.add('loggedin');
+
+      logEvent(analytics, 'login', {uid: user.uid});
+    } else {
+      currentUser = null;
+      document.getElementById('bnLoginLabel').textContent = 'Login';
+      document.getElementById('bnLogin').classList.remove('loggedin');
+    }
+  });
+
+  // ---- ANALYTICS HELPERS ----
+  window._fbLogOrder = function() { logEvent(analytics, 'begin_checkout'); };
+  window._fbLogProductView = function(name) { logEvent(analytics, 'view_item', {item_name: name}); };
+  window._fbLogAddToCart = function(name, price) { logEvent(analytics, 'add_to_cart', {item_name: name, value: price, currency: 'INR'}); };
+
+  console.log("✅ Firebase Auth + Analytics connected - Budget Bazar");
+</script>
 </body>
-</html>
+          </html>
