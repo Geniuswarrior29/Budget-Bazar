@@ -579,16 +579,6 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
   </div>
 </div>
 
-<!-- POINTS / OTHER COMING SOON -->
-<div class="cs-modal" id="csModal">
-  <div class="cs-box">
-    <div class="cs-emoji" id="csEmoji"></div>
-    <div class="cs-badge">COMING SOON</div>
-    <div class="cs-title" id="csTitle">Jald Aa Raha Hai!</div>
-    <div class="cs-sub" id="csSub">Yeh feature abhi develop ho raha hai!</div>
-    <button class="cs-close" onclick="document.getElementById('csModal').classList.remove('open')">Theek Hai!</button>
-  </div>
-</div>
 
 <nav>
   <div class="nav-logo">Budget<span>Bazar</span></div>
@@ -984,6 +974,17 @@ loadSheet();
   const analytics = getAnalytics(app);
   const auth = getAuth(app);
   const db   = getFirestore(app);
+  import { getRedirectResult } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+getRedirectResult(auth)
+  .then((result) => {
+    if (result && result.user) {
+      console.log("Google login success");
+    }
+  })
+  .catch((error) => {
+    console.log("Redirect error:", error);
+  });
   auth.languageCode = 'hi';
 
   logEvent(analytics, 'page_view', { page_title: 'Budget Bazar - Raebareli', page_location: window.location.href });
@@ -1148,15 +1149,10 @@ loadSheet();
 
   // ── GOOGLE LOGIN (PRIMARY) ─────────────────────────────
   window.signInGoogle = function () {
-    setLoading('Gmail se login ho raha hai...');
-    signInWithPopup(auth, new GoogleAuthProvider())
-      .catch(err => {
-        showScreen('lsChoose');
-        if (err.code !== 'auth/popup-closed-by-user')
-          showErr('phoneErr', 'Gmail login mein dikkat. Dobara try karein.');
-      });
-  };
-
+  setLoading('Gmail se login ho raha hai...');
+  signInWithRedirect(auth, new GoogleAuthProvider());
+};
+     
   // ── SAVE USER TO FIRESTORE ─────────────────────────────
   async function saveUser(user) {
     try {
@@ -1252,4 +1248,3 @@ loadSheet();
 </script>
 </body>
 </html>
-
