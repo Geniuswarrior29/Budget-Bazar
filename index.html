@@ -889,7 +889,24 @@ function updateCart(){
 }
 function toggleCart(){var o=document.getElementById("cov");var s=document.getElementById("csd");var isOpen=s.classList.toggle("open");o.classList.toggle("open");if(isOpen)history.pushState({type:"cart"},"");}
 function askWA(name){window.open("https://wa.me/918957799335?text="+encodeURIComponent("Namaste! Mujhe "+name+" ka rate jaanna hai."),"_blank");}
-function orderWA(){var ids=Object.keys(cart);if(!ids.length)return;var tot=ids.reduce(function(s,id){return s+cart[id].price*cart[id].qty;},0);var msg="Namaste! Budget Bazar se order karna hai:\n\n";var itemsList="";ids.forEach(function(id){var it=cart[id];msg+=it.name+" ("+it.detail+") x"+it.qty+" = Rs."+(it.price*it.qty)+"\n";itemsList+=it.name+" x"+it.qty+", ";});msg+="\nTotal: Rs."+tot+"\n\nPlease confirm karein!";saveOrderForUser(tot,itemsList.slice(0,-2));window.open("https://wa.me/918957799335?text="+encodeURIComponent(msg),"_blank");}
+function saveOrderToSheet(name, phone, items, total) {
+  fetch("https://script.google.com/macros/s/AKfycbxyHr2aE9aGTE0b_ePOWo1FSaTiZgRBxCEMJJOs7XYTGHO_fDpBH4jfsjW3mlh-H4aLqw/exec"
+    + "?action=addOrder"
+    + "&name=" + encodeURIComponent(name)
+    + "&phone=" + phone
+    + "&items=" + encodeURIComponent(items)
+    + "&total=" + total
+    + "&date=" + encodeURIComponent(new Date().toLocaleString())
+  );
+}
+function orderWA(){
+var ids=Object.keys(cart);
+if(!ids.length)return;var tot=ids.reduce(function(s,id){return s+cart[id].price*cart[id].qty;},0);var msg="Namaste! Budget Bazar se order karna hai:\n\n";var itemsList="";ids.forEach(function(id){var it=cart[id];msg+=it.name+" ("+it.detail+") x"+it.qty+" = Rs."+(it.price*it.qty)+"\n";itemsList+=it.name+" x"+it.qty+", ";});msg+="\nTotal: Rs."+tot+"\n\nPlease confirm karein!";saveOrderForUser(tot,itemsList.slice(0,-2));
+if(currentUser){
+  var itemsList = ids.map(id => cart[id].name + " x" + cart[id].qty).join(", ");
+  saveOrderToSheet(currentUser.name, currentUser.phone, itemsList, tot);
+}
+window.open("https://wa.me/918957799335?text="+encodeURIComponent(msg),"_blank");}
 
 function openAdmin(){document.getElementById("adminModal").classList.add("open");}
 function closeAdmin(){document.getElementById("adminModal").classList.remove("open");}
@@ -927,7 +944,7 @@ window.onpopstate=function(event){
 var SHEET_ID = "1hmMuP7D06H-NofmWRWKrjc3qlGgeVWiDEpCBerzynFY";
 var USERS_URL = "https://opensheet.elk.sh/" + SHEET_ID + "/Sheet3";
 // Write to sheet via Google Apps Script Web App
-var WRITE_URL = "https://script.google.com/macros/s/AKfycbxPLACEHOLDER/exec";
+var WRITE_URL = "https://script.google.com/macros/s/AKfycbxyHr2aE9aGTE0b_ePOWo1FSaTiZgRBxCEMJJOs7XYTGHO_fDpBH4jfsjW3mlh-H4aLqw/exec";
 
 var currentUser = null;
 var usersCache = null;
@@ -1202,15 +1219,15 @@ function saveOrderForUser(total, items) {
 
 //  SAVE USER TO SHEET (via Apps Script) 
 function saveUserToSheet(userData) {
-  // This needs Google Apps Script Web App URL
-  // Will work after setup - for now saves locally
-  var SCRIPT_URL = lsGet("bb_script_url", "");
-  if (!SCRIPT_URL) return;
-  fetch(SCRIPT_URL + "?action=addUser&name=" + encodeURIComponent(userData.name)
+  fetch("https://script.google.com/macros/s/AKfycbxyHr2aE9aGTE0b_ePOWo1FSaTiZgRBxCEMJJOs7XYTGHO_fDpBH4jfsjW3mlh-H4aLqw/exec"
+    + "?name=" + encodeURIComponent(userData.name)
     + "&phone=" + userData.phone
     + "&password=" + userData.password
     + "&joinedAt=" + encodeURIComponent(userData.joinedAt)
-  ).catch(function() {});
+  )
+  .then(res => res.text())
+  .then(data => console.log("Sheet:", data))
+  .catch(err => console.log(err));
 }
 
 //  INIT 
@@ -1225,50 +1242,8 @@ function initAuth() {
 initAuth();
 
 loadSheet();
-function registerUser(){
-  var num = document.getElementById("loginNumber").value;
-  var pass = document.getElementById("loginPassword").value;
 
-  fetch("https://script.google.com/macros/s/AKfycbwe_RdTp7VYLpLXkWWCiK3ejZykvOh36lTRUEFma8KPS-UWSA1fUJHxizT_ApDZj-61/exec", {
-    method: "POST",
-    body: JSON.stringify({
-      action: "register",
-      number: num,
-      password: pass
-    })
-  })
-  .then(res => res.text())
-  .then(data => {
-    alert("Register ho gaya!");
-  });
-}
-function loginUser(){
-  var num = document.getElementById("loginNumber").value;
-  var pass = document.getElementById("loginPassword").value;
-
-  fetch("https://script.google.com/macros/s/AKfycbwe_RdTp7VYLpLXkWWCiK3ejZykvOh36lTRUEFma8KPS-UWSA1fUJHxizT_ApDZj-61/exec", {
-    method: "POST",
-    body: JSON.stringify({
-      action: "login",
-      number: num,
-      password: pass
-    })
-  })
-  .then(res => res.text())
-  .then(data => {
-    if(data === "success"){
-      alert("Login success");
-
-      localStorage.setItem("currentUser", num);
-      document.getElementById("userName").innerText = num;
-
-      closeLogin();
-    } else {
-      alert("Galat login");
-    }
-  });
-}
 </script>
 
 </body>
-  </html>
+                </html>
