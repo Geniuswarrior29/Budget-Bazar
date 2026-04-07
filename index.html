@@ -1024,46 +1024,33 @@ function doRegister() {
 
   setLoading("Checking...");
 
-  loadUsers(function(users) {
-    // Check if phone already registered
-    var exists = users.find(function(u) {
-      return (u.phone || "").replace(/\D/g,"").slice(-10) === phone;
-    });
-    if (exists) {
-      showScreen("lsRegister");
-      showErr("regErr", "Yeh number already registered hai! Login karein.");
-      return;
-    }
+fetch("https://script.google.com/macros/s/AKfycbwLs0lxDtI2O3GgEISgSU0ElfRRL6Nq1PFvso3rNlBIz4ZeaB84MxELf-2nsc99lng7Hw/exec", {
+  method: "POST",
+  body: JSON.stringify({
+    action: "register",
+    name: name,
+    phone: phone,
+    password: pass
+  })
+})
+.then(res => res.json())
+.then(data => {
+
+  setLoading(""); // ✅ spinner band
+
+  if(data.status === "success"){
+    alert("Register ho gaya");
+  } else {
+    alert("Error: " + (data.message || "Try again"));
+  }
+})
+.catch(err => {
+  setLoading(""); // ✅ spinner band
+  alert("Network error");
+  console.log(err);
+});
 
     // Save to Sheet3 via localStorage (offline first)
-    // Also try to save via Google Apps Script
-    var userData = {
-      name: name,
-      phone: phone,
-      password: btoa(pass),
-      points: 0,
-      orders: 0,
-      spent: 0,
-      joinedAt: new Date().toLocaleDateString("en-IN")
-    };
-
-    // Save locally
-    var localUsers = lsGet("bb_users_local", []);
-    localUsers.push(userData);
-    lsSet("bb_users_local", localUsers);
-    usersCache = null; // reset cache
-
-    // Try to write to sheet
-    saveUserToSheet(userData);
-
-    // Login directly
-    currentUser = userData;
-    lsSet("bb_current_user", userData);
-    updateNavUser(userData);
-    showDashboardData(userData);
-    showScreen("lsDashboard");
-    showToast("Welcome Budget Bazar pe, " + name.split(" ")[0] + "!");
-  });
 }
 
 //  LOGIN 
@@ -1246,4 +1233,4 @@ loadSheet();
 </script>
 
 </body>
-                </html>
+      </html>
