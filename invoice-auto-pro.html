@@ -1,780 +1,1442 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Budget Bazar — Invoice Generator</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
+
+
 <style>
+
 :root {
+
   --orange: #ff6a00;
+
   --orange-dark: #e05a00;
+
   --orange-light: #fff3eb;
+
   --gold: #f5a623;
+
   --dark: #1a1a1a;
+
   --text: #333;
+
   --muted: #777;
+
   --border: #eee;
+
   --white: #ffffff;
+
 }
+
+
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+
+
 body {
+
   font-family: 'DM Sans', sans-serif;
+
   background: #0f0f0f;
+
   min-height: 100vh;
+
   padding: 30px 20px;
+
   position: relative;
+
   overflow-x: hidden;
+
 }
+
+
 
 /* Animated BG */
+
 body::before {
+
   content: '';
+
   position: fixed;
+
   inset: 0;
+
   background:
+
     radial-gradient(ellipse at 20% 20%, rgba(255,106,0,0.15) 0%, transparent 50%),
+
     radial-gradient(ellipse at 80% 80%, rgba(245,166,35,0.1) 0%, transparent 50%),
+
     radial-gradient(ellipse at 50% 50%, rgba(255,106,0,0.05) 0%, transparent 70%);
+
   pointer-events: none;
+
   z-index: 0;
+
 }
+
+
 
 /* Grain overlay */
+
 body::after {
+
   content: '';
+
   position: fixed;
+
   inset: 0;
+
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+
   pointer-events: none;
+
   z-index: 0;
+
   opacity: 0.4;
+
 }
+
+
 
 .page-wrap {
+
   position: relative;
+
   z-index: 1;
+
   max-width: 960px;
+
   margin: 0 auto;
+
 }
+
+
 
 /* HEADER */
+
 .page-header {
+
   text-align: center;
+
   margin-bottom: 36px;
+
   animation: fadeDown 0.6s ease both;
+
 }
 
+
+
 .page-header h1 {
+
   font-family: 'Playfair Display', serif;
+
   font-size: 2.2rem;
+
   color: var(--white);
+
   letter-spacing: -0.5px;
+
 }
+
+
 
 .page-header h1 span { color: var(--orange); }
 
+
+
 .page-header p {
+
   color: #888;
+
   font-size: 0.9rem;
+
   margin-top: 6px;
+
 }
+
+
 
 /* FORM CARD */
+
 .form-card {
+
   background: rgba(255,255,255,0.04);
+
   border: 1px solid rgba(255,255,255,0.08);
+
   border-radius: 20px;
+
   padding: 30px;
+
   backdrop-filter: blur(10px);
+
   margin-bottom: 30px;
+
   animation: fadeUp 0.7s ease both;
+
 }
+
+
 
 .form-card h3 {
+
   color: var(--orange);
+
   font-size: 0.75rem;
+
   letter-spacing: 2px;
+
   text-transform: uppercase;
+
   margin-bottom: 16px;
+
   font-weight: 600;
+
 }
+
+
 
 .form-grid {
+
   display: grid;
+
   grid-template-columns: 1fr 1fr;
+
   gap: 14px;
+
 }
+
+
 
 .form-grid textarea {
+
   grid-column: 1 / -1;
+
 }
+
+
 
 label {
+
   display: block;
+
   color: #aaa;
+
   font-size: 0.75rem;
+
   letter-spacing: 1px;
+
   text-transform: uppercase;
+
   margin-bottom: 6px;
+
   font-weight: 500;
+
 }
 
+
+
 textarea, input[type="text"], input[type="number"] {
+
   width: 100%;
+
   background: rgba(255,255,255,0.06);
+
   border: 1px solid rgba(255,255,255,0.1);
+
   border-radius: 10px;
+
   padding: 12px 14px;
+
   color: var(--white);
+
   font-family: 'DM Sans', sans-serif;
+
   font-size: 0.9rem;
+
   outline: none;
+
   transition: border-color 0.2s, background 0.2s;
+
   resize: vertical;
+
 }
+
+
 
 textarea { min-height: 120px; }
 
+
+
 textarea:focus, input:focus {
+
   border-color: var(--orange);
+
   background: rgba(255,106,0,0.07);
+
 }
+
+
 
 textarea::placeholder, input::placeholder { color: #555; }
 
+
+
 .btn-row {
+
   display: flex;
+
   gap: 12px;
+
   margin-top: 20px;
+
   flex-wrap: wrap;
+
 }
+
+
 
 .btn {
+
   padding: 12px 28px;
+
   border: none;
+
   border-radius: 10px;
+
   font-family: 'DM Sans', sans-serif;
+
   font-weight: 600;
+
   font-size: 0.9rem;
+
   cursor: pointer;
+
   transition: all 0.2s;
+
   display: flex;
+
   align-items: center;
+
   gap: 8px;
+
 }
+
+
 
 .btn-primary {
+
   background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+
   color: white;
+
   box-shadow: 0 4px 20px rgba(255,106,0,0.35);
+
 }
+
+
 
 .btn-primary:hover {
+
   transform: translateY(-2px);
+
   box-shadow: 0 8px 28px rgba(255,106,0,0.5);
+
 }
+
+
 
 .btn-secondary {
+
   background: rgba(255,255,255,0.08);
+
   color: white;
+
   border: 1px solid rgba(255,255,255,0.12);
+
 }
+
+
 
 .btn-secondary:hover {
+
   background: rgba(255,255,255,0.14);
+
   transform: translateY(-2px);
+
 }
+
+
 
 /* ===== INVOICE ===== */
+
 #invoice-wrapper {
+
   animation: fadeUp 0.8s ease 0.1s both;
+
 }
+
+
 
 #invoice {
+
   background: var(--white);
+
   border-radius: 20px;
+
   overflow: hidden;
+
   box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+
 }
+
+
 
 /* Invoice Top Band */
+
 .inv-header {
+
   background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+
   padding: 36px 40px;
+
   position: relative;
+
   overflow: hidden;
+
 }
+
+
 
 .inv-header::before {
+
   content: '';
+
   position: absolute;
+
   top: -40px; right: -40px;
+
   width: 200px; height: 200px;
+
   background: radial-gradient(circle, rgba(255,106,0,0.3) 0%, transparent 70%);
+
   pointer-events: none;
+
 }
+
+
 
 .inv-header::after {
+
   content: '';
+
   position: absolute;
+
   bottom: 0; left: 0; right: 0;
+
   height: 3px;
+
   background: linear-gradient(90deg, var(--orange), var(--gold), var(--orange));
+
 }
+
+
 
 .inv-header-inner {
+
   display: flex;
+
   justify-content: space-between;
+
   align-items: flex-start;
+
   position: relative;
+
   z-index: 1;
+
 }
+
+
 
 /* Logo Area */
+
 .logo-block {
+
   display: flex;
+
   align-items: center;
+
   gap: 14px;
+
 }
+
+
 
 .logo-icon {
+
   width: 56px;
+
   height: 56px;
+
   background: linear-gradient(135deg, var(--orange), var(--gold));
+
   border-radius: 14px;
+
   display: flex;
+
   align-items: center;
+
   justify-content: center;
+
   font-family: 'Playfair Display', serif;
+
   font-size: 1.6rem;
+
   font-weight: 800;
+
   color: white;
+
   box-shadow: 0 4px 20px rgba(255,106,0,0.5);
+
   flex-shrink: 0;
+
 }
+
+
 
 .logo-text {
+
   line-height: 1.15;
+
 }
 
+
+
 .logo-text .brand {
+
   font-family: 'Playfair Display', serif;
+
   font-size: 1.6rem;
+
   font-weight: 800;
+
   color: white;
+
   letter-spacing: -0.5px;
+
 }
+
+
 
 .logo-text .brand span { color: var(--orange); }
 
+
+
 .logo-text .tagline {
+
   font-size: 0.72rem;
+
   color: #999;
+
   letter-spacing: 2px;
+
   text-transform: uppercase;
+
   font-weight: 400;
+
 }
+
+
 
 /* Invoice Meta */
+
 .inv-meta {
+
   text-align: right;
+
 }
+
+
 
 .inv-meta .inv-title {
+
   font-family: 'Playfair Display', serif;
+
   font-size: 1.8rem;
+
   color: white;
+
   letter-spacing: 2px;
+
 }
+
+
 
 .inv-meta .inv-num {
+
   font-size: 0.8rem;
+
   color: var(--orange);
+
   letter-spacing: 1.5px;
+
   text-transform: uppercase;
+
   margin-top: 4px;
+
 }
+
+
 
 .inv-meta .inv-date {
+
   font-size: 0.8rem;
+
   color: #888;
+
   margin-top: 4px;
+
 }
+
+
 
 /* Body */
+
 .inv-body {
+
   padding: 36px 40px;
+
 }
+
+
 
 /* Customer strip */
+
 .customer-strip {
+
   background: var(--orange-light);
+
   border-left: 4px solid var(--orange);
+
   border-radius: 8px;
+
   padding: 14px 20px;
+
   margin-bottom: 30px;
+
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
+
 }
+
+
 
 .customer-strip .label {
+
   font-size: 0.72rem;
+
   color: var(--orange);
+
   letter-spacing: 1.5px;
+
   text-transform: uppercase;
+
   font-weight: 600;
+
 }
+
+
 
 .customer-strip .cname {
+
   font-size: 1rem;
+
   font-weight: 600;
+
   color: var(--dark);
+
   margin-top: 2px;
+
 }
+
+
 
 .customer-strip .badge {
+
   background: var(--orange);
+
   color: white;
+
   font-size: 0.72rem;
+
   padding: 4px 12px;
+
   border-radius: 20px;
+
   font-weight: 600;
+
   letter-spacing: 0.5px;
+
 }
+
+
 
 /* Table */
+
 .inv-table {
+
   width: 100%;
+
   border-collapse: collapse;
+
   margin-bottom: 28px;
+
 }
+
+
 
 .inv-table thead tr {
+
   background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+
 }
+
+
 
 .inv-table thead th {
+
   color: white;
+
   font-size: 0.72rem;
+
   letter-spacing: 1.5px;
+
   text-transform: uppercase;
+
   padding: 12px 16px;
+
   text-align: left;
+
   font-weight: 600;
+
 }
+
+
 
 .inv-table thead th:last-child { text-align: right; }
+
 .inv-table thead th:nth-child(2) { text-align: center; }
 
+
+
 .inv-table tbody tr {
+
   border-bottom: 1px solid var(--border);
+
   transition: background 0.15s;
+
 }
+
+
 
 .inv-table tbody tr:hover { background: #fafafa; }
 
+
+
 .inv-table tbody td {
+
   padding: 13px 16px;
+
   font-size: 0.9rem;
+
   color: var(--text);
+
 }
+
+
 
 .inv-table tbody td:nth-child(2) { text-align: center; }
+
 .inv-table tbody td:last-child { text-align: right; font-weight: 500; }
 
+
+
 .item-num {
+
   display: inline-block;
+
   width: 22px;
+
   height: 22px;
+
   background: var(--orange-light);
+
   color: var(--orange);
+
   border-radius: 50%;
+
   font-size: 0.72rem;
+
   font-weight: 700;
+
   text-align: center;
+
   line-height: 22px;
+
   margin-right: 8px;
+
 }
+
+
 
 .qty-badge {
+
   background: #f0f0f0;
+
   color: #444;
+
   padding: 2px 10px;
+
   border-radius: 20px;
+
   font-size: 0.82rem;
+
   font-weight: 600;
+
 }
+
+
 
 /* Totals */
+
 .totals-row {
+
   display: flex;
+
   justify-content: flex-end;
+
 }
+
+
 
 .totals-box {
+
   width: 280px;
+
 }
 
+
+
 .totals-line {
+
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
+
   padding: 9px 0;
+
   border-bottom: 1px solid var(--border);
+
   font-size: 0.9rem;
+
   color: var(--muted);
+
 }
+
+
 
 .totals-line:last-of-type { border-bottom: none; }
 
+
+
 .totals-line.total-final {
+
   padding: 14px 18px;
+
   background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+
   border-radius: 12px;
+
   color: white;
+
   font-weight: 700;
+
   font-size: 1.05rem;
+
   margin-top: 10px;
+
   box-shadow: 0 4px 16px rgba(255,106,0,0.3);
+
 }
+
+
 
 .totals-line .val { color: var(--dark); font-weight: 600; }
+
 .totals-line.total-final .val { color: white; font-size: 1.1rem; }
 
-/* Points Banner */
-.points-banner {
-  margin-top: 28px;
-  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-  border-radius: 12px;
-  padding: 16px 22px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  position: relative;
-  overflow: hidden;
-}
 
-.points-banner::before {
-  content: '';
-  position: absolute;
-  right: -20px; top: -20px;
-  width: 100px; height: 100px;
-  background: radial-gradient(circle, rgba(245,166,35,0.2), transparent 70%);
-}
 
-.points-icon {
-  font-size: 1.8rem;
-  flex-shrink: 0;
-}
 
-.points-text .pts-label {
-  font-size: 0.7rem;
-  color: #888;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-}
-
-.points-text .pts-value {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--gold);
-}
-
-.points-text .pts-note {
-  font-size: 0.75rem;
-  color: #666;
-  margin-top: 2px;
-}
 
 /* Footer */
+
 .inv-footer {
+
   background: #fafafa;
+
   border-top: 1px solid var(--border);
+
   padding: 20px 40px;
+
   display: flex;
+
   justify-content: space-between;
+
   align-items: center;
+
 }
+
+
 
 .inv-footer .thank-you {
+
   font-family: 'Playfair Display', serif;
+
   font-size: 1rem;
+
   color: var(--orange);
+
   font-style: italic;
+
 }
 
+
+
 .inv-footer .contact {
+
   font-size: 0.78rem;
+
   color: #aaa;
+
   text-align: right;
+
   line-height: 1.7;
+
 }
+
+
 
 .inv-footer .contact b { color: #777; }
 
+
+
 /* Empty State */
+
 .empty-state {
+
   text-align: center;
+
   padding: 60px 20px;
+
   color: #aaa;
+
 }
 
+
+
 .empty-state .icon {
+
   font-size: 3rem;
+
   margin-bottom: 14px;
+
   opacity: 0.4;
+
 }
+
+
 
 .empty-state p { font-size: 0.9rem; color: #555; }
 
+
+
 /* Animations */
+
 @keyframes fadeDown {
+
   from { opacity: 0; transform: translateY(-20px); }
+
   to { opacity: 1; transform: translateY(0); }
+
 }
+
+
 
 @keyframes fadeUp {
+
   from { opacity: 0; transform: translateY(24px); }
+
   to { opacity: 1; transform: translateY(0); }
+
 }
 
+
+
 /* Responsive */
+
 @media (max-width: 600px) {
+
   .form-grid { grid-template-columns: 1fr; }
+
   .inv-header-inner { flex-direction: column; gap: 16px; }
+
   .inv-meta { text-align: left; }
+
   .inv-body { padding: 24px 20px; }
+
   .inv-footer { flex-direction: column; gap: 10px; text-align: center; }
+
   .inv-footer .contact { text-align: center; }
+
   .totals-box { width: 100%; }
+
 }
+
 </style>
+
 </head>
+
+
 
 <body>
 
+
+
 <div class="page-wrap">
 
+
+
   <!-- Page Header -->
+
   <div class="page-header">
+
     <h1>Budget <span>Bazar</span></h1>
+
     <p>Invoice Generator — Paste WhatsApp order & generate instantly</p>
+
   </div>
+
+
 
   <!-- Form -->
+
   <div class="form-card">
+
     <h3>📋 Order Details</h3>
+
     <div class="form-grid">
+
       <div style="grid-column:1/-1">
+
         <label>WhatsApp Order Message</label>
+
         <textarea id="msg" placeholder="Example:
+
 • Biscuit x2 = Rs.40
+
 • Cold Drink x1 = Rs.60
+
 • Chips x3 = Rs.90"></textarea>
+
       </div>
+
       <div>
+
         <label>Customer Name</label>
+
         <input type="text" id="customer" placeholder="e.g. Rahul Sharma">
+
       </div>
+
       <div>
+
         <label>Delivery Charge (₹)</label>
+
         <input type="number" id="delivery" placeholder="0">
+
       </div>
+
     </div>
+
     <div class="btn-row">
+
       <button class="btn btn-primary" onclick="generateFromMsg()">
+
         ⚡ Generate Invoice
+
       </button>
+
       <button class="btn btn-secondary" onclick="downloadImage()">
+
         ⬇️ Download PNG
+
       </button>
+
     </div>
+
   </div>
 
+
+
   <!-- Invoice -->
+
   <div id="invoice-wrapper">
+
     <div id="invoice">
 
+
+
       <!-- Empty State (shown before generation) -->
+
       <div class="empty-state" id="emptyState">
+
         <div class="icon">🧾</div>
+
         <p>Paste an order message above and click <b>Generate Invoice</b></p>
+
       </div>
 
+
+
       <!-- Actual Invoice Content (hidden initially) -->
+
       <div id="invoiceContent" style="display:none;">
 
+
+
         <!-- Header -->
+
         <div class="inv-header">
+
           <div class="inv-header-inner">
+
             <div class="logo-block">
+
               <div class="logo-icon">B</div>
+
               <div class="logo-text">
+
                 <div class="brand">Budget <span>Bazar</span></div>
+
                 <div class="tagline">Raebareli · Fast Delivery</div>
+
               </div>
+
             </div>
+
             <div class="inv-meta">
+
               <div class="inv-title">INVOICE</div>
+
               <div class="inv-num" id="invNo"></div>
+
               <div class="inv-date" id="date"></div>
+
             </div>
+
           </div>
+
         </div>
+
+
 
         <!-- Body -->
+
         <div class="inv-body">
 
+
+
           <!-- Customer -->
+
           <div class="customer-strip">
+
             <div>
+
               <div class="label">Bill To</div>
+
               <div class="cname" id="cname"></div>
+
             </div>
+
             <div class="badge">⚡ Fast Delivery</div>
+
           </div>
+
+
 
           <!-- Items Table -->
+
           <table class="inv-table" id="table">
+
             <thead>
+
               <tr>
+
                 <th>Item</th>
+
                 <th>Qty</th>
+
                 <th>Amount</th>
+
               </tr>
+
             </thead>
+
             <tbody id="tableBody"></tbody>
+
           </table>
 
+
+
           <!-- Totals -->
+
           <div class="totals-row">
+
             <div class="totals-box">
+
               <div class="totals-line">
+
                 <span>Subtotal</span>
+
                 <span class="val">₹<span id="subtotal"></span></span>
+
               </div>
+
               <div class="totals-line">
+
                 <span>Delivery Charge</span>
+
                 <span class="val">₹<span id="deliveryShow"></span></span>
+
               </div>
+
               <div class="totals-line total-final">
+
                 <span>Total Payable</span>
+
                 <span class="val">₹<span id="total"></span></span>
+
               </div>
+
             </div>
+
           </div>
 
-          <!-- Points -->
-          <div class="points-banner">
-            <div class="points-icon">🏅</div>
-            <div class="points-text">
-              <div class="pts-label">Points Earned This Order</div>
-              <div class="pts-value"><span id="points"></span> Points</div>
-              <div class="pts-note">₹25 = 1 point · Points redeemable on next order</div>
-            </div>
-          </div>
-
-        </div>
 
         <!-- Footer -->
+
         <div class="inv-footer">
+
           <div class="thank-you">Thank you for shopping with us! 🧡</div>
+
           <div class="contact">
+
             <b>Budget Bazar</b><br>
+
             Tripula Chauraha, Vijay Nagar, Raebareli<br>
+
             WhatsApp Order · 20–40 Min Delivery
+
           </div>
+
         </div>
+
+
 
       </div><!-- /invoiceContent -->
 
+
+
     </div><!-- /invoice -->
+
   </div>
+
+
 
 </div><!-- /page-wrap -->
 
+
+
 <script>
+
 function generateFromMsg() {
+
   const text = document.getElementById("msg").value.trim();
+
   if (!text) { alert("Pehle order message paste karo!"); return; }
 
+
+
   const lines = text.split("\n");
+
   const products = [];
+
   let subtotal = 0;
 
+
+
   lines.forEach((line, i) => {
+
     const match = line.match(/(.+?)\s*x\s*(\d+)\s*=\s*₹?\s*(\d+)/i);
+
     if (match) {
+
       const name = match[1].replace(/^[•\-\*\s]+/, "").trim();
+
       const qty = parseInt(match[2]);
+
       const price = parseInt(match[3]);
+
       products.push({ name, qty, price });
+
       subtotal += price;
+
     }
+
   });
+
+
 
   if (products.length === 0) {
+
     alert("Koi item nahi mila! Format check karo:\n• Item x2 = Rs.60");
+
     return;
+
   }
+
+
 
   const delivery = parseInt(document.getElementById("delivery").value) || 0;
+
   const total = subtotal + delivery;
+
   const cname = document.getElementById("customer").value.trim() || "Valued Customer";
 
+
+
   // Fill table
+
   const tbody = document.getElementById("tableBody");
+
   tbody.innerHTML = "";
+
   products.forEach((p, i) => {
+
     tbody.innerHTML += `
+
       <tr>
+
         <td><span class="item-num">${i + 1}</span>${p.name}</td>
+
         <td><span class="qty-badge">${p.qty}</span></td>
+
         <td>₹${p.price}</td>
+
       </tr>`;
+
   });
+
+
 
   document.getElementById("subtotal").innerText = subtotal;
+
   document.getElementById("deliveryShow").innerText = delivery;
+
   document.getElementById("total").innerText = total;
-  document.getElementById("points").innerText = Math.floor(total / 25);
-  document.getElementById("cname").innerText = cname;
+
+    document.getElementById("cname").innerText = cname;
+
+
 
   const invNo = "BB" + Math.floor(Math.random() * 90000 + 10000);
+
   document.getElementById("invNo").innerText = "#" + invNo;
+
   document.getElementById("date").innerText = new Date().toLocaleDateString("en-IN", {
+
     weekday: "short", year: "numeric", month: "short", day: "numeric"
+
   });
+
+
 
   document.getElementById("emptyState").style.display = "none";
+
   document.getElementById("invoiceContent").style.display = "block";
+
 }
+
+
 
 function downloadImage() {
+
   const inv = document.getElementById("invoice");
+
   if (document.getElementById("invoiceContent").style.display === "none") {
+
     alert("Pehle invoice generate karo!"); return;
+
   }
 
+
+
   html2canvas(inv, {
+
     scale: 2,
+
     useCORS: true,
+
     backgroundColor: "#ffffff"
+
   }).then(canvas => {
+
     const link = document.createElement("a");
+
     link.download = "BudgetBazar_Invoice_" + Date.now() + ".png";
+
     link.href = canvas.toDataURL("image/png");
+
     link.click();
+
   });
+
 }
+
 </script>
 
+
+
 </body>
+
 </html>
