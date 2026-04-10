@@ -13,7 +13,14 @@
 :root{--red:#d4000c;--orange:#ff6b00;--yellow:#ffcc00;--dark:#1a0505;--light:#fff9f0;--green:#0a7c3e;--bg:#f8f8f8;--border:#efefef;--text:#282c3f;--muted:#93959f;}
 *{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
 body{font-family:'Hind',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;padding-bottom:70px;}
-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--red);display:flex;align-items:center;gap:10px;padding:0 12px;height:58px;box-shadow:0 2px 12px rgba(0,0,0,0.18);}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--red);display:flex;flex-direction:column;gap:0;padding:8px 12px;box-shadow:0 2px 12px rgba(0,0,0,0.18);}
+.nav-top-row{display:flex;align-items:center;justify-content:space-between;width:100%;margin-bottom:7px;}
+.nav-cat-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;width:100%;margin-bottom:7px;}
+.nav-cat-btn{display:flex;align-items:center;justify-content:center;gap:5px;background:var(--yellow);border:none;border-radius:9px;padding:7px 4px;font-family:'Baloo 2',cursive;font-size:12px;font-weight:900;color:var(--dark);cursor:pointer;width:100%;transition:all 0.15s;}
+.nav-cat-btn:active{opacity:0.8;transform:scale(0.97);}
+.nav-cat-btn.beauty-btn{background:linear-gradient(135deg,#f8bbd0,#e91e8c);color:#fff;}
+.nav-cat-btn.services-btn{background:linear-gradient(135deg,#bbdefb,#1976d2);color:#fff;}
+.nav-cat-btn.active{box-shadow:0 0 0 2.5px #fff inset;opacity:1;}
 .nav-logo{font-family:'Baloo 2',cursive;font-size:19px;font-weight:900;color:var(--yellow);white-space:nowrap;}
 .nav-logo span{color:#fff;}
 .nav-search{flex:1;display:flex;align-items:center;background:#fff;border-radius:8px;padding:0 10px;gap:6px;height:36px;}
@@ -29,7 +36,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;background:var(--red);displa
 .bn-label{font-size:10px;font-weight:700;color:var(--muted);}
 .bn-item.active .bn-label{color:var(--red);}
 .bn-cart-badge{position:absolute;top:4px;right:calc(50% - 18px);background:var(--red);color:#fff;width:16px;height:16px;border-radius:50%;font-size:9px;font-weight:900;display:flex;align-items:center;justify-content:center;}
-.hero-strip{margin-top:58px;background:linear-gradient(100deg,#1a0505 0%,#3d0a0a 50%,#6b1a00 100%);padding:14px 14px 12px;display:flex;flex-direction:column;gap:6px;}
+.hero-strip{margin-top:118px;background:linear-gradient(100deg,#1a0505 0%,#3d0a0a 50%,#6b1a00 100%);padding:14px 14px 12px;display:flex;flex-direction:column;gap:6px;}
 .hero-badge{display:inline-block;background:rgba(255,204,0,0.18);border:1px solid rgba(255,204,0,0.4);color:var(--yellow);font-size:9px;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:2px;text-transform:uppercase;width:fit-content;}
 .hero-title{font-family:'Baloo 2',cursive;font-size:28px;font-weight:900;color:#fff;line-height:1;letter-spacing:-1px;}
 .hero-title span{color:var(--yellow);}
@@ -324,11 +331,120 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
 .pts-how-row{display:flex;align-items:center;gap:10px;font-size:12px;color:#555;padding:5px 0;border-bottom:1px solid #f0e8d8;}
 .pts-how-row:last-child{border-bottom:none;}
 .pts-redeem-btn{display:block;width:100%;background:linear-gradient(135deg,#25d366,#128c52);color:#fff;text-decoration:none;padding:13px;border-radius:12px;font-size:14px;font-weight:700;text-align:center;font-family:'Hind',sans-serif;}
+
+/* COMING SOON MODAL */
+.cs-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:900;display:none;align-items:center;justify-content:center;}
+.cs-overlay.open{display:flex;}
+.cs-box{background:#fff;border-radius:20px;width:90%;max-width:320px;text-align:center;padding:28px 22px;}
+.cs-icon{font-size:52px;margin-bottom:10px;}
+.cs-title{font-family:'Baloo 2',cursive;font-size:22px;font-weight:900;color:var(--dark);margin-bottom:6px;}
+.cs-sub{font-size:13px;color:#888;line-height:1.6;margin-bottom:18px;}
+.cs-badge{display:inline-block;background:#fff3e0;color:var(--orange);font-size:10px;font-weight:700;padding:4px 14px;border-radius:20px;margin-bottom:14px;letter-spacing:1px;text-transform:uppercase;}
+.cs-close{background:var(--red);color:#fff;border:none;padding:11px 28px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;}
+
+/* TOP CATEGORY BAR */
+.top-cats{background:var(--dark);padding:10px 12px;position:sticky;top:58px;z-index:199;}
+.top-cats-inner{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.tc-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:var(--yellow);border:none;border-radius:12px;padding:13px 10px;cursor:pointer;font-family:'Baloo 2',cursive;font-size:15px;font-weight:900;color:var(--dark);width:100%;transition:opacity 0.15s;}
+.tc-btn:active{opacity:0.85;}
+.tc-btn.beauty{background:linear-gradient(135deg,#f8bbd0,#e91e8c);color:#fff;}
+.tc-btn.active{box-shadow:0 0 0 3px #fff;}
+.tc-btn-icon{font-size:20px;}
+
+/* BEAUTY SECTION */
+.beauty-section{background:linear-gradient(135deg,#2d0020,#1a0010);padding:14px;margin-top:0;}
+.beauty-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.beauty-title{font-family:'Baloo 2',cursive;font-size:15px;font-weight:900;color:#ffb3d9;}
+.beauty-inner{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding-bottom:4px;}
+.bf-card{background:rgba(255,255,255,0.07);border:1.5px solid #e91e8c;border-radius:12px;overflow:hidden;position:relative;}
+.bf-badge{position:absolute;top:6px;left:6px;background:#e91e8c;color:#fff;font-size:8px;font-weight:900;padding:2px 7px;border-radius:10px;letter-spacing:0.5px;text-transform:uppercase;}
+.bf-img-wrap{width:100%;height:100px;overflow:hidden;background:rgba(233,30,140,0.15);display:flex;align-items:center;justify-content:center;}
+.bf-img-wrap img{width:100%;height:100%;object-fit:cover;}
+.bf-img-init{font-size:28px;}
+.bf-body{padding:8px 10px 10px;}
+.bf-name{font-family:'Baloo 2',cursive;font-size:12px;font-weight:900;color:#fff;margin-bottom:2px;line-height:1.2;}
+.bf-sub{font-size:9px;color:rgba(255,255,255,0.65);margin-bottom:4px;}
+.bf-price-wrap{display:flex;align-items:center;gap:4px;flex-wrap:wrap;margin-bottom:5px;}
+.bf-price{font-family:'Baloo 2',cursive;font-size:13px;font-weight:900;color:#ffb3d9;}
+.bf-old{font-size:9px;color:rgba(255,255,255,0.4);text-decoration:line-through;}
+.bf-off{background:rgba(233,30,140,0.3);color:#ffb3d9;font-size:8px;font-weight:700;padding:1px 4px;border-radius:3px;}
+.bf-add{background:#e91e8c;color:#fff;border:none;border-radius:7px;padding:5px 8px;font-size:10px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;width:100%;}
+.bf-empty{text-align:center;padding:24px;color:rgba(255,255,255,0.5);font-size:12px;}
+.bf-cs{background:rgba(255,255,255,0.1);border-radius:10px;padding:16px;text-align:center;grid-column:1/-1;}
+.bf-cs-icon{font-size:32px;margin-bottom:6px;}
+.bf-cs-title{font-family:'Baloo 2',cursive;font-size:13px;font-weight:900;color:#ffb3d9;}
+.bf-cs-sub{font-size:10px;color:rgba(255,255,255,0.5);margin-top:3px;}
+
+
+/* ── SERVICES SECTION ── */
+.services-section{background:#f0f4ff;padding:0 0 16px;margin-top:0;display:none;}
+.svc-header{background:linear-gradient(135deg,#1565c0,#0d47a1);padding:16px 14px 12px;display:flex;align-items:center;justify-content:space-between;}
+.svc-title{font-family:'Baloo 2',cursive;font-size:16px;font-weight:900;color:#fff;}
+.svc-subtitle{font-size:10px;color:rgba(255,255,255,0.75);margin-top:1px;}
+.svc-refresh{background:rgba(255,255,255,0.18);border:none;color:#fff;font-size:10px;font-weight:700;padding:5px 10px;border-radius:16px;cursor:pointer;}
+.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;padding:14px;}
+.svc-card{background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(21,101,192,0.10);border:1.5px solid #e3eafc;position:relative;}
+.svc-badge{position:absolute;top:8px;right:8px;background:#1976d2;color:#fff;font-size:8px;font-weight:900;padding:2px 7px;border-radius:10px;letter-spacing:0.5px;z-index:1;}
+.svc-img-wrap{width:100%;height:110px;overflow:hidden;background:linear-gradient(135deg,#e3f2fd,#bbdefb);display:flex;align-items:center;justify-content:center;}
+.svc-img-wrap img{width:100%;height:100%;object-fit:cover;}
+.svc-img-icon{font-size:38px;}
+.svc-body{padding:10px 10px 12px;}
+.svc-worker-name{font-family:'Baloo 2',cursive;font-size:13px;font-weight:900;color:var(--dark);margin-bottom:1px;}
+.svc-work{font-size:10px;color:#1976d2;font-weight:700;margin-bottom:3px;}
+.svc-detail{font-size:10px;color:#888;line-height:1.4;margin-bottom:8px;}
+.svc-price-row{display:flex;align-items:center;gap:5px;margin-bottom:8px;}
+.svc-price{font-family:'Baloo 2',cursive;font-size:15px;font-weight:900;color:var(--red);}
+.svc-old{font-size:10px;color:#bbb;text-decoration:line-through;}
+.svc-off{background:#e8f5e9;color:var(--green);font-size:8px;font-weight:700;padding:2px 5px;border-radius:4px;}
+.svc-book-btn{width:100%;background:linear-gradient(135deg,#1976d2,#0d47a1);color:#fff;border:none;border-radius:8px;padding:9px 0;font-family:'Hind',sans-serif;font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:5px;}
+.svc-book-btn:active{opacity:0.85;}
+.svc-empty{grid-column:1/-1;text-align:center;padding:40px 20px;}
+.svc-empty-icon{font-size:40px;margin-bottom:8px;}
+.svc-empty-title{font-family:'Baloo 2',cursive;font-size:15px;font-weight:900;color:#1976d2;margin-bottom:4px;}
+.svc-empty-sub{font-size:11px;color:#888;line-height:1.5;}
+
+/* ── IMPROVED PRODUCT CARDS (Flipkart style) ── */
+.pc{background:#fff;border:1px solid #f0f0f0;border-radius:8px;overflow:hidden;cursor:pointer;transition:box-shadow 0.15s;position:relative;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
+.pc:active{box-shadow:0 4px 16px rgba(212,0,12,0.12);}
+.pn{font-size:11px;font-weight:600;color:var(--text);margin-bottom:2px;line-height:1.3;}
+.prod-sec{background:#f1f3f6;padding:8px 10px 16px;}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+
+/* ── IMPROVED NAV ── */
+nav{background:linear-gradient(135deg,var(--red) 0%,#b71c1c 100%);}
+.nav-search{border-radius:6px;height:34px;}
+
+/* ── IMPROVED HERO ── */
+.hero-strip{padding:16px 14px 14px;}
+.hero-title{font-size:26px;}
+
+/* ── IMPROVED SECTION LABELS ── */
+.sec-lbl{font-size:9px;letter-spacing:3px;}
+
+/* ── IMPROVED CART ── */
+.wa-ob{background:linear-gradient(135deg,#1da851,#128c52);border-radius:8px;font-size:14px;letter-spacing:0.3px;}
+
+/* ── IMPROVED BOTTOM NAV ── */
+.bottom-nav{box-shadow:0 -2px 20px rgba(0,0,0,0.12);}
+.bn-label{font-size:9px;letter-spacing:0.3px;}
+
 </style>
 </head>
 <body>
 
 <a href="https://wa.me/918957799335" class="waf" target="_blank">WA</a>
+
+
+<!-- COMING SOON MODAL -->
+<div class="cs-overlay" id="csOverlay" onclick="if(event.target===this)closeCS()">
+  <div class="cs-box">
+    <div class="cs-icon" id="csIcon">&#x1F680;</div>
+    <div class="cs-badge">COMING SOON</div>
+    <div class="cs-title" id="csTitle">Jald Aa Raha Hai!</div>
+    <div class="cs-sub" id="csSub">Yeh feature abhi develop ho raha hai. Thodi wait karo!</div>
+    <button class="cs-close" onclick="closeCS()">Theek Hai!</button>
+  </div>
+</div>
 
 <div class="cart-ov" id="cov" onclick="toggleCart()"></div>
 <div class="cart-sd" id="csd">
@@ -576,14 +692,27 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
 </div>
 
 <nav>
-  <div class="nav-logo">Budget<span>Bazar</span></div>
+  <div class="nav-top-row">
+    <div class="nav-logo">Budget<span>Bazar</span></div>
+    <div class="nav-right">
+      <button class="btn-install" onclick="installApp()">Install</button>
+      <button class="btn-ham" onclick="openAdmin()"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="nav-cat-row">
+    <button class="nav-cat-btn active" id="ncb-grocery" onclick="switchTopCat('grocery')">
+      &#x1F6D2; General
+    </button>
+    <button class="nav-cat-btn beauty-btn" id="ncb-beauty" onclick="switchTopCat('beauty')">
+      &#x1F484; Beauty
+    </button>
+    <button class="nav-cat-btn services-btn" id="ncb-services" onclick="switchTopCat('services')">
+      &#x1F6E0; Services
+    </button>
+  </div>
   <div class="nav-search">
     <span class="nav-search-ic">S</span>
     <input type="text" id="searchBar" placeholder="Search karo... Maggi, Pepsi, Soap" oninput="onSearch()">
-  </div>
-  <div class="nav-right">
-    <button class="btn-install" onclick="installApp()">Install</button>
-    <button class="btn-ham" onclick="openAdmin()"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
@@ -598,6 +727,7 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
   </div>
 </div>
 
+
 <div class="pts-bar" id="points">
   <h3>Budget Bazar Points</h3>
   <p style="font-size:11px;opacity:0.9;margin-bottom:7px">Har kharidari par points kamao!</p>
@@ -605,6 +735,42 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
     <div class="pts-item">Rs.25 = <b>1 Point</b></div>
     <div class="pts-item">1 Pt = <b>Rs.1 bachat</b></div>
     <div class="pts-item">Redeem: <b>WhatsApp</b></div>
+  </div>
+</div>
+
+<!-- BEAUTY PARLOUR SECTION -->
+<div class="beauty-section" id="beautySection" style="display:none;">
+  <div class="beauty-header">
+    <div class="beauty-title">&#x1F484; Beauty Parlour</div>
+    <div style="display:flex;gap:6px;">
+      <button onclick="beautyLoaded=false;loadBeautySheet()" style="background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:11px;font-weight:700;padding:5px 10px;border-radius:20px;cursor:pointer;">Refresh</button>
+      <button onclick="switchTopCat('grocery')" style="background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:11px;font-weight:700;padding:5px 10px;border-radius:20px;cursor:pointer;">Wapas</button>
+    </div>
+  </div>
+  <div class="beauty-inner" id="beautyGrid">
+    <div class="bf-cs">
+      <div class="bf-cs-icon">&#x2728;</div>
+      <div class="bf-cs-title">Beauty Section</div>
+      <div class="bf-cs-sub">Sheet5 se products load ho rahe hain...</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- SERVICES SECTION (Sheet7) -->
+<div class="services-section" id="servicesSection">
+  <div class="svc-header">
+    <div>
+      <div class="svc-title">&#x1F6E0; Home Services</div>
+      <div class="svc-subtitle">Car wash, Bike wash, Tank cleaning & more</div>
+    </div>
+    <button class="svc-refresh" onclick="servicesLoaded=false;loadServicesSheet()">Refresh</button>
+  </div>
+  <div class="svc-grid" id="servicesGrid">
+    <div class="svc-empty">
+      <div class="svc-empty-icon">&#x1F6E0;</div>
+      <div class="svc-empty-title">Load ho raha hai...</div>
+    </div>
   </div>
 </div>
 
@@ -890,23 +1056,37 @@ function updateCart(){
 function toggleCart(){var o=document.getElementById("cov");var s=document.getElementById("csd");var isOpen=s.classList.toggle("open");o.classList.toggle("open");if(isOpen)history.pushState({type:"cart"},"");}
 function askWA(name){window.open("https://wa.me/918957799335?text="+encodeURIComponent("Namaste! Mujhe "+name+" ka rate jaanna hai."),"_blank");}
 function saveOrderToSheet(name, phone, items, total) {
-  fetch("https://script.google.com/macros/s/AKfycbxyHr2aE9aGTE0b_ePOWo1FSaTiZgRBxCEMJJOs7XYTGHO_fDpBH4jfsjW3mlh-H4aLqw/exec"
-    + "?action=addOrder"
+  fetch(WRITE_URL
+    + "?action=saveOrder"
     + "&name=" + encodeURIComponent(name)
     + "&phone=" + phone
     + "&items=" + encodeURIComponent(items)
     + "&total=" + total
-    + "&date=" + encodeURIComponent(new Date().toLocaleString())
-  );
+    + "&date=" + encodeURIComponent(new Date().toLocaleString("en-IN"))
+  ).then(function(r){return r.text();})
+  .then(function(d){console.log("Order saved:",d);})
+  .catch(function(e){console.log("Order err:",e);});
 }
 function orderWA(){
-var ids=Object.keys(cart);
-if(!ids.length)return;var tot=ids.reduce(function(s,id){return s+cart[id].price*cart[id].qty;},0);var msg="Namaste! Budget Bazar se order karna hai:\n\n";var itemsList="";ids.forEach(function(id){var it=cart[id];msg+=it.name+" ("+it.detail+") x"+it.qty+" = Rs."+(it.price*it.qty)+"\n";itemsList+=it.name+" x"+it.qty+", ";});msg+="\nTotal: Rs."+tot+"\n\nPlease confirm karein!";saveOrderForUser(tot,itemsList.slice(0,-2));
-if(currentUser){
-  var itemsList = ids.map(id => cart[id].name + " x" + cart[id].qty).join(", ");
-  saveOrderToSheet(currentUser.name, currentUser.phone, itemsList, tot);
+  var ids=Object.keys(cart);
+  if(!ids.length)return;
+  var tot=ids.reduce(function(s,id){return s+cart[id].price*cart[id].qty;},0);
+  var msg="Namaste! Budget Bazar se order karna hai:\n\n";
+  var itemsList="";
+  ids.forEach(function(id){
+    var it=cart[id];
+    msg+=it.name+" ("+it.detail+") x"+it.qty+" = Rs."+(it.price*it.qty)+"\n";
+    itemsList+=it.name+" x"+it.qty+", ";
+  });
+  msg+="\nTotal: Rs."+tot+"\n\nPlease confirm karein!";
+  // Save order for logged in user
+  saveOrderForUser(tot, itemsList.slice(0,-2));
+  // Also save to Sheet4 via Apps Script
+  if(currentUser && currentUser.phone){
+    saveOrderToSheet(currentUser.name||"", currentUser.phone, itemsList.slice(0,-2), tot);
+  }
+  window.open("https://wa.me/918957799335?text="+encodeURIComponent(msg),"_blank");
 }
-window.open("https://wa.me/918957799335?text="+encodeURIComponent(msg),"_blank");}
 
 function openAdmin(){document.getElementById("adminModal").classList.add("open");}
 function closeAdmin(){document.getElementById("adminModal").classList.remove("open");}
@@ -944,7 +1124,7 @@ window.onpopstate=function(event){
 var SHEET_ID = "1hmMuP7D06H-NofmWRWKrjc3qlGgeVWiDEpCBerzynFY";
 var USERS_URL = "https://opensheet.elk.sh/" + SHEET_ID + "/Sheet3";
 // Write to sheet via Google Apps Script Web App
-var WRITE_URL = "https://script.google.com/macros/s/AKfycbxyHr2aE9aGTE0b_ePOWo1FSaTiZgRBxCEMJJOs7XYTGHO_fDpBH4jfsjW3mlh-H4aLqw/exec";
+var WRITE_URL = "https://script.google.com/macros/s/AKfycbxPLACEHOLDER/exec";
 
 var currentUser = null;
 var usersCache = null;
@@ -979,11 +1159,7 @@ function togglePass(inputId, btn) {
 
 //  OPEN / CLOSE 
 function openLogin() {
-  var ol = document.getElementById("loginOverlay");
-  if (ol) ol.classList.add("open");
-  document.body.style.overflow = "hidden";
-  if (currentUser) { showDashboardData(currentUser); showScreen("lsDashboard"); }
-  else showScreen("lsChoose");
+  showComingSoon("login");
 }
 function closeLogin() {
   var ol = document.getElementById("loginOverlay");
@@ -993,7 +1169,7 @@ function closeLogin() {
 function closeLoginIfBg(e) {
   if (e.target === document.getElementById("loginOverlay")) closeLogin();
 }
-function openPoints() { openLogin(); }
+function openPoints() { showComingSoon("points"); }
 
 //  LOAD USERS FROM SHEET3 
 function loadUsers(callback) {
@@ -1024,79 +1200,138 @@ function doRegister() {
 
   setLoading("Checking...");
 
-fetch("https://script.google.com/macros/s/AKfycbwLs0lxDtI2O3GgEISgSU0ElfRRL6Nq1PFvso3rNlBIz4ZeaB84MxELf-2nsc99lng7Hw/exec", {
-  method: "POST",
-  body: JSON.stringify({
-    action: "register",
-    name: name,
-    phone: phone,
-    password: pass
-  })
-})
-.then(res => res.json())
-.then(data => {
+  loadUsers(function(users) {
+    // Check if phone already registered
+    var exists = users.find(function(u) {
+      return (u.phone || "").replace(/\D/g,"").slice(-10) === phone;
+    });
+    if (exists) {
+      showScreen("lsRegister");
+      showErr("regErr", "Yeh number already registered hai! Login karein.");
+      return;
+    }
 
-  setLoading(""); // ✅ spinner band
+    var encodedPass = btoa(pass);
+    var userData = {
+      name: name, phone: phone, password: encodedPass,
+      points: 0, orders: 0, spent: 0,
+      joinedAt: new Date().toLocaleDateString("en-IN")
+    };
 
-  if(data.status === "success"){
-    alert("Register ho gaya");
-  } else {
-    alert("Error: " + (data.message || "Try again"));
-  }
-})
-.catch(err => {
-  setLoading(""); // ✅ spinner band
-  alert("Network error");
-  console.log(err);
-});
-
-    // Save to Sheet3 via localStorage (offline first)
+    var SCRIPT_URL = lsGet("bb_script_url", "");
+    if (SCRIPT_URL) {
+      // Save to Sheet3 via Apps Script
+      fetch(SCRIPT_URL + "?action=register&name=" + encodeURIComponent(name)
+        + "&phone=" + phone + "&password=" + encodeURIComponent(encodedPass)
+        + "&joinedAt=" + encodeURIComponent(userData.joinedAt))
+        .then(function(r) { return r.json(); })
+        .then(function(res) {
+          if (res.status === "exists") {
+            showScreen("lsRegister");
+            showErr("regErr", "Yeh number already registered hai! Login karein.");
+            return;
+          }
+          // Save locally too
+          var localUsers = lsGet("bb_users_local", []);
+          localUsers.push(userData);
+          lsSet("bb_users_local", localUsers);
+          currentUser = userData;
+          lsSet("bb_current_user", userData);
+          updateNavUser(userData);
+          showDashboardData(userData);
+          showScreen("lsDashboard");
+          showToast("Welcome Budget Bazar pe, " + name.split(" ")[0] + "!");
+        })
+        .catch(function() {
+          // Fallback: save locally only
+          var localUsers = lsGet("bb_users_local", []);
+          localUsers.push(userData);
+          lsSet("bb_users_local", localUsers);
+          currentUser = userData;
+          lsSet("bb_current_user", userData);
+          updateNavUser(userData);
+          showDashboardData(userData);
+          showScreen("lsDashboard");
+          showToast("Welcome Budget Bazar pe, " + name.split(" ")[0] + "!");
+        });
+    } else {
+      // No script URL - save locally only
+      var localUsers = lsGet("bb_users_local", []);
+      localUsers.push(userData);
+      lsSet("bb_users_local", localUsers);
+      currentUser = userData;
+      lsSet("bb_current_user", userData);
+      updateNavUser(userData);
+      showDashboardData(userData);
+      showScreen("lsDashboard");
+      showToast("Welcome Budget Bazar pe, " + name.split(" ")[0] + "!");
+    }
+  });
 }
 
 //  LOGIN 
 function doLogin() {
   var phone = (document.getElementById("loginPhone") || {}).value || "";
   var pass = (document.getElementById("loginPass") || {}).value || "";
-  phone = phone.trim().replace(/\D/g, "").slice(-10);
+  phone = phone.trim().replace(/[^0-9]/g, "").slice(-10);
 
-  if (phone.length !== 10) { showErr("loginErr", "Sahi phone number daalo!"); return; }
+  if (phone.length !== 10) { showErr("loginErr", "Sahi 10 digit phone number daalo!"); return; }
   if (!pass) { showErr("loginErr", "Password daalo!"); return; }
 
   setLoading("Login ho raha hai...");
+  var encodedPass = btoa(pass);
 
   // Check local users first
   var localUsers = lsGet("bb_users_local", []);
   var found = localUsers.find(function(u) {
-    return (u.phone || "").replace(/\D/g,"").slice(-10) === phone
-      && (u.password === btoa(pass) || u.password === pass);
+    var uPhone = (u.phone || "").replace(/[^0-9]/g, "").slice(-10);
+    // Match both encoded and plain password
+    return uPhone === phone && (u.password === encodedPass || u.password === pass);
   });
 
-  if (found) {
-    loginSuccess(found);
-    return;
-  }
+  if (found) { loginSuccess(found); return; }
 
-  // Check Sheet3
-  loadUsers(function(users) {
-    var sheetUser = users.find(function(u) {
-      return (u.phone || "").replace(/\D/g,"").slice(-10) === phone
-        && (u.password === btoa(pass) || u.password === pass || u.password === atob(u.password || "") === pass);
-    });
-
-    if (sheetUser) {
-      // Also save locally for offline
-      var localU = lsGet("bb_users_local", []);
-      if (!localU.find(function(x) { return x.phone === phone; })) {
-        localU.push(sheetUser);
-        lsSet("bb_users_local", localU);
+  // Check Sheet3 - try opensheet
+  usersCache = null;
+  fetch(USERS_URL + "?t=" + Date.now())
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var sheetUser = null;
+      for (var i = 0; i < data.length; i++) {
+        var u = data[i];
+        var uPhone = (u.phone || "").replace(/[^0-9]/g, "").slice(-10);
+        var uPass = u.password || "";
+        // Match: encoded pass OR plain pass OR decoded encoded pass
+        var passMatch = (uPass === encodedPass) || (uPass === pass);
+        if (uPhone === phone && passMatch) {
+          sheetUser = u;
+          break;
+        }
       }
-      loginSuccess(sheetUser);
-    } else {
+      if (sheetUser) {
+        // Normalize password to encoded
+        sheetUser.password = encodedPass;
+        sheetUser.points = parseInt(sheetUser.points) || 0;
+        sheetUser.orders = parseInt(sheetUser.orders) || 0;
+        sheetUser.spent = parseInt(sheetUser.spent) || 0;
+        // Save locally for offline
+        var localU = lsGet("bb_users_local", []);
+        var idx = localU.findIndex ? localU.findIndex(function(x) { return (x.phone||"").slice(-10) === phone; }) : -1;
+        if (idx === -1) { localU.push(sheetUser); }
+        else { localU[idx] = sheetUser; }
+        lsSet("bb_users_local", localU);
+        loginSuccess(sheetUser);
+      } else {
+        showScreen("lsLogin");
+        showErr("loginErr", "Galat number ya password! Dobara try karo.");
+      }
+    })
+    .catch(function() {
       showScreen("lsLogin");
-      showErr("loginErr", "Galat number ya password! Dobara try karo.");
-    }
-  });
+      showErr("loginErr", "Internet check karo aur dobara try karo.");
+    });
 }
+
 
 function loginSuccess(userData) {
   currentUser = userData;
@@ -1177,45 +1412,54 @@ function openMyOrders() {
 //  SAVE ORDER (called from orderWA) 
 function saveOrderForUser(total, items) {
   if (!currentUser) return;
+  var pts = Math.floor(total / 25);
+  var orderId = Date.now().toString(36).toUpperCase().slice(-6);
+  var date = new Date().toLocaleDateString("en-IN");
+
+  // Save order locally
   var orders = lsGet("bb_orders_" + currentUser.phone, []);
-  var newOrder = {
-    id: Date.now().toString(36).toUpperCase().slice(-6),
-    items: items,
-    total: total,
-    status: "pending",
-    date: new Date().toLocaleDateString("en-IN")
-  };
-  orders.push(newOrder);
+  orders.push({id:orderId, items:items, total:total, status:"pending", points:pts, date:date});
   lsSet("bb_orders_" + currentUser.phone, orders);
 
-  // Update user points and stats
-  var pts = Math.floor(total / 25);
+  // Update user stats locally
   var localUsers = lsGet("bb_users_local", []);
-  localUsers = localUsers.map(function(u) {
-    if (u.phone === currentUser.phone) {
-      u.points = (u.points || 0) + pts;
-      u.orders = (u.orders || 0) + 1;
-      u.spent = (u.spent || 0) + total;
-      currentUser = u;
+  var found = false;
+  for (var i = 0; i < localUsers.length; i++) {
+    if ((localUsers[i].phone||"").slice(-10) === (currentUser.phone||"").slice(-10)) {
+      localUsers[i].points = (localUsers[i].points||0) + pts;
+      localUsers[i].orders = (localUsers[i].orders||0) + 1;
+      localUsers[i].spent = (localUsers[i].spent||0) + total;
+      currentUser = localUsers[i];
+      found = true;
+      break;
     }
-    return u;
-  });
+  }
+  if (!found) {
+    currentUser.points = (currentUser.points||0) + pts;
+    currentUser.orders = (currentUser.orders||0) + 1;
+    currentUser.spent = (currentUser.spent||0) + total;
+    localUsers.push(currentUser);
+  }
   lsSet("bb_users_local", localUsers);
   lsSet("bb_current_user", currentUser);
+
+  if (pts > 0) showToast(pts + " points mile! Total: " + currentUser.points + " pts");
 }
+
 
 //  SAVE USER TO SHEET (via Apps Script) 
 function saveUserToSheet(userData) {
-  fetch("https://script.google.com/macros/s/AKfycbxyHr2aE9aGTE0b_ePOWo1FSaTiZgRBxCEMJJOs7XYTGHO_fDpBH4jfsjW3mlh-H4aLqw/exec"
-    + "?name=" + encodeURIComponent(userData.name)
+  fetch(WRITE_URL
+    + "?action=register"
+    + "&name=" + encodeURIComponent(userData.name)
     + "&phone=" + userData.phone
-    + "&password=" + userData.password
+    + "&password=" + encodeURIComponent(userData.password)
     + "&joinedAt=" + encodeURIComponent(userData.joinedAt)
-  )
-  .then(res => res.text())
-  .then(data => console.log("Sheet:", data))
-  .catch(err => console.log(err));
+  ).then(function(r){return r.text();})
+  .then(function(d){console.log("Sheet register:",d);})
+  .catch(function(e){console.log("Sheet err:",e);});
 }
+
 
 //  INIT 
 function initAuth() {
@@ -1227,9 +1471,402 @@ function initAuth() {
 }
 
 initAuth();
+window.addEventListener("load",function(){ switchTopCat("grocery"); });
+
+//  COMING SOON 
+function showComingSoon(type) {
+  var icon = document.getElementById("csIcon");
+  var title = document.getElementById("csTitle");
+  var sub = document.getElementById("csSub");
+  if (type === "login") {
+    if (icon) icon.innerHTML = "&#x1F464;";
+    if (title) title.textContent = "Login Jald Aayega!";
+    if (sub) sub.textContent = "Apna account banana aur order track karna - yeh feature jald aa raha hai! Tab tak WhatsApp pe order karo.";
+  } else if (type === "points") {
+    if (icon) icon.innerHTML = "&#x1F381;";
+    if (title) title.textContent = "Points System Jald Aayega!";
+    if (sub) sub.textContent = "Apne points check karna aur redeem karna - yeh feature develop ho raha hai. Abhi ke liye WhatsApp pe message karo!";
+  } else {
+    if (icon) icon.innerHTML = "&#x1F680;";
+    if (title) title.textContent = "Jald Aa Raha Hai!";
+    if (sub) sub.textContent = "Yeh feature abhi develop ho raha hai.";
+  }
+  var ol = document.getElementById("csOverlay");
+  if (ol) ol.classList.add("open");
+}
+function closeCS() {
+  var ol = document.getElementById("csOverlay");
+  if (ol) ol.classList.remove("open");
+}
+
+//  TOP CATEGORY BAR 
+var currentTopCat = "all";
+function switchTopCat(cat) {
+  currentTopCat = cat;
+  document.querySelectorAll(".nav-cat-btn").forEach(function(el) {
+    el.classList.remove("active");
+  });
+  var active = document.getElementById("ncb-" + cat);
+  if (active) active.classList.add("active");
+
+  var beautySection = document.getElementById("beautySection");
+  var servicesSection = document.getElementById("servicesSection");
+  var productsSection = document.getElementById("products");
+  var ptsBar = document.getElementById("points");
+
+  // Hide all first
+  if (beautySection) beautySection.style.display = "none";
+  if (servicesSection) servicesSection.style.display = "none";
+  if (productsSection) productsSection.style.display = "none";
+  if (ptsBar) ptsBar.style.display = "none";
+
+  if (cat === "beauty") {
+    if (beautySection) beautySection.style.display = "block";
+    loadBeautySheet();
+  } else if (cat === "services") {
+    if (servicesSection) servicesSection.style.display = "block";
+    loadServicesSheet();
+  } else {
+    // General / grocery
+    if (productsSection) productsSection.style.display = "block";
+    if (ptsBar) ptsBar.style.display = "block";
+    curCat = "all";
+    curSearch = "";
+    var sb = document.getElementById("searchBar");
+    if (sb) sb.value = "";
+    document.querySelectorAll(".cat-tab").forEach(function(t){ t.classList.remove("active"); });
+    var ft = document.querySelector(".cat-tab");
+    if (ft) ft.classList.add("active");
+    renderGrid();
+  }
+}
+
+//  BEAUTY SHEET (Sheet5) 
+var BEAUTY_URL = "https://opensheet.elk.sh/1hmMuP7D06H-NofmWRWKrjc3qlGgeVWiDEpCBerzynFY/Sheet5";
+var BEAUTY_OFFERS_URL = "https://opensheet.elk.sh/1hmMuP7D06H-NofmWRWKrjc3qlGgeVWiDEpCBerzynFY/Sheet6";
+var BEAUTY_ALT_URL = "https://docs.google.com/spreadsheets/d/1hmMuP7D06H-NofmWRWKrjc3qlGgeVWiDEpCBerzynFY/gviz/tq?tqx=out:json&sheet=Sheet5";
+var beautyLoaded = false;
+var beautyOffersLoaded = false;
+// Hardcoded Sheet5 products as fallback (same as your Sheet5)
+var BEAUTY_BOOK_WA = "https://wa.me/918924063413?text=";
+var beautyData = [
+  {id:"bf_201", name:"Face Pack", detail:"Deep cleansing face pack, glowing skin ke liye", price:299, oldPrice:499, photo:"", badge:"HOT DEAL"},
+  {id:"bf_202", name:"Face Clean", detail:"Daily face cleansing, soft skin ke liye", price:100, oldPrice:149, photo:"", badge:"POPULAR"},
+  {id:"bf_203", name:"Facial", detail:"Full facial with cream aur massage", price:399, oldPrice:599, photo:"", badge:"TRENDING"},
+  {id:"bf_204", name:"Threading", detail:"Eyebrow + upper lip threading", price:50, oldPrice:80, photo:"", badge:""},
+  {id:"bf_205", name:"Waxing", detail:"Full arms/legs waxing", price:199, oldPrice:299, photo:"", badge:""},
+  {id:"bf_206", name:"Mehndi", detail:"Bridal/party mehndi design", price:299, oldPrice:0, photo:"", badge:"SPECIAL"},
+  {id:"bf_207", name:"Hair Spa", detail:"Deep conditioning hair spa treatment", price:499, oldPrice:799, photo:"", badge:"NEW"},
+  {id:"bf_208", name:"Nail Art", detail:"Designer nail art, hands + feet", price:149, oldPrice:249, photo:"", badge:""}
+];
+
+function parseBeautyRows(data) {
+  var arr = [];
+  var nextId = 8000;
+  (data || []).forEach(function(row) {
+    var name = (row["name"] || row["title"] || "").trim();
+    if (!name) return;
+    arr.push({
+      id: "bf_" + (row["id"] || nextId++),
+      name: name,
+      detail: (row["detail"] || row["subtitle"] || "").trim(),
+      price: parseFloat(row["price"] || 0) || 0,
+      oldPrice: parseFloat(row["oldPrice"] || row["old_price"] || 0) || 0,
+      photo: (row["photo"] || "").trim(),
+      badge: (row["badge"] || row["category"] || "BEAUTY").trim()
+    });
+  });
+  return arr;
+}
+
+function parseGvizResponse(text) {
+  try {
+    var cleaned = text.replace(/^[^{]*/, "").replace(/[^}]*$/, "");
+    var obj = JSON.parse(cleaned);
+    var cols = (obj.table.cols || []).map(function(c){ return (c.label || c.id || "").trim(); });
+    var rows = obj.table.rows || [];
+    return rows.map(function(r){
+      var row = {};
+      (r.c || []).forEach(function(cell, i){
+        row[cols[i]] = (cell && cell.v !== null && cell.v !== undefined) ? String(cell.v) : "";
+      });
+      return row;
+    }).filter(function(r){ return r["name"] && r["name"].trim(); });
+  } catch(e) {
+    console.log("gviz parse error:", e.message);
+    return [];
+  }
+}
+
+function loadBeautySheet() {
+  if (beautyLoaded) { renderBeautyGrid(); return; }
+  var grid = document.getElementById("beautyGrid");
+  if (grid) grid.innerHTML = '<div class="bf-cs"><div class="bf-cs-icon">&#x2728;</div><div class="bf-cs-title">Load ho raha hai...</div></div>';
+
+  var SID = "1hmMuP7D06H-NofmWRWKrjc3qlGgeVWiDEpCBerzynFY";
+  // Method 1: Google gviz - direct from Google, no 3rd party
+  var gvizUrl = "https://docs.google.com/spreadsheets/d/" + SID + "/gviz/tq?tqx=out:json&sheet=Sheet5&t=" + Date.now();
+  console.log("Trying gviz:", gvizUrl);
+
+  fetch(gvizUrl)
+    .then(function(r) {
+      if (!r.ok) throw new Error("gviz HTTP " + r.status);
+      return r.text();
+    })
+    .then(function(text) {
+      var rows = parseGvizResponse(text);
+      console.log("gviz Sheet5 rows:", rows.length, rows);
+      if (rows.length) {
+        var parsed = parseBeautyRows(rows);
+        if (parsed.length) {
+          beautyData = parsed;
+          console.log("Beauty loaded from gviz:", parsed.length, "products");
+        }
+      }
+      beautyLoaded = true;
+      renderBeautyGrid();
+    })
+    .catch(function(err) {
+      console.log("gviz failed:", err.message, "- trying opensheet...");
+      // Method 2: opensheet fallback
+      fetch("https://opensheet.elk.sh/" + SID + "/Sheet5?t=" + Date.now())
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data && data.length) {
+            var parsed = parseBeautyRows(data);
+            if (parsed.length) { beautyData = parsed; }
+          }
+          beautyLoaded = true;
+          renderBeautyGrid();
+        })
+        .catch(function() {
+          // Method 3: hardcoded - always works
+          console.log("Both failed, using hardcoded");
+          beautyLoaded = true;
+          renderBeautyGrid();
+        });
+    });
+}
+
+
+function renderBeautyGrid() {
+  var grid = document.getElementById("beautyGrid");
+  if (!grid) return;
+  if (!beautyData.length) { renderBeautyComingSoon(); return; }
+  var html = "";
+  for (var i = 0; i < beautyData.length; i++) {
+    var p = beautyData[i];
+    var disc = p.oldPrice > p.price && p.price > 0 ? Math.round((p.oldPrice - p.price) / p.oldPrice * 100) : 0;
+    var imgHtml = (p.photo && p.photo.length > 5)
+      ? "<div class=\"bf-img-wrap\"><img src=\"" + p.photo + "\" loading=\"lazy\"></div>"
+      : "<div class=\"bf-img-wrap\" style=\"background:linear-gradient(135deg,#fce4ec,#f8bbd0);\"><span style=\"font-size:32px;\">&#x1F484;</span></div>";
+    var badgeHtml = (p.badge && p.badge.length) ? "<div class=\"bf-badge\" style=\"background:#e91e8c;\">" + p.badge + "</div>" : "";
+    var waText = "Namaste! Mujhe " + p.name + " ke liye slot book karna hai. Price: Rs." + p.price;
+    var bookUrl = "https://wa.me/918924063413?text=" + encodeURIComponent(waText);
+    var discHtml = (p.oldPrice > p.price) ? "<span class=\"bf-old\">Rs." + p.oldPrice + "</span><span class=\"bf-off\">" + disc + "% OFF</span>" : "";
+    html += "<div class=\"bf-card\">"
+      + badgeHtml + imgHtml
+      + "<div class=\"bf-body\">"
+      + "<div class=\"bf-name\">" + p.name + "</div>"
+      + "<div class=\"bf-sub\">" + (p.detail || "") + "</div>"
+      + "<div class=\"bf-price-wrap\"><span class=\"bf-price\">Rs." + p.price + "</span>" + discHtml + "</div>"
+      + "<button class=\"bf-add\" style=\"background:linear-gradient(135deg,#e91e8c,#c2185b);font-size:9px;\" "
+      + "onclick=\"window.open('" + bookUrl + "','_blank')\">&#x1F4C5; Book Your Slot</button>"
+      + "</div></div>";
+  }
+  grid.innerHTML = html;
+}
+
+function renderBeautyComingSoon() {
+  var grid = document.getElementById("beautyGrid");
+  if (!grid) return;
+  grid.innerHTML = '<div class="bf-cs"><div class="bf-cs-icon">&#x2728;</div><div class="bf-cs-title">Beauty Products Jald Aayenge!</div><div class="bf-cs-sub">Abhi Sheet5 mein koi product nahi hai. Jald add hoga!</div></div>';
+}
+
+//  BEAUTY OFFERS (Sheet6) - load karo offers section mein 
+function loadBeautyOffers() {
+  if (beautyOffersLoaded) return;
+  console.log("Fetching Sheet6:", BEAUTY_OFFERS_URL);
+  fetch(BEAUTY_OFFERS_URL + "?nocache=" + Date.now())
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      beautyOffersLoaded = true;
+      if (!data || !data.length) return;
+      var cards = (data || []).map(function(row) {
+        var title = (row["title"] || "").trim();
+        if (!title) return "";
+        var subtitle = (row["subtitle"] || "").trim();
+        var badge = (row["badge"] || "BEAUTY").trim();
+        var color = (row["color"] || "#e91e8c").trim();
+        var photo = (row["photo"] || "").trim();
+        var price = parseFloat(row["price"] || 0) || 0;
+        var oldPrice = parseFloat(row["old_price"] || 0) || 0;
+        var disc = oldPrice > price && price > 0 ? Math.round((oldPrice - price) / oldPrice * 100) : 0;
+        var imgHtml = photo && photo.length > 5
+          ? '<div class="hd-img-wrap"><img src="' + photo + '" loading="lazy" onerror="this.style.display=\'none\'"></div>'
+          : '<div class="hd-img-wrap"><span class="hd-img-init">&#x1F484;</span></div>';
+        return '<div class="hd-card" onclick="switchTopCat(\'beauty\')" style="border-top:3px solid #e91e8c;">'
+          + '<div class="hd-badge" style="background:#e91e8c">' + badge + '</div>'
+          + imgHtml
+          + '<div class="hd-body">'
+          + '<div class="hd-name">' + title + '</div>'
+          + '<div class="hd-sub">' + subtitle + '</div>'
+          + '<div class="hd-price-wrap"><span class="hd-price" style="color:#e91e8c">Rs.' + price + '</span>'
+          + (oldPrice > price ? '<span class="hd-old">Rs.' + oldPrice + '</span><span class="hd-off">' + disc + '% OFF</span>' : '')
+          + '</div>'
+          + '<button class="hd-add" style="background:#e91e8c" onclick="event.stopPropagation();switchTopCat(\'beauty\')">Book Now</button>'
+          + '</div></div>';
+      }).filter(function(c) { return c !== ""; }).join("");
+
+      if (!cards) return;
+
+      // Add beauty offers to the Hot Deals grid
+      var beautyOffersHtml = '<div style="grid-column:1/-1;padding:10px 0 4px;"><div style="font-family:Baloo 2,cursive;font-size:14px;font-weight:900;color:#e91e8c;">&#x1F484; Beauty Offers</div></div>' + cards;
+
+      var hdGrid = document.getElementById("hdGrid");
+      if (hdGrid && hdGrid.innerHTML.indexOf("hd-empty") === -1) {
+        hdGrid.innerHTML += beautyOffersHtml;
+      } else if (hdGrid) {
+        // Schedule for after hotdeals load
+        setTimeout(function() {
+          var g = document.getElementById("hdGrid");
+          if (g && g.innerHTML.indexOf("hd-empty") === -1) {
+            g.innerHTML += beautyOffersHtml;
+          }
+        }, 2000);
+      }
+    })
+    .catch(function() {});
+}
+
+
+// 
+// SERVICES (Sheet7) - Home Services Workers
+// 
+var SERVICES_SHEET_ID = "1hmMuP7D06H-NofmWRWKrjc3qlGgeVWiDEpCBerzynFY";
+var servicesLoaded = false;
+var servicesData = [
+  
+];
+
+function parseGvizServices(text) {
+  try {
+    var cleaned = text.replace(/^[^\{]*/, "").replace(/[^\}]*$/, "");
+    var obj = JSON.parse(cleaned);
+    var cols = (obj.table.cols || []).map(function(c){ return (c.label || c.id || "").trim(); });
+    var rows = obj.table.rows || [];
+    return rows.map(function(r){
+      var row = {};
+      (r.c || []).forEach(function(cell, i){
+        row[cols[i]] = (cell && cell.v !== null && cell.v !== undefined) ? String(cell.v) : "";
+      });
+      return row;
+    }).filter(function(r){ return r["workerName"] && r["workerName"].trim(); });
+  } catch(e) { return []; }
+}
+
+function parseServicesRows(data) {
+  var arr = [];
+  var nextId = 7000;
+  (data || []).forEach(function(row) {
+    var wName = (row["workerName"] || row["name"] || "").trim();
+    if (!wName) return;
+    arr.push({
+      id: "sv_" + (row["id"] || nextId++),
+      workerName: wName,
+      work: (row["work"] || row["category"] || "Service").trim(),
+      detail: (row["detail"] || "").trim(),
+      price: parseFloat(row["price"] || 0) || 0,
+      oldPrice: parseFloat(row["oldPrice"] || row["old_price"] || 0) || 0,
+      photo: (row["photo"] || "").trim(),
+      badge: (row["badge"] || "").trim()
+    });
+  });
+  return arr;
+}
+
+function loadServicesSheet() {
+  if (servicesLoaded) { renderServicesGrid(); return; }
+  var grid = document.getElementById("servicesGrid");
+  if (grid) grid.innerHTML = '<div class="svc-empty"><div class="svc-empty-icon">&#x1F6E0;</div><div class="svc-empty-title">Load ho raha hai...</div></div>';
+
+  var SID = SERVICES_SHEET_ID;
+  var gvizUrl = "https://docs.google.com/spreadsheets/d/" + SID + "/gviz/tq?tqx=out:json&sheet=Sheet7&t=" + Date.now();
+  console.log("Loading Sheet7:", gvizUrl);
+
+  fetch(gvizUrl)
+    .then(function(r) {
+      if (!r.ok) throw new Error("gviz HTTP " + r.status);
+      return r.text();
+    })
+    .then(function(text) {
+      var rows = parseGvizServices(text);
+      console.log("Sheet7 rows:", rows.length);
+      if (rows.length) {
+        var parsed = parseServicesRows(rows);
+        if (parsed.length) {
+          servicesData = parsed;
+          console.log("Services loaded:", parsed.length);
+        }
+      }
+      servicesLoaded = true;
+      renderServicesGrid();
+    })
+    .catch(function() {
+      // Fallback: opensheet
+      fetch("https://opensheet.elk.sh/" + SID + "/Sheet7?t=" + Date.now())
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (data && data.length) {
+            var p = parseServicesRows(data);
+            if (p.length) servicesData = p;
+          }
+          servicesLoaded = true;
+          renderServicesGrid();
+        })
+        .catch(function() {
+          servicesLoaded = true;
+          renderServicesGrid(); // hardcoded fallback
+        });
+    });
+}
+
+function renderServicesGrid() {
+  var grid = document.getElementById("servicesGrid");
+  if (!grid) return;
+  if (!servicesData.length) {
+    grid.innerHTML = '<div class="svc-empty"><div class="svc-empty-icon">&#x1F6E0;</div><div class="svc-empty-title">Services Jald Aayenge!</div><div class="svc-empty-sub">Sheet7 mein workers add karo</div></div>';
+    return;
+  }
+  var html = "";
+  for (var i = 0; i < servicesData.length; i++) {
+    var p = servicesData[i];
+    var disc = p.oldPrice > p.price && p.price > 0 ? Math.round((p.oldPrice - p.price) / p.oldPrice * 100) : 0;
+    var imgHtml = (p.photo && p.photo.length > 5)
+      ? "<div class=\"svc-img-wrap\"><img src=\"" + p.photo + "\" loading=\"lazy\"></div>"
+      : "<div class=\"svc-img-wrap\"><span class=\"svc-img-icon\">&#x1F477;</span></div>";
+    var badgeHtml = (p.badge && p.badge.length) ? "<div class=\"svc-badge\">" + p.badge + "</div>" : "";
+    var waText = "Namaste! Mujhe " + p.work + " service book karni hai. Worker: " + p.workerName + ". Price: Rs." + p.price;
+    var bookUrl = "https://wa.me/918957799335?text=" + encodeURIComponent(waText);
+    var priceHtml = p.price > 0
+      ? "<span class=\"svc-price\">Rs." + p.price + "</span>"
+        + (p.oldPrice > p.price ? "<span class=\"svc-old\">Rs." + p.oldPrice + "</span><span class=\"svc-off\">" + disc + "% OFF</span>" : "")
+      : "<span class=\"svc-price\" style=\"color:var(--orange);font-size:11px;\">Price on request</span>";
+    html += "<div class=\"svc-card\">"
+      + badgeHtml + imgHtml
+      + "<div class=\"svc-body\">"
+      + "<div class=\"svc-work\">" + p.work + "</div>"
+      + "<div class=\"svc-worker-name\">" + p.workerName + "</div>"
+      + "<div class=\"svc-detail\">" + (p.detail || "") + "</div>"
+      + "<div class=\"svc-price-row\">" + priceHtml + "</div>"
+      + "<button class=\"svc-book-btn\" onclick=\"window.open('" + bookUrl + "','_blank')\">&#x1F4F2; Book Your Service</button>"
+      + "</div></div>";
+  }
+  grid.innerHTML = html;
+}
 
 loadSheet();
-
+loadBeautyOffers();
 </script>
 
 </body>
