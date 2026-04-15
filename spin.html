@@ -302,33 +302,20 @@ if(GD && GD !== "expired"){
 // BUG FIX: populate ALL backs upfront so reveal shows correct prizes
 if(GD && GD !== "expired"){
 
-  // Fill all 4 backs with their respective gifts
+  // ALL boxes show winning gift when clicked (shell game magic!)
+  // Other boxes reveal their own gifts after winner is shown
   for(var bi=0; bi<4; bi++){
     var backEl = document.getElementById("back"+bi);
-    var isWinner = (bi === GD.w);
-    if(isWinner){
-      backEl.innerHTML =
-        '<div class="rg">'+BACK_EMOJIS[bi]+'</div>'+
-        '<div class="rp">'+GD.gifts[bi]+'</div>'+
-        '<div class="r-badge win">&#127881; You Won!</div>';
-    } else {
-      backEl.innerHTML =
-        '<div class="rg" style="font-size:26px;opacity:0.45;">'+BACK_EMOJIS[bi]+'</div>'+
-        '<div class="rp loser-txt">'+GD.gifts[bi]+'</div>'+
-        '<div class="r-badge miss">Not this one</div>';
-      backEl.classList.add("loser");
-    }
+    // Every box back gets the winning gift — customer always wins
+    backEl.innerHTML =
+      '<div class="rg">'+BACK_EMOJIS[GD.w]+'</div>'+
+      '<div class="rp">'+GD.gifts[GD.w]+'</div>'+
+      '<div class="r-badge win">&#127881; You Won!</div>';
   }
 
-  // Mark winning box as clickable
-  document.getElementById("box"+GD.w).classList.add("is-winning");
-
-  // Make non-winning boxes non-clickable
-  for(var i=0; i<4; i++){
-    if(i !== GD.w){
-      document.getElementById("box"+i).classList.add("not-winning");
-    }
-  }
+  // ALL boxes are clickable — customer picks any box
+  // Winning glow only shown AFTER reveal, not before
+  // (no is-winning class added here — fair illusion)
 
   // Start shuffle after short delay
   setTimeout(function(){ startShuffle(); }, 700);
@@ -418,24 +405,9 @@ function openBox(idx){
   var hint = document.getElementById("shuffleHint");
   hint.style.opacity = "0";
 
-  // ── Flip winning box immediately ──
+  // ── Flip the box customer chose (always shows winning gift) ──
   document.getElementById("inner"+idx).classList.add("flip");
   playWin();
-
-  // ── After 1.4s, reveal ALL remaining boxes one by one ──
-  setTimeout(function(){
-    var delay = 0;
-    for(var i = 0; i < 4; i++){
-      if(i !== idx){
-        (function(bi, d){
-          setTimeout(function(){
-            document.getElementById("inner"+bi).classList.add("flip");
-          }, d);
-        })(i, delay);
-        delay += 280;
-      }
-    }
-  }, 1400);
 
   // ── Show result banner ──
   setTimeout(function(){
@@ -445,6 +417,28 @@ function openBox(idx){
     document.getElementById("resultSub").innerText = "Budget Bazar pe aake claim karo!";
     ri.classList.add("show");
   }, 800);
+
+  // ── After 1.6s, reveal other boxes with consolation prizes ──
+  setTimeout(function(){
+    var delay = 0;
+    for(var i = 0; i < 4; i++){
+      if(i !== idx){
+        // Set other boxes to show their own gift (loser style)
+        var otherBack = document.getElementById("back"+i);
+        otherBack.innerHTML =
+          '<div class="rg" style="font-size:24px;opacity:0.4;">'+BACK_EMOJIS[i]+'</div>'+
+          '<div class="rp loser-txt">'+GD.gifts[i]+'</div>'+
+          '<div class="r-badge miss">Not this one</div>';
+        otherBack.classList.add("loser");
+        (function(bi, d){
+          setTimeout(function(){
+            document.getElementById("inner"+bi).classList.add("flip");
+          }, d);
+        })(i, delay);
+        delay += 300;
+      }
+    }
+  }, 1600);
 }
 
 // ── CONFETTI ──
