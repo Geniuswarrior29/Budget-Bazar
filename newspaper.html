@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auto Newspaper Video Maker</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=UnifrakturMaguntia&family=Oswald:wght@300;400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#0e0e0e;
+  font-family:'Oswald',sans-serif;
+  min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+  padding:12px;gap:12px;
+}
+h1{color:#c8a84b;font-family:'Oswald',sans-serif;font-size:0.85rem;letter-spacing:4px;text-transform:uppercase;text-align:center}
+
+.preview-wrap{
+  width:100%;max-width:340px;aspect-ratio:9/16;
+  position:relative;border:1px solid #1e1e1e;border-radius:6px;overflow:hidden;
+  background:#111;box-shadow:0 0 50px rgba(0,0,0,0.9);
+}
+#c{width:100%;height:100%;display:block}
+.rec-dot{position:absolute;top:10px;left:10px;background:#c0392b;color:#fff;
+  font-size:0.55rem;letter-spacing:2px;padding:3px 8px;border-radius:2px;display:none}
+.rec-dot.on{display:block;animation:bl 1s step-end infinite}
+@keyframes bl{50%{opacity:0}}
+.pbar-wrap{position:absolute;bottom:0;left:0;right:0;height:3px;background:rgba(255,255,255,0.05)}
+#pbar{height:100%;background:#c8a84b;width:0;transition:width 0.15s}
+
+.panel{
+  width:100%;max-width:420px;
+  background:#141414;border:1px solid #1c1c1c;border-radius:8px;
+  padding:16px;display:flex;flex-direction:column;gap:14px;
+}
+
+.lbl{font-size:0.58rem;letter-spacing:3px;text-transform:uppercase;color:#3a3a3a;margin-bottom:4px;display:block}
+
+input[type=text]{
+  background:#0a0a0a;border:1px solid #1e1e1e;border-radius:4px;
+  color:#d4c9a8;font-family:'Playfair Display',serif;font-size:1rem;
+  padding:10px 12px;width:100%;letter-spacing:1px;
+}
+input[type=text]:focus{outline:none;border-color:#c8a84b}
+
+input[type=color]{
+  background:#0a0a0a;border:1px solid #1e1e1e;border-radius:4px;
+  width:100%;height:38px;padding:3px 5px;cursor:pointer;
+}
+
+.row{display:flex;gap:8px}
+.field{flex:1;display:flex;flex-direction:column}
+
+select{
+  background:#0a0a0a;border:1px solid #1e1e1e;border-radius:4px;
+  color:#d4c9a8;font-family:'Oswald',sans-serif;font-size:0.8rem;
+  padding:8px 10px;width:100%;
+}
+select:focus{outline:none;border-color:#c8a84b}
+
+/* Page count selector */
+.page-selector{display:flex;gap:6px;flex-wrap:wrap}
+.pg-btn{
+  background:#0a0a0a;border:1px solid #1e1e1e;border-radius:4px;
+  color:#555;font-family:'Oswald',sans-serif;font-size:0.75rem;letter-spacing:1px;
+  padding:7px 14px;cursor:pointer;transition:all 0.15s;flex:1;min-width:40px;text-align:center;
+}
+.pg-btn.active{background:#c8a84b;border-color:#c8a84b;color:#0d0d0d;font-weight:600}
+
+.btn-row{display:flex;gap:8px}
+.btn{
+  font-family:'Oswald',sans-serif;font-size:0.72rem;letter-spacing:2px;text-transform:uppercase;
+  padding:12px;border:none;border-radius:4px;cursor:pointer;transition:all 0.2s;flex:1;
+}
+.btn-prev{background:#1a1a1a;color:#888;border:1px solid #222}
+.btn-prev:hover{color:#c8a84b;border-color:#c8a84b}
+.btn-rec{background:#c8a84b;color:#0a0a0a;font-weight:700;font-size:0.8rem}
+.btn-rec:hover{background:#a8882b}
+.btn-rec:disabled{background:#1e1a0a;color:#444;cursor:not-allowed}
+
+.status{font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;color:#333;text-align:center;min-height:14px}
+.status.ok{color:#5dbb63}.status.err{color:#c0392b}.status.info{color:#c8a84b}
+</style>
+</head>
+<body>
+
+<h1>&#9733; Auto Newspaper Maker</h1>
+
+<div class="preview-wrap">
+  <canvas id="c"></canvas>
+  <div class="rec-dot" id="recDot">&#9679; REC</div>
+  <div class="pbar-wrap"><div id="pbar"></div></div>
+</div>
+
+<div class="panel">
+
+  <div>
+    <span class="lbl">Highlight Word / Topic</span>
+    <input type="text" id="hlWord" value="maggi" placeholder="e.g. maggi, India, Bitcoin...">
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <span class="lbl">Highlight Color</span>
+      <input type="color" id="hlColor" value="#e8f542">
+    </div>
+    <div class="field">
+      <span class="lbl">Slide Speed</span>
+      <select id="dur">
+        <option value="0.3">Very Fast (0.3s)</option>
+        <option value="0.5" selected>Fast (0.5s)</option>
+        <option value="0.8">Medium (0.8s)</option>
+        <option value="1.2">Slow (1.2s)</option>
+      </select>
+    </div>
+  </div>
+
+  <div>
+    <span class="lbl">Number of Pages</span>
+    <div class="page-selector" id="pgSel">
+      <div class="pg-btn" onclick="setPg(3)">3</div>
+      <div class="pg-btn" onclick="setPg(5)">5</div>
+      <div class="pg-btn active" onclick="setPg(6)">6</div>
+      <div class="pg-btn" onclick="setPg(7)">7</div>
+      <div class="pg-btn" onclick="setPg(10)">10</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="field">
+      <span class="lbl">Paper Style</span>
+      <select id="style">
+        <option value="aged" selected>Aged Yellow</option>
+        <option value="white">Clean White</option>
+        <option value="grey">Grey Tone</option>
+      </select>
+    </div>
+    <div class="field">
+      <span class="lbl">Newspaper Name</span>
+      <input type="text" id="paperName" value="The Chronicle">
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn btn-prev" onclick="startPreview()">&#9654; Preview</button>
+    <button class="btn btn-rec" id="recBtn" onclick="startRecording()">&#9679; Generate Video</button>
+  </div>
+  <div class="status" id="st">Preview dekho ya seedha video generate karo</div>
+
+</div>
+
+<script>
+var canvas = document.getElementById('c');
+var ctx = canvas.getContext('2d');
+canvas.width = 720;
+canvas.height = 1280;
+
+var selectedPages = 6;
+var animId = null;
+var isRecording = false;
+var mediaRecorder = null;
+var recordedChunks = [];
+
+function setPg(n){
+  selectedPages = n;
+  document.querySelectorAll('.pg-btn').forEach(function(b){
+    b.className = 'pg-btn' + (parseInt(b.textContent)===n?' active':'');
+  });
+}
+
+// ---- RANDOM TEXT GENERATORS ----
+var sentences = [
+  "consumption of {W} has led to widespread public debates across the nation",
+  "Authorities in different regions issued warnings due to potential health concerns related to {W}",
+  "noodles and products that may not meet the required safety standards remain under scrutiny",
+  "This has prompted consumer awareness and calls for stricter regulation by food authorities",
+  "{W} remains a popular choice among diverse demographics despite ongoing controversies",
+  "the impact of {W} on daily life continues to be a subject of major discussion",
+  "government bodies have announced a fresh review of {W} safety protocols this quarter",
+  "reports suggest that {W} production has increased significantly in the last fiscal year",
+  "experts believe that the controversy surrounding {W} will shape future food policy",
+  "millions of consumers continue to trust {W} as an affordable daily essential",
+  "new studies reveal surprising findings about the nutritional value of {W}",
+  "market analysts predict strong growth for {W} despite regulatory headwinds",
+  "the brand behind {W} issued an official statement addressing public concerns today",
+  "social media has amplified the debate around {W} reaching over fifty million users",
+  "international bodies are now monitoring the situation surrounding {W} closely"
+];
+
+var mastheads = [
+  "THE DAILY HERALD","THE MORNING POST","NATIONAL TRIBUNE",
+  "THE TIMES","THE GAZETTE","DAILY CHRONICLE","THE OBSERVER"
+];
+
+var dates = [
+  "MONDAY, 21 APRIL 2020","TUESDAY, 22 APRIL 2020","WEDNESDAY, 23 APRIL 2020",
+  "THURSDAY, 24 APRIL 2020","FRIDAY, 25 APRIL 2020","SATURDAY, 26 APRIL 2020"
+];
+
+function getSentence(word, idx){
+  var s = sentences[idx % sentences.length];
+  return s.replace(/{W}/g, word);
+}
+
+function getPalette(style){
+  if(style==='white') return {
+    bg:['#fafaf8','#f4f4f0'],ink:'#111111',sub:'#444444',
+    rule:'#aaaaaa',dim:'#999999',band:'rgba(245,245,240,0.92)'
+  };
+  if(style==='grey') return {
+    bg:['#e8e8e4','#dcdcd6'],ink:'#1a1a1a',sub:'#555555',
+    rule:'#999999',dim:'#888888',band:'rgba(235,235,230,0.92)'
+  };
+  // aged
+  return {
+    bg:['#f0e8d0','#e6dcc0'],ink:'#1a1008',sub:'#4a3820',
+    rule:'#8b7355',dim:'#9a8060',band:'rgba(242,236,218,0.94)'
+  };
+}
+
+// Seeded random for consistent pages
+function seededRand(seed){
+  var x = Math.sin(seed+1)*10000;
+  return x - Math.floor(x);
+}
+
+function drawNewspaperPage(pageIdx, hlWord, hlColor, style, paperName){
+  var W=canvas.width, H=canvas.height;
+  var pal = getPalette(style);
+  var seed = pageIdx * 137;
+
+  // Paper background with texture
+  var bg = ctx.createLinearGradient(0,0,W,H);
+  bg.addColorStop(0, pal.bg[0]);
+  bg.addColorStop(1, pal.bg[1]);
+  ctx.fillStyle = bg;
+  ctx.fillRect(0,0,W,H);
+
+  // Paper grain/texture
+  ctx.save();
+  ctx.globalAlpha = 0.03;
+  for(var i=0;i<3000;i++){
+    ctx.fillStyle = seededRand(seed+i)>0.5?'#000':'#8b6a40';
+    var gx=seededRand(seed+i*2)*W, gy=seededRand(seed+i*3)*H;
+    ctx.fillRect(gx,gy,seededRand(seed+i*4)<0.3?2:1,1);
+  }
+  ctx.globalAlpha=1;
+  ctx.restore();
+
+  // Crinkle lines (simulate paper wrinkles)
+  ctx.save();
+  ctx.globalAlpha=0.04;
+  ctx.strokeStyle='#8b6a30';
+  ctx.lineWidth=1;
+  for(var cr=0;cr<5;cr++){
+    var cx1=seededRand(seed+cr*7)*W;
+    var cy1=seededRand(seed+cr*11)*H;
+    var cx2=cx1+seededRand(seed+cr*13)*200-100;
+    var cy2=cy1+seededRand(seed+cr*17)*300;
+    ctx.beginPath();ctx.moveTo(cx1,cy1);ctx.lineTo(cx2,cy2);ctx.stroke();
+  }
+  ctx.globalAlpha=1;
+  ctx.restore();
+
+  // ---- MASTHEAD ----
+  var masthead = mastheads[pageIdx % mastheads.length];
+  if(paperName && paperName.trim()) masthead = paperName.trim().toUpperCase();
+
+  // Top border rules
+  ctx.strokeStyle = pal.rule;
+  ctx.lineWidth = 5;
+  ctx.beginPath();ctx.moveTo(28,32);ctx.lineTo(W-28,32);ctx.stroke();
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();ctx.moveTo(28,41);ctx.lineTo(W-28,41);ctx.stroke();
+
+  ctx.fillStyle = pal.ink;
+  ctx.font = 'bold '+Math.floor(H*0.072)+'px "Playfair Display",serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(masthead, W/2, H*0.105);
+
+  // Tagline
+  ctx.font = 'italic '+Math.floor(H*0.022)+'px "Playfair Display",serif';
+  ctx.fillStyle = pal.sub;
+  ctx.fillText('"All The News That\'s Fit To Print"', W/2, H*0.135);
+
+  // Date + edition bar
+  ctx.strokeStyle = pal.rule;
+  ctx.lineWidth = 1;
+  ctx.beginPath();ctx.moveTo(28,H*0.148);ctx.lineTo(W-28,H*0.148);ctx.stroke();
+
+  ctx.font = Math.floor(H*0.018)+'px "Oswald",sans-serif';
+  ctx.fillStyle = pal.dim;
+  ctx.textAlign = 'left';
+  ctx.fillText(dates[pageIdx%dates.length], 30, H*0.168);
+  ctx.textAlign = 'right';
+  ctx.fillText('Vol.'+(42+pageIdx)+', No.'+(1820+pageIdx*7)+'  \u2022  Rs. 5.00', W-30, H*0.168);
+
+  ctx.strokeStyle = pal.rule;
+  ctx.lineWidth = 2;
+  ctx.beginPath();ctx.moveTo(28,H*0.178);ctx.lineTo(W-28,H*0.178);ctx.stroke();
+  ctx.lineWidth = 1;
+  ctx.beginPath();ctx.moveTo(28,H*0.185);ctx.lineTo(W-28,H*0.185);ctx.stroke();
+
+  // ---- COLUMN LAYOUT ----
+  // We draw faded text lines in 2-3 columns to simulate full newspaper
+  var colW = (W-60)/2;
+  drawFakeTextBlock(20, H*0.20, colW, H*0.22, seed+1, pal);
+  drawFakeTextBlock(W/2+10, H*0.20, colW, H*0.22, seed+2, pal);
+
+  // Column rule
+  ctx.strokeStyle = pal.rule;
+  ctx.lineWidth = 0.8;
+  ctx.beginPath();ctx.moveTo(W/2,H*0.20);ctx.lineTo(W/2,H*0.42);ctx.stroke();
+
+  // Section divider
+  ctx.strokeStyle = pal.rule;
+  ctx.lineWidth = 1;
+  ctx.beginPath();ctx.moveTo(28,H*0.43);ctx.lineTo(W-28,H*0.43);ctx.stroke();
+  ctx.lineWidth = 3;
+  ctx.beginPath();ctx.moveTo(28,H*0.435);ctx.lineTo(W-28,H*0.435);ctx.stroke();
+  ctx.lineWidth = 1;
+  ctx.beginPath();ctx.moveTo(28,H*0.440);ctx.lineTo(W-28,H*0.440);ctx.stroke();
+
+  // ---- FOCUS LINE (center, sharp, highlighted) ----
+  var focusY = H * 0.52;
+  var sentence = getSentence(hlWord, pageIdx);
+
+  // Focus band - slightly brighter strip
+  var bandGrad = ctx.createLinearGradient(0, focusY-70, 0, focusY+70);
+  bandGrad.addColorStop(0,'rgba(255,255,255,0)');
+  bandGrad.addColorStop(0.3, pal.band);
+  bandGrad.addColorStop(0.7, pal.band);
+  bandGrad.addColorStop(1,'rgba(255,255,255,0)');
+  ctx.fillStyle = bandGrad;
+  ctx.fillRect(0, focusY-70, W, 140);
+
+  // Draw sentence with highlight
+  drawHighlightedLine(sentence, hlWord, hlColor, pal, W, focusY);
+
+  // ---- MORE FADED TEXT BELOW ----
+  drawFakeTextBlock(20, H*0.60, W-40, H*0.20, seed+3, pal);
+
+  // Bottom decorative rules
+  ctx.strokeStyle = pal.rule;
+  ctx.lineWidth = 1;
+  ctx.beginPath();ctx.moveTo(28,H*0.82);ctx.lineTo(W-28,H*0.82);ctx.stroke();
+  ctx.lineWidth = 4;
+  ctx.beginPath();ctx.moveTo(28,H*0.827);ctx.lineTo(W-28,H*0.827);ctx.stroke();
+  ctx.lineWidth = 1;
+  ctx.beginPath();ctx.moveTo(28,H*0.834);ctx.lineTo(W-28,H*0.834);ctx.stroke();
+
+  // Footer text
+  ctx.font = Math.floor(H*0.018)+'px "Oswald",sans-serif';
+  ctx.fillStyle = pal.dim;
+  ctx.textAlign='left';
+  ctx.fillText('SPECIAL REPORT', 30, H*0.855);
+  ctx.textAlign='right';
+  ctx.fillText('PAGE '+(pageIdx+1), W-30, H*0.855);
+
+  // More fake text at bottom
+  drawFakeTextBlock(20, H*0.87, W-40, H*0.10, seed+5, pal);
+
+  // Blur vignette edges
+  var vig = ctx.createRadialGradient(W/2,H/2,H*0.15,W/2,H/2,H*0.7);
+  vig.addColorStop(0,'rgba(0,0,0,0)');
+  vig.addColorStop(1,'rgba(0,0,0,0.28)');
+  ctx.fillStyle=vig;
+  ctx.fillRect(0,0,W,H);
+
+  // Top/bottom blur fade
+  var topFade = ctx.createLinearGradient(0,0,0,H*0.12);
+  topFade.addColorStop(0,'rgba(0,0,0,0.3)');
+  topFade.addColorStop(1,'rgba(0,0,0,0)');
+  ctx.fillStyle=topFade;ctx.fillRect(0,0,W,H*0.12);
+
+  var botFade = ctx.createLinearGradient(0,H*0.88,0,H);
+  botFade.addColorStop(0,'rgba(0,0,0,0)');
+  botFade.addColorStop(1,'rgba(0,0,0,0.3)');
+  ctx.fillStyle=botFade;ctx.fillRect(0,H*0.88,W,H*0.12);
+}
+
+function drawHighlightedLine(sentence, hlWord, hlColor, pal, W, focusY){
+  var words = sentence.split(' ');
+  var hlLower = hlWord.toLowerCase().trim();
+  var fontSize = 44;
+  ctx.font = '700 '+fontSize+'px "Playfair Display",serif';
+
+  // Measure total width and scale if needed
+  var totalW = ctx.measureText(sentence).width;
+  var maxW = W - 60;
+  if(totalW > maxW){
+    fontSize = Math.floor(fontSize * (maxW/totalW));
+    if(fontSize < 28) fontSize = 28;
+    ctx.font = '700 '+fontSize+'px "Playfair Display",serif';
+  }
+
+  // Word wrap into max 2 lines
+  var lines = [];
+  var cur = '';
+  for(var w=0;w<words.length;w++){
+    var test = cur ? cur+' '+words[w] : words[w];
+    if(ctx.measureText(test).width > maxW && cur){
+      lines.push(cur); cur=words[w];
+    } else cur=test;
+  }
+  if(cur) lines.push(cur);
+
+  var lineH = fontSize*1.4;
+  var startY = focusY - ((lines.length-1)*lineH)/2;
+
+  for(var li=0;li<lines.length;li++){
+    var lwords = lines[li].split(' ');
+    var lineText = lines[li];
+    var lw = ctx.measureText(lineText).width;
+    var x = (W - lw)/2;
+    var y = startY + li*lineH;
+
+    for(var wi=0;wi<lwords.length;wi++){
+      var word = lwords[wi];
+      var ww = ctx.measureText(word).width;
+      var sp = ctx.measureText(' ').width;
+      var isHL = word.toLowerCase() === hlLower ||
+                 word.toLowerCase().indexOf(hlLower)!==-1;
+
+      if(isHL && hlLower){
+        // Draw highlight box with rounded corners
+        ctx.fillStyle = hlColor;
+        ctx.globalAlpha = 0.9;
+        roundRect(ctx, x-5, y-fontSize*0.82, ww+10, fontSize*1.05, 5);
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        ctx.fillStyle = '#111';
+        ctx.font = '900 '+fontSize+'px "Playfair Display",serif';
+        ctx.textAlign='left';
+        ctx.fillText(word, x, y);
+        ctx.font = '700 '+fontSize+'px "Playfair Display",serif';
+      } else {
+        ctx.fillStyle = pal.ink;
+        ctx.textAlign='left';
+        ctx.fillText(word, x, y);
+      }
+      x += ww + sp;
+    }
+  }
+}
+
+function drawFakeTextBlock(x, y, w, h, seed, pal){
+  // Draw convincing fake newspaper text lines
+  var lineH = 22;
+  var numLines = Math.floor(h/lineH);
+  var sz = 15;
+  ctx.font = sz+'px "Playfair Display",serif';
+
+  for(var i=0;i<numLines;i++){
+    var lineY = y + i*lineH + sz;
+    if(lineY > y+h) break;
+
+    // Vary line opacity - simulate reading depth/blur
+    var dist = Math.abs(i - numLines/2);
+    var alpha = 0.12 + (dist/numLines)*0.18;
+    ctx.fillStyle = pal.ink;
+    ctx.globalAlpha = alpha;
+
+    // Random line width (last line shorter)
+    var lineW = w;
+    if(i===numLines-1) lineW = w*(0.3+seededRand(seed+i)*0.5);
+    if(seededRand(seed+i*3)>0.85) lineW = w*(0.5+seededRand(seed+i*5)*0.3);
+
+    // Draw as a filled rect simulating text
+    ctx.fillRect(x, lineY-sz*0.75, lineW, sz*0.65);
+
+    // Occasional word-gap simulation
+    if(seededRand(seed+i*7)>0.6){
+      var gapX = x + seededRand(seed+i*11)*lineW*0.6 + lineW*0.1;
+      var gapW = 8+seededRand(seed+i*13)*20;
+      ctx.clearRect(gapX, lineY-sz*0.75, gapW, sz*0.65);
+      ctx.fillStyle = pal.bg[0];
+      ctx.fillRect(gapX, lineY-sz*0.75, gapW, sz*0.65);
+    }
+  }
+  ctx.globalAlpha = 1;
+}
+
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);ctx.lineTo(x+w-r,y);
+  ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r);
+  ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h);
+  ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r);
+  ctx.quadraticCurveTo(x,y,x+r,y);
+  ctx.closePath();
+}
+
+// ---- PREVIEW ----
+var prevIdx = 0;
+var prevLastT = 0;
+
+function startPreview(){
+  if(isRecording) return;
+  if(animId) cancelAnimationFrame(animId);
+  prevIdx=0; prevLastT=0;
+  setStatus('Preview chal raha hai...','info');
+
+  function loop(ts){
+    if(!prevLastT) prevLastT=ts;
+    var dur = parseFloat(document.getElementById('dur').value)||0.5;
+    if((ts-prevLastT)/1000 >= dur){
+      prevIdx = (prevIdx+1) % selectedPages;
+      prevLastT = ts;
+    }
+    var hw=document.getElementById('hlWord').value.trim()||'word';
+    var hc=document.getElementById('hlColor').value;
+    var st=document.getElementById('style').value;
+    var pn=document.getElementById('paperName').value;
+    drawNewspaperPage(prevIdx, hw, hc, st, pn);
+    animId = requestAnimationFrame(loop);
+  }
+  animId = requestAnimationFrame(loop);
+}
+
+// ---- RECORD ----
+function startRecording(){
+  if(isRecording) return;
+  if(!window.MediaRecorder){setStatus('Chrome browser use karo!','err');return;}
+  if(animId) cancelAnimationFrame(animId);
+
+  var hw=document.getElementById('hlWord').value.trim()||'word';
+  var hc=document.getElementById('hlColor').value;
+  var st=document.getElementById('style').value;
+  var pn=document.getElementById('paperName').value;
+  var dur=parseFloat(document.getElementById('dur').value)||0.5;
+  var total=selectedPages;
+
+  var mime=MediaRecorder.isTypeSupported('video/webm;codecs=vp9')?'video/webm;codecs=vp9':'video/webm';
+  recordedChunks=[];
+  var stream=canvas.captureStream(30);
+  mediaRecorder=new MediaRecorder(stream,{mimeType:mime,videoBitsPerSecond:6000000});
+  mediaRecorder.ondataavailable=function(e){if(e.data.size>0)recordedChunks.push(e.data)};
+  mediaRecorder.onstop=function(){
+    var blob=new Blob(recordedChunks,{type:'video/webm'});
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;a.download='newspaper-'+hw+'-'+Date.now()+'.webm';a.click();
+    URL.revokeObjectURL(url);
+    isRecording=false;
+    document.getElementById('recDot').className='rec-dot';
+    document.getElementById('recBtn').disabled=false;
+    document.getElementById('recBtn').textContent='\u25CF Generate Video';
+    document.getElementById('pbar').style.width='0';
+    setStatus('Video download ho gayi!','ok');
+  };
+
+  mediaRecorder.start(100);
+  isRecording=true;
+  document.getElementById('recDot').className='rec-dot on';
+  document.getElementById('recBtn').disabled=true;
+  document.getElementById('recBtn').textContent='Generating...';
+
+  var idx=0;
+
+  function rec(){
+    if(idx>=total){
+      setTimeout(function(){mediaRecorder.stop();},300);
+      return;
+    }
+    drawNewspaperPage(idx,hw,hc,st,pn);
+    document.getElementById('pbar').style.width=((idx+1)/total*100)+'%';
+    setStatus('Page '+(idx+1)+' / '+total+' generating...','info');
+    idx++;
+    setTimeout(rec, dur*1000);
+  }
+
+  drawNewspaperPage(0,hw,hc,st,pn);
+  setTimeout(rec, 300);
+}
+
+function setStatus(m,t){
+  var el=document.getElementById('st');
+  el.textContent=m;el.className='status'+(t?' '+t:'');
+}
+
+// Init
+window.onload=function(){
+  setTimeout(function(){
+    drawNewspaperPage(0,'maggi','#e8f542','aged','The Chronicle');
+    setStatus('Preview ya Generate Video dabao','');
+  },200);
+};
+</script>
+</body>
+</html>
