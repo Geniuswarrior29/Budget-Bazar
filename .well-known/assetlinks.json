@@ -1,0 +1,8 @@
+[{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "store.budgetbazar.twa",
+    "sha256_cert_fingerprints": ["79:72:B1:34:76:2F:46:66:23:67:16:11:85:C1:8F:3A:6D:83:44:0E:9B:15:19:E6:1D:09:F8:6C:70:10:7C:8B"]
+  }
+}]
