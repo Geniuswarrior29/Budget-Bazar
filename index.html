@@ -295,7 +295,7 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
 .wr-inp{width:100%;padding:10px 12px;border:1.5px solid #e0d0c0;border-radius:10px;font-size:13px;font-family:'Hind',sans-serif;outline:none;margin-bottom:8px;}
 .wr-inp:focus{border-color:var(--orange);}
 .wr-btn{width:100%;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;border:none;padding:11px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;}
-.wr-success{background:#e8f5e9;border:1.5px solid #c8e6c9;color:var(--green);border-radius:10px;padding:10px;font-size:12px;font-weight:700;text-align:center;display:none;margin-top:8px;}
+.wr-success{background:#e8f5e9;border:1.5px solid #c8e6c9;color:var(--green);border-radius:10px;padding:10px;font-size:12px;font-weight:700;text-align:center;display:none;margin-top:8px;}.wr-already{background:#fff3e0;border:1.5px solid #ffe0b2;color:#e65100;border-radius:10px;padding:10px;font-size:12px;font-weight:700;text-align:center;display:none;margin-top:8px;}.wr-phone-wrap{position:relative;margin-bottom:8px;}.wr-phone-prefix{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:700;color:var(--dark);}.wr-phone-inp{padding-left:36px !important;}
 /* ADMIN PHOTO UPLOAD */
 .photo-upload-wrap{display:flex;flex-direction:column;gap:6px;margin-bottom:7px;}
 .photo-preview{width:60px;height:60px;border-radius:8px;object-fit:cover;border:2px solid var(--orange);display:none;}
@@ -688,6 +688,7 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
 <div class="wr-wrap" id="wrWrap">
   <div class="wr-title">&#x270D; Apna Review Do!</div>
   <input type="text" class="wr-inp" id="wrName" placeholder="Aapka naam">
+  <div class="wr-phone-wrap"><span class="wr-phone-prefix">+91</span><input type="tel" class="wr-inp wr-phone-inp" id="wrPhone" placeholder="Mobile number (10 digits)" maxlength="10" pattern="[0-9]{10}"></div>
   <input type="text" class="wr-inp" id="wrProd" placeholder="Kaunsa product liya? (optional)">
   <div class="wr-stars" id="wrStars">
     <span class="wr-star" onclick="setRating(1)">&#x2B50;</span>
@@ -699,6 +700,7 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
   <textarea class="wr-inp" id="wrText" placeholder="Aapka experience likhein..." rows="3" style="resize:none;"></textarea>
   <button class="wr-btn" onclick="submitReview()">Review Submit Karo</button>
   <div class="wr-success" id="wrSuccess">Shukriya! Aapka review save ho gaya! &#x1F64F;</div>
+  <div class="wr-already" id="wrAlready">&#x26A0; Is number se pehle se ek review diya ja chuka hai!</div>
 </div>
 
 
@@ -1568,25 +1570,47 @@ function rvSetupDrag(){
 
 function submitReview(){
   var name=document.getElementById("wrName").value.trim();
+  var phone=document.getElementById("wrPhone").value.trim();
   var prod=document.getElementById("wrProd").value.trim();
   var text=document.getElementById("wrText").value.trim();
+  var alreadyEl=document.getElementById("wrAlready");
+  var successEl=document.getElementById("wrSuccess");
+  if(alreadyEl)alreadyEl.style.display="none";
+  if(successEl)successEl.style.display="none";
   if(!name){alert("Naam daalo!");return;}
+  if(!phone||phone.length!==10||!/^[0-9]{10}$/.test(phone)){alert("Sahi 10 digit mobile number daalo!");return;}
   if(!selectedRating){alert("Stars select karo!");return;}
   if(!text){alert("Review likhein!");return;}
   var btn=document.querySelector(".wr-btn");
-  btn.disabled=true;btn.textContent="Saving...";
-  db.collection("reviews").add({name:name,product:prod,rating:selectedRating,text:text,ts:firebase.firestore.FieldValue.serverTimestamp()})
-  .then(function(){
-    document.getElementById("wrSuccess").style.display="block";
-    document.getElementById("wrName").value="";
-    document.getElementById("wrProd").value="";
-    document.getElementById("wrText").value="";
-    selectedRating=0;
-    document.querySelectorAll(".wr-star").forEach(function(s){s.classList.remove("sel");});
-    btn.disabled=false;btn.textContent="Review Submit Karo";
-    loadReviews();
+  btn.disabled=true;btn.textContent="Check ho raha hai...";
+  // Check if this phone already reviewed
+  db.collection("reviews").where("phone","==",phone).get()
+  .then(function(snap){
+    if(!snap.empty){
+      if(alreadyEl)alreadyEl.style.display="block";
+      btn.disabled=false;btn.textContent="Review Submit Karo";
+      return;
+    }
+    btn.textContent="Saving...";
+    // Phone not used - save review (store hashed phone for privacy)
+    var ph=phone.substring(0,2)+"XXXXXX"+phone.substring(8);
+    db.collection("reviews").add({name:name,phone:phone,phoneDisplay:ph,product:prod,rating:selectedRating,text:text,ts:firebase.firestore.FieldValue.serverTimestamp()})
+    .then(function(){
+      if(successEl)successEl.style.display="block";
+      document.getElementById("wrName").value="";
+      document.getElementById("wrPhone").value="";
+      document.getElementById("wrProd").value="";
+      document.getElementById("wrText").value="";
+      selectedRating=0;
+      document.querySelectorAll(".wr-star").forEach(function(s){s.classList.remove("sel");});
+      btn.disabled=false;btn.textContent="Review Submit Karo";
+      loadReviews();
+    }).catch(function(){
+      alert("Error! Dobara try karo.");
+      btn.disabled=false;btn.textContent="Review Submit Karo";
+    });
   }).catch(function(){
-    alert("Error! Dobara try karo.");
+    alert("Network error! Dobara try karo.");
     btn.disabled=false;btn.textContent="Review Submit Karo";
   });
 }
@@ -1597,4 +1621,4 @@ loadReviews();
 </script>
 
 </body>
-                                                                                                                                   </html>
+</html>
