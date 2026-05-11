@@ -12,6 +12,8 @@ body {
 <meta name="theme-color" content="#d4000c">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800;900&family=Hind:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--red:#d4000c;--orange:#ff6b00;--yellow:#ffcc00;--dark:#1a0505;--light:#fff9f0;--green:#0a7c3e;--bg:#f8f8f8;--border:#efefef;--text:#282c3f;--muted:#93959f;}
@@ -262,6 +264,44 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
 .flinks a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:11px;font-weight:600;}
 .fdiv{width:40px;height:2px;background:var(--red);margin:0 auto 8px;border-radius:2px;}
 .fcp{font-size:10px;color:rgba(255,255,255,0.2);}
+/* REVIEWS SLIDER */
+.rv-wrap{background:#fff;padding:14px 0 16px;border-bottom:1px solid var(--border);}
+.rv-label{font-family:'Baloo 2',cursive;font-size:12px;font-weight:900;color:var(--dark);letter-spacing:1px;text-transform:uppercase;padding:0 14px;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.rv-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.rv-track-wrap{overflow:hidden;touch-action:pan-y;}
+.rv-track{display:flex;transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);}
+.rv-card{min-width:75vw;max-width:280px;margin-right:10px;border-radius:14px;background:linear-gradient(135deg,#fff9f0,#fff3e8);border:1.5px solid #f0e0cc;padding:12px 14px;flex-shrink:0;}
+.rv-card:first-child{margin-left:14px;}
+.rv-card:last-child{margin-right:14px;}
+.rv-top{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.rv-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;font-family:'Baloo 2',cursive;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.rv-name{font-size:12px;font-weight:700;color:var(--dark);}
+.rv-prod{font-size:9px;color:var(--muted);}
+.rv-stars{display:flex;gap:1px;margin-bottom:5px;}
+.rv-star{font-size:13px;}
+.rv-text{font-size:11px;color:#666;line-height:1.5;}
+.rv-date{font-size:9px;color:#bbb;margin-top:5px;}
+.rv-dots{display:flex;justify-content:center;gap:5px;margin-top:10px;}
+.rv-dot{width:5px;height:5px;border-radius:50%;background:rgba(0,0,0,0.15);transition:all 0.3s;cursor:pointer;}
+.rv-dot.active{background:var(--red);width:16px;border-radius:3px;}
+.rv-loading{text-align:center;padding:20px;color:#bbb;font-size:12px;}
+.rv-empty{text-align:center;padding:20px;color:#bbb;font-size:12px;}
+/* WRITE REVIEW */
+.wr-wrap{background:#fff;padding:14px;border-top:1px solid var(--border);}
+.wr-title{font-family:'Baloo 2',cursive;font-size:14px;font-weight:900;color:var(--dark);margin-bottom:10px;}
+.wr-stars{display:flex;gap:6px;margin-bottom:10px;}
+.wr-star{font-size:28px;cursor:pointer;transition:transform 0.15s;filter:grayscale(1);opacity:0.4;}
+.wr-star.sel{filter:none;opacity:1;transform:scale(1.1);}
+.wr-inp{width:100%;padding:10px 12px;border:1.5px solid #e0d0c0;border-radius:10px;font-size:13px;font-family:'Hind',sans-serif;outline:none;margin-bottom:8px;}
+.wr-inp:focus{border-color:var(--orange);}
+.wr-btn{width:100%;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;border:none;padding:11px;border-radius:10px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;}
+.wr-success{background:#e8f5e9;border:1.5px solid #c8e6c9;color:var(--green);border-radius:10px;padding:10px;font-size:12px;font-weight:700;text-align:center;display:none;margin-top:8px;}
+/* ADMIN PHOTO UPLOAD */
+.photo-upload-wrap{display:flex;flex-direction:column;gap:6px;margin-bottom:7px;}
+.photo-preview{width:60px;height:60px;border-radius:8px;object-fit:cover;border:2px solid var(--orange);display:none;}
+.upload-btn{background:linear-gradient(135deg,var(--green),#0d9e50);color:#fff;border:none;padding:8px 12px;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;}
+.upload-progress{font-size:10px;color:var(--green);font-weight:700;display:none;}
+
 /* HOT DEALS BANNER SLIDER */
 .hb-wrap{overflow:hidden;position:relative;background:linear-gradient(180deg,#1a0505 0%,#0d0202 100%);padding:12px 0 16px;}
 .hb-label{font-family:'Baloo 2',cursive;font-size:12px;font-weight:900;color:var(--yellow);letter-spacing:2px;text-transform:uppercase;padding:0 14px;margin-bottom:10px;display:flex;align-items:center;gap:8px;}.hb-label .hb-flame{animation:flamePulse 1.4s ease-in-out infinite;display:inline-block;}@keyframes flamePulse{0%,100%{transform:scale(1);}50%{transform:scale(1.25);}}.hb-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(255,204,0,0.4),transparent);}
@@ -425,7 +465,7 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
             <div class="fg"><label>Old Price (0=none)</label><input type="number" id="fOldPrice" placeholder="0" min="0"></div>
           </div>
           <div class="fg"><label>Detail</label><input type="text" id="fDetail" placeholder="100g"></div>
-          <div class="fg"><label>Photo URL (imgbb/imgur)</label><input type="text" id="fPhoto" placeholder="https://i.ibb.co/..."></div>
+          <div class="fg"><label>Product Photo</label><div class="photo-upload-wrap"><input type="file" id="fPhotoFile" accept="image/*" onchange="uploadPhoto(this,'fPhoto')" style="font-size:11px;"><div style="display:flex;align-items:center;gap:8px;"><img id="fPhotoPreview" class="photo-preview"><span class="upload-progress" id="fPhotoProgress">Upload ho raha hai...</span></div><input type="text" id="fPhoto" placeholder="https://i.ibb.co/..." style="padding:7px 10px;border:1.5px solid #e0d0c0;border-radius:8px;font-size:11px;font-family:Hind,sans-serif;outline:none;width:100%;"></div></div>
           <div class="fg"><label>Description</label><input type="text" id="fDesc" placeholder="Product ki detail..."></div>
           <button onclick="addProduct()" style="width:100%;background:linear-gradient(135deg,var(--green),#0d9e50);color:#fff;border:none;padding:10px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;margin-top:3px;">Add Product</button>
           <div class="succ-msg" id="succMsg">Product add ho gaya!</div>
@@ -444,7 +484,7 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
               <div class="fg"><label>Old Price (0=none)</label><input type="number" id="eOldPrice" min="0"></div>
             </div>
             <div class="fg"><label>Detail</label><input type="text" id="eDetail"></div>
-            <div class="fg"><label>Photo URL</label><input type="text" id="ePhoto" placeholder="https://i.ibb.co/..."></div>
+            <div class="fg"><label>Product Photo</label><div class="photo-upload-wrap"><input type="file" id="ePhotoFile" accept="image/*" onchange="uploadPhoto(this,'ePhoto')" style="font-size:11px;"><div style="display:flex;align-items:center;gap:8px;"><img id="ePhotoPreview" class="photo-preview"><span class="upload-progress" id="ePhotoProgress">Upload ho raha hai...</span></div><input type="text" id="ePhoto" placeholder="https://i.ibb.co/..." style="padding:7px 10px;border:1.5px solid #e0d0c0;border-radius:8px;font-size:11px;font-family:Hind,sans-serif;outline:none;width:100%;"></div></div>
             <div class="fg"><label>Description</label><input type="text" id="eDesc" placeholder="Product ki detail..."></div>
             <div class="edit-acts">
               <button class="btn-save" onclick="saveEdit()">Save</button>
@@ -632,6 +672,35 @@ footer{background:var(--dark);color:#fff;text-align:center;padding:20px 14px;}
   </div>
   <div class="hb-dots" id="hbDots"></div>
 </div>
+
+<!-- CUSTOMER REVIEWS SLIDER -->
+<div class="rv-wrap" id="rvWrap">
+  <div class="rv-label">&#x2B50; Customer Reviews</div>
+  <div class="rv-track-wrap" id="rvTrackWrap">
+    <div class="rv-track" id="rvTrack">
+      <div class="rv-loading">Reviews load ho rahi hain...</div>
+    </div>
+  </div>
+  <div class="rv-dots" id="rvDots"></div>
+</div>
+
+<!-- WRITE REVIEW -->
+<div class="wr-wrap" id="wrWrap">
+  <div class="wr-title">&#x270D; Apna Review Do!</div>
+  <input type="text" class="wr-inp" id="wrName" placeholder="Aapka naam">
+  <input type="text" class="wr-inp" id="wrProd" placeholder="Kaunsa product liya? (optional)">
+  <div class="wr-stars" id="wrStars">
+    <span class="wr-star" onclick="setRating(1)">&#x2B50;</span>
+    <span class="wr-star" onclick="setRating(2)">&#x2B50;</span>
+    <span class="wr-star" onclick="setRating(3)">&#x2B50;</span>
+    <span class="wr-star" onclick="setRating(4)">&#x2B50;</span>
+    <span class="wr-star" onclick="setRating(5)">&#x2B50;</span>
+  </div>
+  <textarea class="wr-inp" id="wrText" placeholder="Aapka experience likhein..." rows="3" style="resize:none;"></textarea>
+  <button class="wr-btn" onclick="submitReview()">Review Submit Karo</button>
+  <div class="wr-success" id="wrSuccess">Shukriya! Aapka review save ho gaya! &#x1F64F;</div>
+</div>
+
 
 <div class="pts-bar" id="points">
   <h3>Budget Bazar Points</h3>
@@ -1385,8 +1454,147 @@ initAuth();
 
 loadSheet();
 fetchHotDeals();
+// FIREBASE INIT
+var fbApp=firebase.initializeApp({apiKey:"AIzaSyBGOW9_KAect8hJrwbSTw69jTvgp88Vh9Q",authDomain:"budget-bazar-c69d9.firebaseapp.com",projectId:"budget-bazar-c69d9",storageBucket:"budget-bazar-c69d9.firebasestorage.app",messagingSenderId:"405516004540",appId:"1:405516004540:web:eff69ca7de88f72d17b4b9"});
+var db=firebase.firestore();
+
+// IMGBB UPLOAD
+var IMGBB_KEY="e1d0d4b3580cda25485357bba0acb3ab";
+function uploadPhoto(input,targetId){
+  var file=input.files[0];if(!file)return;
+  var progressEl=document.getElementById(targetId+"Progress");
+  var previewEl=document.getElementById(targetId+"Preview");
+  if(progressEl)progressEl.style.display="block";
+  var reader=new FileReader();
+  reader.onload=function(e){
+    var base64=e.target.result.split(",")[1];
+    fetch("https://api.imgbb.com/1/upload?key="+IMGBB_KEY,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"image="+encodeURIComponent(base64)})
+    .then(function(r){return r.json();})
+    .then(function(data){
+      if(data.success){
+        var url=data.data.url;
+        document.getElementById(targetId).value=url;
+        if(previewEl){previewEl.src=url;previewEl.style.display="block";}
+        if(progressEl)progressEl.textContent="Upload ho gaya! &#x2705;";
+      }else{
+        if(progressEl)progressEl.textContent="Upload fail hua!";
+      }
+    }).catch(function(){if(progressEl)progressEl.textContent="Error! Dobara try karo.";});
+  };
+  reader.readAsDataURL(file);
+}
+
+// REVIEWS SYSTEM
+var rvIndex=0;var rvTimer=null;var rvTotal=0;var rvDragging=false;var rvStartX=0;var rvDiffX=0;
+var selectedRating=0;
+
+function setRating(n){
+  selectedRating=n;
+  document.querySelectorAll(".wr-star").forEach(function(s,i){
+    s.classList.toggle("sel",i<n);
+  });
+}
+
+function loadReviews(){
+  db.collection("reviews").orderBy("ts","desc").limit(20).get()
+  .then(function(snap){
+    var reviews=[];
+    snap.forEach(function(doc){reviews.push(doc.data());});
+    renderReviews(reviews);
+  }).catch(function(){
+    var t=document.getElementById("rvTrack");
+    if(t)t.innerHTML='<div class="rv-empty">Reviews load nahi huyi.</div>';
+  });
+}
+
+function renderReviews(reviews){
+  var track=document.getElementById("rvTrack");
+  var dotsEl=document.getElementById("rvDots");
+  if(!track)return;
+  if(!reviews.length){
+    track.innerHTML='<div class="rv-empty">Abhi koi review nahi hai. Pehle review do! &#x1F64F;</div>';
+    if(dotsEl)dotsEl.innerHTML="";
+    return;
+  }
+  rvTotal=reviews.length;
+  track.innerHTML=reviews.map(function(r){
+    var stars="";for(var i=0;i<5;i++){stars+='<span class="rv-star">'+(i<r.rating?"&#x2B50;":"&#x2606;")+'</span>';}
+    var dt=r.ts?new Date(r.ts.seconds*1000).toLocaleDateString("hi-IN"):"";
+    return '<div class="rv-card">'
+      +'<div class="rv-top"><div class="rv-avatar">'+(r.name?r.name.charAt(0).toUpperCase():"U")+'</div>'
+      +'<div><div class="rv-name">'+(r.name||"Customer")+'</div>'
+      +(r.product?'<div class="rv-prod">'+r.product+'</div>':'')+'</div></div>'
+      +'<div class="rv-stars">'+stars+'</div>'
+      +'<div class="rv-text">'+(r.text||"")+'</div>'
+      +'<div class="rv-date">'+dt+'</div></div>';
+  }).join("");
+  if(dotsEl){
+    dotsEl.innerHTML=reviews.map(function(_,i){
+      return '<div class="rv-dot'+(i===0?" active":"")+'" onclick="rvGoTo('+i+')"></div>';
+    }).join("");
+  }
+  rvIndex=0;
+  rvSetupDrag();
+  rvAutoPlay();
+}
+
+function rvGoTo(idx){rvIndex=idx;rvUpdatePos();rvUpdateDots();rvAutoPlay();}
+
+function rvUpdatePos(){
+  var track=document.getElementById("rvTrack");if(!track)return;
+  var tw=Math.min(window.innerWidth*0.75,280)+10;
+  var offset=rvIndex===0?0:14+rvIndex*tw-14;
+  track.style.transform="translateX(-"+offset+"px)";
+}
+
+function rvUpdateDots(){
+  var dots=document.querySelectorAll(".rv-dot");
+  dots.forEach(function(d,i){d.classList.toggle("active",i===rvIndex);});
+}
+
+function rvAutoPlay(){
+  clearInterval(rvTimer);
+  if(rvTotal<2)return;
+  rvTimer=setInterval(function(){rvIndex=(rvIndex+1)%rvTotal;rvUpdatePos();rvUpdateDots();},4000);
+}
+
+function rvSetupDrag(){
+  var wrap=document.getElementById("rvTrackWrap");if(!wrap)return;
+  var newWrap=wrap.cloneNode(true);wrap.parentNode.replaceChild(newWrap,wrap);
+  newWrap.addEventListener("touchstart",function(e){rvDragging=true;rvStartX=e.touches[0].clientX;rvDiffX=0;clearInterval(rvTimer);},{passive:true});
+  newWrap.addEventListener("touchmove",function(e){if(rvDragging)rvDiffX=e.touches[0].clientX-rvStartX;},{passive:true});
+  newWrap.addEventListener("touchend",function(){if(!rvDragging)return;rvDragging=false;if(rvDiffX<-40&&rvIndex<rvTotal-1)rvIndex++;else if(rvDiffX>40&&rvIndex>0)rvIndex--;rvUpdatePos();rvUpdateDots();rvAutoPlay();});
+}
+
+function submitReview(){
+  var name=document.getElementById("wrName").value.trim();
+  var prod=document.getElementById("wrProd").value.trim();
+  var text=document.getElementById("wrText").value.trim();
+  if(!name){alert("Naam daalo!");return;}
+  if(!selectedRating){alert("Stars select karo!");return;}
+  if(!text){alert("Review likhein!");return;}
+  var btn=document.querySelector(".wr-btn");
+  btn.disabled=true;btn.textContent="Saving...";
+  db.collection("reviews").add({name:name,product:prod,rating:selectedRating,text:text,ts:firebase.firestore.FieldValue.serverTimestamp()})
+  .then(function(){
+    document.getElementById("wrSuccess").style.display="block";
+    document.getElementById("wrName").value="";
+    document.getElementById("wrProd").value="";
+    document.getElementById("wrText").value="";
+    selectedRating=0;
+    document.querySelectorAll(".wr-star").forEach(function(s){s.classList.remove("sel");});
+    btn.disabled=false;btn.textContent="Review Submit Karo";
+    loadReviews();
+  }).catch(function(){
+    alert("Error! Dobara try karo.");
+    btn.disabled=false;btn.textContent="Review Submit Karo";
+  });
+}
+
+loadReviews();
+
 
 </script>
 
 </body>
-    </html>
+                                                                                                                                   </html>
