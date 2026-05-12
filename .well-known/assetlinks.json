@@ -2,7 +2,7 @@
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target": {
     "namespace": "android_app",
-    "package_name": "store.budgetbazar.twa",
-    "sha256_cert_fingerprints": ["07:35:BF:9B:4C:F2:E5:06:15:97:4B:A7:DE:A4:A2:22:F7:7E:14:D8:5B:C8:23:41:8F:E2:A9:5D:27:5C:67:48"]
+    "package_name": "store.budgetbazar.app",
+    "sha256_cert_fingerprints": ["CA:B1:B2:48:16:4E:A2:11:24:74:93:C9:7C:55:60:A4:95:2E:25:78:4D:13:16:86:F1:E7:13:6A:7C:16:88:9B"]
   }
 }]
