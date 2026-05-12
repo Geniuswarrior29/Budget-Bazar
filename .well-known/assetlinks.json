@@ -3,6 +3,6 @@
   "target": {
     "namespace": "android_app",
     "package_name": "store.budgetbazar.app",
-    "sha256_cert_fingerprints": ["CA:B1:B2:48:16:4E:A2:11:24:74:93:C9:7C:55:60:A4:95:2E:25:78:4D:13:16:86:F1:E7:13:6A:7C:16:88:9B"]
+    "sha256_cert_fingerprints": ["BB:56:9E:1E:AC:BE:F4:68:44:C4:AC:F2:FC:FE:11:A8:9B:DF:83:86:0A:0F:B4:89:03:AC:6E:CB:C4:28:B4:98"]
   }
 }]
